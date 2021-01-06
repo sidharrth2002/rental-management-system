@@ -3,11 +3,17 @@ import java.util.ArrayList;
 public class User {
     private String name;
     private String userID;
-    private String role;
     private String username;
     private String password;
-
+    private boolean approvalStatus;
     private ArrayList<Property> propertyList;
+
+    public User(String userCode, String name, String username, String password) {
+        this.userID = userCode;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
 
     public String getName() {
         return name;
@@ -23,14 +29,6 @@ public class User {
 
     public void setUserID(String userID) {
         this.userID = userID;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getUsername() {
@@ -57,4 +55,11 @@ public class User {
         this.propertyList = propertyList;
     }
 
+    public boolean isApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(boolean approvalStatus) {
+        this.approvalStatus = approvalStatus;
+    }
 }
