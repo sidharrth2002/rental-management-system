@@ -28,7 +28,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByActive() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (property.getStatus().equalsIgnoreCase("active")) {
+            if (property.getStatus()) {
                 filteredProperty.add(property);
             }
         }
@@ -38,7 +38,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByInactive() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (property.getStatus().equalsIgnoreCase("inactive")) {
+            if (!property.getStatus()) {
                 filteredProperty.add(property);
             }
         }

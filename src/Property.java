@@ -6,11 +6,11 @@ public class Property {
     private String name; // praoperty name
     private String address; // address, fix length? format?
     private String description;
-    private String photo; // single image of the property
+    private String photo; // store the location of the photo
     private double price; // current market price of the property
     private char rating; // temporary type for now
     private Date timePutOnMarket;
-    private String status;
+    private boolean activeStatus; //active or inactive
     private boolean assigned;
 
     public String getType() {
@@ -51,7 +51,7 @@ public class Property {
     public double getPrice() { return price; }
     public char getRating() { return rating; }
     public Date getInitialMarketDate() { return timePutOnMarket; }
-    public String getStatus() { return status; }
+    public boolean getStatus() { return activeStatus; }
 
     // MUTATORS
     public void setName(String name) { this.name = name; }
@@ -64,7 +64,7 @@ public class Property {
     public void setPrice(double price) { this.price = price; }
     public void setRating(char rating) { this.rating = rating; }
     public void setInitialMarketDate(Date date) { timePutOnMarket = new Date(date.getTime()); }
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(boolean status) { this.activeStatus = status; }
 
 }
 

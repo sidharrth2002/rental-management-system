@@ -12,55 +12,80 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+//Screens to do:
+//1. role chooser screen- Pira
+//2. login screen- something nice- Maheson
+// registration page- make a new account
+//3. dashboard with search option (call controller method to filter, get the arraylist, set the state and show the results screen)- Sid
+//4. screen to show search results (same stage)- Sid
+//5. admin interface- show number of users in the system, show users pending approval, with button to approve
+//6. property page- print details about property and have rating form (if got time)- Maheson
+//7. adding property page- Maheson
+//file handling controllers- Sid
 
 public class Main extends Application {
     Scene roleChooser;
     Scene loginScreen;
-    String role;
+    public static String role;
+    public static String name;
+    public static String loginError = " ";
+    public static ArrayList<Property> propertyToDisplay;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+        showRoleChooser(primaryStage);
+        primaryStage.show();
+    }
+
+    public void showRoleChooser(Stage primaryStage) {
         HBox roleChooserPane = new HBox();
-        HBox loginPane = new HBox();
         roleChooser = new Scene(roleChooserPane, 900, 700);
-        loginScreen = new Scene(loginPane, 900, 700);
 
         roleChooserPane.setPadding(new Insets(15, 12, 15, 12));
         roleChooserPane.setSpacing(10);
         Button owner = new Button("Owner");
         Button tenant = new Button("Tenant");
         Button agent = new Button("agent");
+        Button admin = new Button("admin");
         owner.setOnAction(e -> {
-            role = "owner";
-            showLoginScreen();
-            primaryStage.setScene(loginScreen);
+            Main.role = "owner";
+            showLoginScreen(primaryStage);
         });
 
-        loginPane.getChildren().add(new Text("You are an " + role));
-
-        roleChooserPane.getChildren().addAll(owner, tenant, agent);
+        roleChooserPane.getChildren().addAll(owner, tenant, agent, admin);
 
         primaryStage.setScene(roleChooser);
-//        switch(sceneToShow) {
-//            case "roleChooser":
-//                showRoleChooser(primaryStage);
-//                break;
-//            case "loginScreen":
-//                System.out.println("login screen now");
-////                showLoginScreen(primaryStage);
-//                break;
-//            case "homepage":
-////                showHomepage(primaryStage);
-//                break;
-//        }
-//        primaryStage.setScene(new Scene(new VBox(), 900, 700));
-        primaryStage.show();
     }
 
-    public void showRoleChooser(Stage primaryStage) {
+    //write the display stuff here
+    public void showLoginScreen(Stage primaryStage) {
+        //if loginError is empty, then don't print it, if not empty, then show error
+
+        HBox loginPane = new HBox();
+        loginScreen = new Scene(loginPane, 900, 700);
+
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(e -> {
+            showRoleChooser(primaryStage);
+        });
+
+        loginPane.getChildren().addAll(new Text("You are an " + role), logoutButton);
+        primaryStage.setScene(loginScreen);
+    }
+
+    public void showRegisterScreen(Stage primaryStage) {
 
     }
-//    public void showLoginScene
+
+    public void showAddProperty() {
+
+    }
+
+    public void showSearchResults() {
+
+    }
 
     public static void main(String[] args) {
         launch(args);

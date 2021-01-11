@@ -7,7 +7,7 @@ public class UserFactory {
     ArrayList<Agent> agents;
     ArrayList<Owner> owners;
 
-    //tenant
+    //for use by the program
     public User makeUser(String userType, String name, String username, String password, String credential) {
         if(userType.equalsIgnoreCase("tenant")) {
             String userCode = "t" + ++numTenants;
@@ -28,6 +28,7 @@ public class UserFactory {
         return null;
     }
 
+    //for use by file handling
     public User makeUser(String userId, String userType, String name, String username, String password, String credential) {
         if(userType.equalsIgnoreCase("tenant")) {
             Tenant tenant = new Tenant(userId, name, username, password, credential);
