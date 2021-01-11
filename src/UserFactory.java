@@ -2,10 +2,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class UserFactory {
-    static int numTenants, numAgents, numOwners;
-    ArrayList<Tenant> tenants;
-    ArrayList<Agent> agents;
-    ArrayList<Owner> owners;
+    private static int numTenants, numAgents, numOwners;
+
+    public static ArrayList<Tenant> tenants;
+    public static ArrayList<Agent> agents;
+    public static ArrayList<Owner> owners;
 
     //for use by the program
     public User makeUser(String userType, String name, String username, String password, String credential) {

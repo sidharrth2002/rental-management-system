@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
-public class User {
+public abstract class User {
     private String name;
     private String userID;
     private String username;
     private String password;
     private boolean approvalStatus;
     private ArrayList<Property> propertyList;
+
+    public abstract String toCSVString();
 
     public User(String userCode, String name, String username, String password) {
         this.userID = userCode;
@@ -55,7 +57,7 @@ public class User {
         this.propertyList = propertyList;
     }
 
-    public boolean isApprovalStatus() {
+    public boolean getApprovalStatus() {
         return approvalStatus;
     }
 

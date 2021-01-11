@@ -1,5 +1,5 @@
-public class Admin extends User {
-    private static User admin = new Admin();
+public class Admin {
+//    private static User admin = new Admin();
 
 //    public Admin() {
 //

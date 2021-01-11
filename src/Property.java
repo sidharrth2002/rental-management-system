@@ -2,7 +2,16 @@ import java.awt.*;
 import java.util.Date;
 
 public class Property {
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
     // FIELDS
+    private String ID;
     private String name; // praoperty name
     private String address; // address, fix length? format?
     private String description;

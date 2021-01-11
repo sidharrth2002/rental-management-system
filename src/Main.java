@@ -14,23 +14,23 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.util.ArrayList;
 
-//Screens to do:
+// Screens to do:
 //1. role chooser screen- Pira
 //2. login screen- something nice- Maheson
-// registration page- make a new account
-//3. dashboard with search option (call controller method to filter, get the arraylist, set the state and show the results screen)- Sid
-//4. screen to show search results (same stage)- Sid
-//5. admin interface- show number of users in the system, show users pending approval, with button to approve
-//6. property page- print details about property and have rating form (if got time)- Maheson
-//7. adding property page- Maheson
-//file handling controllers- Sid
+//3. registration page- make a new account
+//4. dashboard with search option (call controller method to filter, get the arraylist, set the state and show the results screen)- Sid
+//5. screen to show search results (same stage)- Sid
+//6. admin interface- show number of users in the system, show users pending approval, with button to approve
+//7. property page- print details about property and have rating form (if got time)- Maheson
+//8. adding property page- Maheson
+//9. file handling controllers- Sid
 
 public class Main extends Application {
     Scene roleChooser;
     Scene loginScreen;
     public static String role;
     public static String name;
-    public static String loginError = " ";
+    public static String loginError = "";
     public static ArrayList<Property> propertyToDisplay;
 
     @Override
