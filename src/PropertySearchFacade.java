@@ -2,7 +2,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PropertySearchFacade {
-    private ArrayList<Property> properties;
+    public static ArrayList<Property> getProperties() {
+        return properties;
+    }
+
+    public static void setProperties(ArrayList<Property> properties) {
+        PropertySearchFacade.properties = properties;
+    }
+
+    private static ArrayList<Property> properties;
 
     public ArrayList<Property> getByPrice() {
         //use comparator

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Property {
@@ -75,5 +76,19 @@ public class Property {
     public void setInitialMarketDate(Date date) { timePutOnMarket = new Date(date.getTime()); }
     public void setStatus(boolean status) { this.activeStatus = status; }
 
+    public String toCSVString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\"" + getID() + "\"" + ",")
+                .append("\"" + getName() + "\"" + ",")
+                .append("\"" + getAddress() + "\"" + ",")
+                .append("\"" + getDescription() + "\"" + ",")
+                .append("\"" + getPhoto() + "\"" + ",")
+                .append("\"" + getPrice() + "\"" + ",")
+                .append("\"" + getRating() + "\"" + ",")
+                .append("\"" + getInitialMarketDate() + "\"" + ",")
+                .append("\"" + getStatus() + "\"" + ",")
+                .append("\"" + getAssigned() + "\"");
+        return sb.toString();
+    }
 }
 

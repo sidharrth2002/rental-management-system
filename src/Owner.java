@@ -13,17 +13,19 @@ public class Owner extends User {
 
     public String toCSVString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getUserID() + ",,")
-                .append(getName() + ",,")
-                .append(getUsername() + ",,")
-                .append(getPassword() + ",,")
-                .append(getApprovalStatus() + ",,")
-                .append(getOwnershipCode() + ",,");
+        sb.append("\"" + getUserID() + "\"" + ",")
+                .append("\"" + getName() + "\"" + ",")
+                .append("\"" + getUsername() + "\"" + ",")
+                .append("\"" + getPassword() + "\"" + ",")
+                .append("\"" + getApprovalStatus() + "\"" + ",")
+                .append("\"" + getOwnershipCode() + "\"" + ",");
+        sb.append("\"[");
         ArrayList<Property> propertyList = getPropertyList();
         for(int i = 0; i < propertyList.size(); i++) {
             sb.append(propertyList.get(i).getID());
             sb.append(",");
         }
+        sb.append("\"]");
         return sb.toString();
     }
 

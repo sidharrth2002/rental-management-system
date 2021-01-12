@@ -36,6 +36,16 @@ public class Controller {
         Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
     }
 
+    public static void savePropertyToFile() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Property> propertyList = PropertySearchFacade.getProperties();
+        for (int i = 0; i < propertyList.size(); i++) {
+            sb.append(propertyList.get(i).toCSVString());
+            sb.append("\n");
+        }
+        Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
+    }
+
     //add Property Method
     //load data inside (reads all the file store, loads the users, property)
     //load data into files (save at the end)
