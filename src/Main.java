@@ -35,9 +35,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        showDashboard(primaryStage);
-//        showRoleChooser(primaryStage);
+        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+
+        Scene scene = new Scene(root, 700, 600);
+
+        primaryStage.setTitle("Rental Management System");
+        primaryStage.setScene(scene);
         primaryStage.show();
+//        showDashboard(primaryStage);
+//        showRoleChooser(primaryStage);
     }
 
     public void showRoleChooser(Stage primaryStage) {

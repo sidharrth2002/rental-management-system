@@ -1,3 +1,12 @@
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -6,7 +15,29 @@ import java.nio.file.Paths;
 import java.util.Collections;
 
 public class Controller {
-    public static void saveTenantsToFile() throws IOException {
+    @FXML
+    private VBox root;
+    public VBox menuArea;
+    public MenuBar menuBar;
+    public Menu optionsMenu;
+    public MenuItem roleChooser;
+    public MenuItem saveAndExit;
+    public TextField searchField;
+
+    @FXML
+    public void changeScene(ActionEvent e) throws IOException {
+        MenuItem clickedButton = (MenuItem) e.getSource();
+        System.out.println(clickedButton.getId());
+        Stage stage = (Stage) root.getScene().getWindow();
+        if(e.getSource().equals("roleChooser")) {
+            Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+            Scene roleChooser = new Scene(root, 700, 600);
+        } else if(e.getSource().equals("saveAndExit")) {
+            System.out.println("Graceful exit");
+        }
+    }
+
+    public void saveTenantsToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         ArrayList<Tenant> tenants = UserFactory.tenants;
         for (int i = 0; i < tenants.size(); i++) {
@@ -16,7 +47,7 @@ public class Controller {
         Files.write(Paths.get("./data/tenants.csv"), sb.toString().getBytes());
     }
 
-    public static void saveOwnersToFile() throws IOException {
+    public void saveOwnersToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         ArrayList<Owner> owners = UserFactory.owners;
         for (int i = 0; i < owners.size(); i++) {
@@ -26,7 +57,7 @@ public class Controller {
         Files.write(Paths.get("./data/owners.csv"), sb.toString().getBytes());
     }
 
-    public static void saveAgentsToFile() throws IOException {
+    public void saveAgentsToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         ArrayList<Agent> agents = UserFactory.agents;
         for (int i = 0; i < agents.size(); i++) {
@@ -36,7 +67,7 @@ public class Controller {
         Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
     }
 
-    public static void savePropertyToFile() throws IOException {
+    public void savePropertyToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
         ArrayList<Property> propertyList = PropertySearchFacade.getProperties();
         for (int i = 0; i < propertyList.size(); i++) {
@@ -44,6 +75,11 @@ public class Controller {
             sb.append("\n");
         }
         Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
+    }
+
+    public void searchProperty(ActionEvent e) {
+        String searchText = searchField.getText();
+        System.out.println("Search with the keyword. " + searchText);
     }
 
     //add Property Method
