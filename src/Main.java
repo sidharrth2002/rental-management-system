@@ -15,6 +15,17 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 // Screens to do:
+// make a separate FXML file for each page
+
+//screens to make:
+//        1. visitor dashboard
+//        2. owner dashboard
+//        3. agent dashboard
+//        4. add property page (common to both of above)
+//        5. login page
+//        6. register page
+//        7. admin dashboard
+
 //1. role chooser screen- Pira
 //2. login screen- something nice- Maheson
 //3. registration page- make a new account

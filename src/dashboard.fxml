@@ -10,7 +10,8 @@
 
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
-<VBox fx:id="root" fx:controller="Controller"
+<?import javafx.scene.control.TableView?>
+<VBox fx:id="root" fx:controller="VisitorDashboardController"
       xmlns:fx="http://javafx.com/fxml">
     <VBox>
         <MenuBar>
@@ -36,4 +37,8 @@
 
         <Button text="Search" onAction="#searchProperty" />
     </VBox>
+
+<!--    <TableView fx:id="propertyTable">-->
+
+<!--    </TableView>-->
 </VBox>
