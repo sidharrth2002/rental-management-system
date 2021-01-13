@@ -9,12 +9,13 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.ResourceBundle;
 
 //This is the main controller. Methods common to controllers of all
 //pages will be her, extend this controller for every other controller you make
@@ -86,6 +87,36 @@ public class Controller implements Initializable {
             sb.append("\n");
         }
         Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
+    }
+
+//            sb.append("\"" + getID() + "\"" + ",")
+//            .append("\"" + getName() + "\"" + ",")
+//            .append("\"" + getAddress() + "\"" + ",")
+//            .append("\"" + getDescription() + "\"" + ",")
+//            .append("\"" + getPhoto() + "\"" + ",")
+//            .append("\"" + getPrice() + "\"" + ",")
+//            .append("\"" + getRating() + "\"" + ",")
+//            .append("\"" + getInitialMarketDate() + "\"" + ",")
+//            .append("\"" + getStatus() + "\"" + ",")
+//            .append("\"" + getAssigned() + "\"");
+
+
+    public void getPropertyToFile() throws IOException, ParseException {
+        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        List<String> lines = Files.readAllLines(Paths.get("./data/property.csv"));
+        for(int i = 0; i < lines.size(); i++) {
+            String[] dataInFile = lines.get(i).split(",");
+            String ID = dataInFile[0].substring(1, dataInFile[0].length() - 1);
+            String name = dataInFile[1].substring(1, dataInFile[1].length() - 1);
+            String address = dataInFile[2].substring(1, dataInFile[2].length() - 1);
+            String description = dataInFile[3].substring(1, dataInFile[3].length() - 1);
+            String photo = dataInFile[4].substring(1, dataInFile[4].length() - 1);
+            double price = Double.parseDouble(dataInFile[5].substring(1, dataInFile[5].length() - 1));
+            String rating = dataInFile[6].substring(1, dataInFile[6].length() - 1);
+            Date initialMarketRate = format.parse(dataInFile[7].substring(1, dataInFile[7].length() - 1));
+            boolean status = Boolean.parseBoolean(dataInFile[8].substring(1, dataInFile[8].length() - 1));
+            boolean assigned = Boolean.parseBoolean(dataInFile[9].substring(1, dataInFile[9].length() - 1));
+        }
     }
 
 

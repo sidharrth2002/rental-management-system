@@ -27,15 +27,15 @@
     </VBox>
 
     <VBox alignment="center" style="-fx-padding: 10 10 10 10;" spacing="20">
-        <Text text="Welcome To MudahXXX.my" />
-        <Text text="Your premier solution to buying fake property" />
+        <Text text="Welcome To MudahXXX.my" style="-fx-font-size: 20; -fx-fill: darkred; -fx-font-weight: bold"/>
+        <Text text="Your premier solution to buying fake property" style="-fx-font-size: 15"/>
 
         <GridPane alignment="center" hgap="10" vgap="10" >
             <Text text="Search (Enter a keyboard)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="searchField" text="Go ahead" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         </GridPane>
 
-        <Button text="Search" onAction="#searchProperty" />
+        <Button text="Search" onAction="#searchProperty" onKeyTyped="#searchProperty"/>
     </VBox>
 
 <!--    <TableView fx:id="propertyTable">-->

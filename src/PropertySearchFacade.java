@@ -17,6 +17,15 @@ public class PropertySearchFacade {
         return null;
     }
 
+    public ArrayList<Property> getByKeyword(String keyword) {
+        ArrayList<Property> filteredProperty = new ArrayList<>();
+        for (Property property: properties) {
+            if (property.getName().contains(keyword) || property.getDescription().contains(keyword)) {
+                filteredProperty.add(property);
+            }
+        }
+        return filteredProperty;
+    }
 
     public ArrayList<Property> getByType(String type) {
         ArrayList<Property> filteredProperty = new ArrayList<>();

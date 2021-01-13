@@ -3,6 +3,24 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Property {
+
+    public Property(String ID, String name, String address, String description, String photo, double price, char rating, Date timePutOnMarket, boolean activeStatus, boolean assigned, String type, Agent agent, Owner owner, Tenant tenant) {
+        this.ID = ID;
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.photo = photo;
+        this.price = price;
+        this.rating = rating;
+        this.timePutOnMarket = timePutOnMarket;
+        this.activeStatus = activeStatus;
+        this.assigned = assigned;
+        this.type = type;
+        this.agent = agent;
+        this.owner = owner;
+        this.tenant = tenant;
+    }
+
     public String getID() {
         return ID;
     }
@@ -32,6 +50,50 @@ public class Property {
     }
 
     private String type;
+
+    public Date getTimePutOnMarket() {
+        return timePutOnMarket;
+    }
+
+    public void setTimePutOnMarket(Date timePutOnMarket) {
+        this.timePutOnMarket = timePutOnMarket;
+    }
+
+    public boolean isActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(boolean activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
+    }
 
     private Agent agent;
     private Owner owner;
@@ -87,7 +149,19 @@ public class Property {
                 .append("\"" + getRating() + "\"" + ",")
                 .append("\"" + getInitialMarketDate() + "\"" + ",")
                 .append("\"" + getStatus() + "\"" + ",")
-                .append("\"" + getAssigned() + "\"");
+                .append("\"" + getAssigned() + "\"")
+                .append("\"" + getType() + "\"");
+        if(getOwner() != null) {
+            sb.append("\"Owner\"");
+            sb.append("\"" + getOwner().getUserID() + "\"");
+        } else if (getAgent() != null) {
+            sb.append("\"Agent\"");
+            sb.append("\"" + getAgent().getUserID() + "\"");
+        }
+        if(getTenant() != null) {
+            sb.append("\"Tenant\"");
+            sb.append("\"" + getTenant().getUserID() + "\"");
+        }
         return sb.toString();
     }
 }
