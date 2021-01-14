@@ -1,12 +1,43 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+//singleton- only one UserFactory
 public class UserFactory {
+    private static UserFactory instance = new UserFactory();
+    public ArrayList<Tenant> tenants = new ArrayList<>();
+    public ArrayList<Agent> agents = new ArrayList<>();
+    public ArrayList<Owner> owners = new ArrayList<>();
     private static int numTenants, numAgents, numOwners;
 
-    public static ArrayList<Tenant> tenants = new ArrayList<>();
-    public static ArrayList<Agent> agents = new ArrayList<>();
-    public static ArrayList<Owner> owners = new ArrayList<>();
+    private UserFactory() {}
+
+    public static UserFactory getInstance() {
+        return instance;
+    }
+
+    public ArrayList<Tenant> getTenants() {
+        return tenants;
+    }
+
+    public void setTenants(ArrayList<Tenant> tenants) {
+        this.tenants = tenants;
+    }
+
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
+    public void setAgents(ArrayList<Agent> agents) {
+        this.agents = agents;
+    }
+
+    public ArrayList<Owner> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(ArrayList<Owner> owners) {
+        this.owners = owners;
+    }
 
     //for use by the program
     public User makeUser(String userType, String name, String username, String password, String credential) {

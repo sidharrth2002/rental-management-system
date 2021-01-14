@@ -2,6 +2,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+//convert to builder design pattern
 public class Property {
     private String ID;
     private String name; // praoperty name

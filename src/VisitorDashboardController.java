@@ -111,6 +111,15 @@ public class VisitorDashboardController extends Controller implements Initializa
 //            outerBox.getChildren().add(new Separator());
             propertyTable.getChildren().add(outerBox);
         }
+
+    }
+
+    public void sortByType(ActionEvent e) {
+
+    }
+
+}
+
 //        for (Property property: results) {
 //            VBox tableEntry = new VBox();
 //            tableEntry.setPadding(new Insets(10, 10, 10, 10));
@@ -123,10 +132,3 @@ public class VisitorDashboardController extends Controller implements Initializa
 //            tableEntry.getChildren().add(new Separator());
 //            propertyTable.getChildren().add(tableEntry);
 //        }
-    }
-
-    public void sortByType(ActionEvent e) {
-
-    }
-
-}

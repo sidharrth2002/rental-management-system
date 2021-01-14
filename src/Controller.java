@@ -21,47 +21,22 @@ import java.nio.file.Paths;
 //pages will be her, extend this controller for every other controller you make
 
 public class Controller implements Initializable {
-    public Stage stage;
-
     public VBox root;
     public MenuBar menuBar;
     public Menu optionsMenu;
     public MenuItem roleChooser;
     public MenuItem saveAndExit;
-    public PropertySearchFacade propertySearchFacade = new PropertySearchFacade();
-    public UserFactory userFactory = new UserFactory();
+    public PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
+    public UserFactory userFactory = UserFactory.getInstance();
 
     public Controller() {
+        //to make sure only reading from the file the first time the program starts
+//        if(propertySearchFacade.getProperties().size() != 0 && userFactory.getUsers().size() != 0) {
+//
+//        }
         System.out.println("Main Controller");
         //supposed to get property from file
         //for now will load fake property
-        Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "Big fat bungalow", 3000000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Condominium in the World", "2, Jalan Cochrane", "C fat bungalow", 3000000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 20000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 30000, tempOwner));
-        propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 400000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 600000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
 
     }
 
@@ -70,7 +45,6 @@ public class Controller implements Initializable {
         //take an arraylist
         //create vbox
         //in a loop, propertyTable.getChildren().add()
-        stage = (Stage) root.getScene().getWindow();
     }
 
     //method to change scene from the menu
@@ -79,6 +53,7 @@ public class Controller implements Initializable {
         MenuItem clickedButton = (MenuItem) e.getSource();
         System.out.println(clickedButton.getId());
         if(clickedButton.getId().equals("roleChooser")) {
+            Stage stage = (Stage) root.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
             Scene roleChooser = new Scene(root, 700, 600);
             stage.setScene(roleChooser);
@@ -89,9 +64,8 @@ public class Controller implements Initializable {
 
     public void saveTenantsToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Tenant> tenants = UserFactory.tenants;
-        for (int i = 0; i < tenants.size(); i++) {
-            sb.append(tenants.get(i).toCSVString());
+        for (int i = 0; i < userFactory.getTenants().size(); i++) {
+            sb.append(userFactory.getTenants().get(i).toCSVString());
             sb.append("\n");
         }
         Files.write(Paths.get("./data/tenants.csv"), sb.toString().getBytes());
@@ -99,9 +73,8 @@ public class Controller implements Initializable {
 
     public void saveOwnersToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Owner> owners = UserFactory.owners;
-        for (int i = 0; i < owners.size(); i++) {
-            sb.append(owners.get(i).toCSVString());
+        for (int i = 0; i < userFactory.getOwners().size(); i++) {
+            sb.append(userFactory.getOwners().get(i).toCSVString());
             sb.append("\n");
         }
         Files.write(Paths.get("./data/owners.csv"), sb.toString().getBytes());
@@ -109,9 +82,8 @@ public class Controller implements Initializable {
 
     public void saveAgentsToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Agent> agents = UserFactory.agents;
-        for (int i = 0; i < agents.size(); i++) {
-            sb.append(agents.get(i).toCSVString());
+        for (int i = 0; i < userFactory.getAgents().size(); i++) {
+            sb.append(userFactory.getAgents().get(i).toCSVString());
             sb.append("\n");
         }
         Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
