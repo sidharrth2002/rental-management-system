@@ -21,8 +21,9 @@ import java.nio.file.Paths;
 //pages will be her, extend this controller for every other controller you make
 
 public class Controller implements Initializable {
-    @FXML
-    private VBox root;
+    public Stage stage;
+
+    public VBox root;
     public MenuBar menuBar;
     public Menu optionsMenu;
     public MenuItem roleChooser;
@@ -69,13 +70,14 @@ public class Controller implements Initializable {
         //take an arraylist
         //create vbox
         //in a loop, propertyTable.getChildren().add()
+        stage = (Stage) root.getScene().getWindow();
     }
 
+    //method to change scene from the menu
     @FXML
     public void changeScene(ActionEvent e) throws IOException {
         MenuItem clickedButton = (MenuItem) e.getSource();
         System.out.println(clickedButton.getId());
-        Stage stage = (Stage) root.getScene().getWindow();
         if(clickedButton.getId().equals("roleChooser")) {
             Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
             Scene roleChooser = new Scene(root, 700, 600);
