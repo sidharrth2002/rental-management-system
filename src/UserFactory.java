@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class UserFactory {
     private static int numTenants, numAgents, numOwners;
 
-    public static ArrayList<Tenant> tenants;
-    public static ArrayList<Agent> agents;
-    public static ArrayList<Owner> owners;
+    public static ArrayList<Tenant> tenants = new ArrayList<>();
+    public static ArrayList<Agent> agents = new ArrayList<>();
+    public static ArrayList<Owner> owners = new ArrayList<>();
 
     //for use by the program
     public User makeUser(String userType, String name, String username, String password, String credential) {

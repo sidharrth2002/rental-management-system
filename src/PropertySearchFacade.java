@@ -1,26 +1,38 @@
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class PropertySearchFacade {
-    public static ArrayList<Property> getProperties() {
+    private ArrayList<Property> properties = new ArrayList<>();
+
+    public ArrayList<Property> getProperties() {
         return properties;
     }
 
-    public static void setProperties(ArrayList<Property> properties) {
-        PropertySearchFacade.properties = properties;
+    public void setProperties(ArrayList<Property> properties) {
+        this.properties = properties;
     }
 
-    private static ArrayList<Property> properties;
+    public void addProperty(Property property) {
+        properties.add(property);
+    }
 
     public ArrayList<Property> getByPrice() {
-        //use comparator
-        return null;
+        ArrayList<Property> sortedProperty = new ArrayList<>(properties);
+        Collections.sort(sortedProperty, new Comparator<Property>() {
+            @Override
+            public int compare(final Property property1, final Property property2) {
+                return Double.compare(property1.getPrice(), property2.getPrice());
+            }
+        });
+        return sortedProperty;
     }
 
     public ArrayList<Property> getByKeyword(String keyword) {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (property.getName().contains(keyword) || property.getDescription().contains(keyword)) {
+            if (property.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+                    property.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
+                    property.getAddress().toLowerCase().contains(keyword.toLowerCase())
+                ) {
                 filteredProperty.add(property);
             }
         }

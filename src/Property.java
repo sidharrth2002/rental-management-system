@@ -3,6 +3,31 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Property {
+    private String ID;
+    private String name; // praoperty name
+    private String address; // address, fix length? format?
+    private String description;
+    private String photo; // store the location of the photo
+    private double price; // current market price of the property
+    private char rating; // temporary type for now
+    private Date timePutOnMarket;
+    private boolean activeStatus; //active or inactive
+    private boolean assigned;
+    private Agent agent;
+    private Owner owner;
+    private Tenant tenant;
+    private static int count;
+
+    //temp constructor for testing
+    public Property(String name, String address, String description, double price, User manager) {
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.price = price;
+        //maybe convert to builder later, now just for testing
+        this.owner = (Owner) manager;
+        this.ID = "p" + ++count;
+    }
 
     public Property(String ID, String name, String address, String description, String photo, double price, char rating, Date timePutOnMarket, boolean activeStatus, boolean assigned, String type, Agent agent, Owner owner, Tenant tenant) {
         this.ID = ID;
@@ -28,18 +53,6 @@ public class Property {
     public void setID(String ID) {
         this.ID = ID;
     }
-
-    // FIELDS
-    private String ID;
-    private String name; // praoperty name
-    private String address; // address, fix length? format?
-    private String description;
-    private String photo; // store the location of the photo
-    private double price; // current market price of the property
-    private char rating; // temporary type for now
-    private Date timePutOnMarket;
-    private boolean activeStatus; //active or inactive
-    private boolean assigned;
 
     public String getType() {
         return type;
@@ -95,17 +108,7 @@ public class Property {
         this.tenant = tenant;
     }
 
-    private Agent agent;
-    private Owner owner;
-    private Tenant tenant;
 
-    // incomplete constructor
-    public Property(String name, String address, double price, Date date) {
-        setName(name);
-        setAddress(address);
-        setPrice(price);
-        setInitialMarketDate(date);
-    }
 
     public boolean getAssigned() {
         return assigned;
@@ -115,7 +118,6 @@ public class Property {
         this.assigned = assigned;
     }
 
-    // ACCESSORS
     public String getName() { return name; }
     public String getAddress() { return address; }
     public String getDescription() { return description; }
@@ -125,7 +127,6 @@ public class Property {
     public Date getInitialMarketDate() { return timePutOnMarket; }
     public boolean getStatus() { return activeStatus; }
 
-    // MUTATORS
     public void setName(String name) { this.name = name; }
     public void setAddress(String address) { this.address = address; }
     public void setDescription(String description) { this.description = description; }

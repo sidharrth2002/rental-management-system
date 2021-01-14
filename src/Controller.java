@@ -27,6 +27,42 @@ public class Controller implements Initializable {
     public Menu optionsMenu;
     public MenuItem roleChooser;
     public MenuItem saveAndExit;
+    public PropertySearchFacade propertySearchFacade = new PropertySearchFacade();
+    public UserFactory userFactory = new UserFactory();
+
+    public Controller() {
+        System.out.println("Main Controller");
+        //supposed to get property from file
+        //for now will load fake property
+        Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "Big fat bungalow", 3000000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Condominium in the World", "2, Jalan Cochrane", "C fat bungalow", 3000000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 20000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 30000, tempOwner));
+        propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 400000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 600000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 500000, tempOwner));
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,7 +117,7 @@ public class Controller implements Initializable {
 
     public void savePropertyToFile() throws IOException {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Property> propertyList = PropertySearchFacade.getProperties();
+        ArrayList<Property> propertyList = propertySearchFacade.getProperties();
         for (int i = 0; i < propertyList.size(); i++) {
             sb.append(propertyList.get(i).toCSVString());
             sb.append("\n");
