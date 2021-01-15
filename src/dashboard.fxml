@@ -22,6 +22,9 @@
                 <Menu text="Options">
                     <items>
                         <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
+                        <MenuItem fx:id="registerPage" text="Register" onAction="#changeScene" />
+                        <MenuItem fx:id="login" text="Login" onAction="#changeScene" />
+                        <MenuItem fx:id="tempRegister" text="Temp Register Route" onAction="#changeScene" />
                         <MenuItem fx:id="saveAndExit" text="Save And Exit" onAction="#changeScene" />
                     </items>
                 </Menu>
@@ -34,11 +37,11 @@
         <Text text="Your premier solution to buying fake property" style="-fx-font-size: 15"/>
 
         <GridPane alignment="center" hgap="10" vgap="10" >
-            <Text text="Search (Enter a keyboard)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Text text="Search (Start Typing...)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="searchField" onKeyTyped="#searchProperty" text="Go ahead" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         </GridPane>
-        <Button text="Search" onKeyTyped="#searchProperty"/>
-        <Text text="Or Search By One of the Options Below" />
+        <Button text="Search" onKeyTyped="#searchProperty" />
+        <Text text="Or Sort Property By One of the Options Below" />
         <HBox alignment="CENTER" spacing="20">
             <Button text="Sort By Price" onAction="#sortByPrice"/>
             <Button text="Sort By Type" onAction="#sortByType"/>

@@ -25,7 +25,6 @@ public class VisitorDashboardController extends Controller implements Initializa
     public VBox propertyTable;
     public VBox menuArea;
 
-    //do all the heavy lifting, load from the files, read data stores
     public VisitorDashboardController() {
         System.out.println("Child controller");
     }
@@ -33,6 +32,39 @@ public class VisitorDashboardController extends Controller implements Initializa
     //write to fxml elements on the page
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ArrayList<Property> properties = propertySearchFacade.getProperties();
+        for (Property property : properties) {
+            HBox outerBox = new HBox();
+            outerBox.setSpacing(10);
+            outerBox.setAlignment(Pos.CENTER_LEFT);
+            outerBox.setPadding(new Insets(10, 10, 10, 10));
+            VBox tableEntry = new VBox();
+            tableEntry.setPadding(new Insets(10, 10, 10, 10));
+//                outerBox.getChildren().add(new Separator());
+            tableEntry.getChildren().add(new Text(property.getName()));
+            tableEntry.getChildren().add(new Text(property.getAddress()));
+            tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+            outerBox.getChildren().add(tableEntry);
+            Button seeMore = new Button("View Details");
+            seeMore.setOnAction(event -> {
+                //sets property that will be viewed on the special propery page
+                PropertyPageController.propertyToDisplay = property;
+                //render the page
+                try {
+                    Stage stage = (Stage) root.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                    Scene propertyPage = new Scene(root, 700, 600);
+                    stage.setScene(propertyPage);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+
+            outerBox.getChildren().add(seeMore);
+//                outerBox.getChildren().add(new Separator());
+            propertyTable.getChildren().add(outerBox);
+        }
+
         //load property arraylists temporarily
     }
 

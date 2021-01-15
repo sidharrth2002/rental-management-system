@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -26,6 +25,8 @@ public class Controller implements Initializable {
     public Menu optionsMenu;
     public MenuItem roleChooser;
     public MenuItem saveAndExit;
+    public MenuItem registerPage;
+    public MenuItem loginPage;
     public PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
     public UserFactory userFactory = UserFactory.getInstance();
 
@@ -52,13 +53,20 @@ public class Controller implements Initializable {
     public void changeScene(ActionEvent e) throws IOException {
         MenuItem clickedButton = (MenuItem) e.getSource();
         System.out.println(clickedButton.getId());
-        if(clickedButton.getId().equals("roleChooser")) {
-            Stage stage = (Stage) root.getScene().getWindow();
+        Stage stage = (Stage) root.getScene().getWindow();
+        if(clickedButton.getId().equals("login")) {
+            //from this page, they will be routed to a role chooser from where they can login or register
             Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
             Scene roleChooser = new Scene(root, 700, 600);
             stage.setScene(roleChooser);
         } else if(clickedButton.getId().equals("saveAndExit")) {
             System.out.println("Graceful exit");
+        } else if(clickedButton.getId().equals("loginPage")) {
+            System.out.println("Go to login page");
+        } else if(clickedButton.getId().equals("tempRegister")) {
+            Parent root = FXMLLoader.load(getClass().getResource("tenantRegister.fxml"));
+            Scene roleChooser = new Scene(root, 700, 600);
+            stage.setScene(roleChooser);
         }
     }
 
