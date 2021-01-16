@@ -9,16 +9,20 @@
 <?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller"
+            fx:id="root"
+            fx:controller="roleChooserController"
             prefHeight="400.0" prefWidth="600.0" alignment="CENTER"
             spacing="20">
         <Text style="-fx-font-size:40;-fx-fill: darkred;" text="Welcome to MudahXXX.my" />
         <Text style="-fx-font-size: 25;" text="Your premier solution to black market shopping" />
         <Text style="-fx-font-size: 21" text="So who are you?" />
         <HBox alignment="CENTER" spacing="20">
-            <Button text="An Admin" />
-            <Button text="An Owner" />
-            <Button text="An Agent" />
+            <Button text="An Admin" fx:id="admin" onAction="#goToLogin"/>
+            <Button text="An Owner" fx:id="owner" onAction="#goToLogin"/>
+            <Button text="An Agent" fx:id="agent" onAction="#goToLogin"/>
+            <Button text="A Tenant" fx:id="tenant" onAction="#goToLogin"/>
+            <Button text="Just Visiting..." fx:id="visiting" onAction="#goToVisitorDashboard"/>
+
         </HBox>
 <!--    <VBox>-->
 <!--        <Text text="This is the role chooser page" />-->

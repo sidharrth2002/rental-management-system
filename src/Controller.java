@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.stage.Window;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -20,7 +22,7 @@ import java.nio.file.Paths;
 //pages will be her, extend this controller for every other controller you make
 
 public class Controller implements Initializable {
-    public VBox root;
+    public Parent root;
     public MenuBar menuBar;
     public Menu optionsMenu;
     public MenuItem roleChooser;
@@ -31,13 +33,7 @@ public class Controller implements Initializable {
     public UserFactory userFactory = UserFactory.getInstance();
 
     public Controller() {
-        //to make sure only reading from the file the first time the program starts
-//        if(propertySearchFacade.getProperties().size() != 0 && userFactory.getUsers().size() != 0) {
-//
-//        }
         System.out.println("Main Controller");
-        //supposed to get property from file
-        //for now will load fake property
 
     }
 
@@ -54,20 +50,22 @@ public class Controller implements Initializable {
         MenuItem clickedButton = (MenuItem) e.getSource();
         System.out.println(clickedButton.getId());
         Stage stage = (Stage) root.getScene().getWindow();
-        if(clickedButton.getId().equals("login")) {
-            //from this page, they will be routed to a role chooser from where they can login or register
-            Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-            Scene roleChooser = new Scene(root, 700, 600);
-            stage.setScene(roleChooser);
+        if (clickedButton.getId().equals("login")) {
+            Parent loginfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+            Scene loginPage = new Scene(loginfxml, 700, 600);
+            stage.setScene(loginPage);
         } else if(clickedButton.getId().equals("saveAndExit")) {
             System.out.println("Graceful exit");
-        } else if(clickedButton.getId().equals("loginPage")) {
-            System.out.println("Go to login page");
-        } else if(clickedButton.getId().equals("tempRegister")) {
-            Parent root = FXMLLoader.load(getClass().getResource("tenantRegister.fxml"));
-            Scene roleChooser = new Scene(root, 700, 600);
-            stage.setScene(roleChooser);
         }
+    }
+
+    public void showAlert(Alert.AlertType alertType, Window owner, String title, String message) throws IOException {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 
     public void saveTenantsToFile() throws IOException {
@@ -136,27 +134,4 @@ public class Controller implements Initializable {
             boolean assigned = Boolean.parseBoolean(dataInFile[9].substring(1, dataInFile[9].length() - 1));
         }
     }
-
-
-
-
-    //add Property Method
-    //load data inside (reads all the file store, loads the users, property)
-    //load data into files (save at the end)
-    //login
-        //if wrong login, set Error Message of Main class, and Main.showLoginScreen()
-        //check details (cross check with CSV)
-        //Main.name = ''
-        //Main.role = ''
-        //Main.showDashboard
-
-    //register
-        //create user
-        //Main.name = ''
-        //Main.role = ''
-
-
-    //search
-    //searchProperty
-//    Main.propertyToDisplay = PropertySearchFacade.getByActive();
 }

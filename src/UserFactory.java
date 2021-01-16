@@ -39,6 +39,14 @@ public class UserFactory {
         this.owners = owners;
     }
 
+    public ArrayList<User> getUsers() {
+        ArrayList<User> combined = new ArrayList<>();
+        combined.addAll(tenants);
+        combined.addAll(agents);
+        combined.addAll(owners);
+        return combined;
+    }
+
     //for use by the program
     public User makeUser(String userType, String name, String username, String password, String credential) {
         if(userType.equalsIgnoreCase("tenant")) {
