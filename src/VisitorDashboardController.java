@@ -14,6 +14,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.scene.shape.Box;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -190,6 +192,55 @@ public class VisitorDashboardController extends Controller implements Initializa
     }
 
     public void sortByType(ActionEvent e) {
+        propertyTable.getChildren().clear();
+        ArrayList<Property> results = propertySearchFacade.getByPrice();
+        ArrayList<String> propertyTypes = new ArrayList<>();
+        for (Property property : results) {
+            if(!propertyTypes.contains(property.getType())) {
+                propertyTypes.add(property.getType());
+            }
+        }
+        for (String type: propertyTypes) {
+            HBox typeHeading = new HBox();
+            Text headingText = new Text(type + "s");
+            headingText.setFont(Font.font(null, FontWeight.BOLD, 20));
+            typeHeading.getChildren().add(headingText);
+            typeHeading.setPadding(new Insets(10, 10, 10, 10));
+            propertyTable.getChildren().add(typeHeading);
+            for (Property property : results) {
+                if(type.equals(property.getType())) {
+                    HBox outerBox = new HBox();
+                    outerBox.setSpacing(10);
+                    outerBox.setAlignment(Pos.CENTER_LEFT);
+                    outerBox.setPadding(new Insets(10, 10, 10, 10));
+                    VBox tableEntry = new VBox();
+                    tableEntry.setPadding(new Insets(10, 10, 10, 10));
+//            outerBox.getChildren().add(new Separator());
+                    tableEntry.getChildren().add(new Text(property.getName()));
+                    tableEntry.getChildren().add(new Text(property.getAddress()));
+                    tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                    outerBox.getChildren().add(tableEntry);
+                    Button seeMore = new Button("View Details");
+                    seeMore.setOnAction(event -> {
+                        //sets property that will be viewed on the special propery page
+                        PropertyPageController.propertyToDisplay = property;
+                        //render the page
+                        try {
+                            Stage stage = (Stage) root.getScene().getWindow();
+                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                            Scene propertyPage = new Scene(root, 700, 600);
+                            stage.setScene(propertyPage);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    });
+
+                    outerBox.getChildren().add(seeMore);
+//            outerBox.getChildren().add(new Separator());
+                    propertyTable.getChildren().add(outerBox);
+                }
+            }
+        }
 
     }
 
