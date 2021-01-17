@@ -8,11 +8,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
-<GridPane xmlns:fx="http://javafx.com/fxml"
-          xmlns="http://javafx.com/javafx"
-          fx:controller="RegisterPageController"
-          prefHeight="400.0" prefWidth="600.0"
-          hgap="20" vgap="20" alignment="CENTER"
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="RegisterPageController"
+      prefHeight="400.0" prefWidth="600.0">
+
+<HBox>
+    <Button fx:id="roleChooserPage" text="Back to Role Chooser" onAction="#changeScene"/>
+</HBox>
+<GridPane hgap="20" vgap="20" alignment="CENTER"
           fx:id="root">
     <padding>
         <Insets top="40" right="40" bottom="40" left="40" />
@@ -49,6 +53,8 @@
         </GridPane.margin>
     </Button>
 </GridPane>
+</VBox>
+
 
         <!--<Label text="Mudahxxx.my registration" GridPane.columnIndex="0"-->
         <!--       GridPane.rowIndex="0" GridPane.columnSpan="2"-->

@@ -11,8 +11,8 @@ public class Tenant extends User {
 
     private String ICNumber;
 
-    public Tenant(String userCode, String name, String username, String password, String ICNumber) {
-        super(userCode, name, username, password);
+    public Tenant(String userCode, String name, String username, String password, String ICNumber, boolean approvalStatus) {
+        super(userCode, name, username, password, approvalStatus);
         this.ICNumber = ICNumber;
     }
 

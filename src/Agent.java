@@ -29,8 +29,8 @@ public class Agent extends User {
         return sb.toString();
     }
 
-    public Agent(String userCode, String name, String username, String password, String licenseCode) {
-        super(userCode, name, username, password);
+    public Agent(String userCode, String name, String username, String password, String licenseCode, boolean approvalStatus) {
+        super(userCode, name, username, password, approvalStatus);
         this.licenseCode = licenseCode;
     }
 }

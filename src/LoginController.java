@@ -17,7 +17,7 @@ public class LoginController extends Controller {
     public GridPane root;
     public TextField usernameField;
     public PasswordField passwordField;
-    public Stage stage;
+//    public Stage stage;
     public static String typeOfUser;
 
     public void submitForm(ActionEvent actionEvent) throws IOException {
@@ -47,40 +47,43 @@ public class LoginController extends Controller {
         if(correct) {
             //each will have their own dashboard(menu will have a few different options)
             //but same until those are all ready
-            Stage stage = (Stage) root.getScene().getWindow();
-            if(loggedInUser instanceof Agent) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            } else if(loggedInUser instanceof Owner) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            } else if(loggedInUser instanceof Tenant) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            } else if(loggedInUser instanceof Admin) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            }
+            stage.setUserData(loggedInUser);
+            Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+            Scene dashboard = new Scene(dashboardfxml, 700, 600);
+            stage.setScene(dashboard);
+//            if(loggedInUser instanceof Agent) {
+//
+//            } else if(loggedInUser instanceof Owner) {
+//                Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+//                Scene dashboard = new Scene(dashboardfxml, 700, 600);
+//                stage.setScene(dashboard);
+//            } else if(loggedInUser instanceof Tenant) {
+//                Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+//                Scene dashboard = new Scene(dashboardfxml, 700, 600);
+//                stage.setScene(dashboard);
+//            } else if(loggedInUser instanceof Admin) {
+//                Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+//                Scene dashboard = new Scene(dashboardfxml, 700, 600);
+//                stage.setScene(dashboard);
+//            }
         } else {
             showAlert(Alert.AlertType.ERROR, window, "Incorrect Login!",
                     "Please try again!");
+            stage.setUserData(null);
         }
     }
 
     public void goToRoleChooser(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) root.getScene().getWindow();
+//        Stage stage = (Stage) root.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene dashboard = new Scene(root, 700, 600);
         stage.setScene(dashboard);
     }
 
     public void goToRegisterPage(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) root.getScene().getWindow();
-        Window window = root.getScene().getWindow();
+//        Stage stage = (Stage) root.getScene().getWindow();
+//        Window window = root.getScene().getWindow();
+        Window window = (Window) stage;
         if(typeOfUser.equals("agent")) {
             Parent registerfxml = FXMLLoader.load(getClass().getResource("agentRegister.fxml"));
             Scene register = new Scene(registerfxml, 700, 600);

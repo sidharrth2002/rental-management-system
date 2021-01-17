@@ -31,6 +31,7 @@ public class Controller implements Initializable {
     public MenuItem loginPage;
     public PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
     public UserFactory userFactory = UserFactory.getInstance();
+    public static Stage stage;
 
     public Controller() {
         System.out.println("Main Controller");
@@ -47,14 +48,25 @@ public class Controller implements Initializable {
     //method to change scene from the menu
     @FXML
     public void changeScene(ActionEvent e) throws IOException {
-        MenuItem clickedButton = (MenuItem) e.getSource();
-        System.out.println(clickedButton.getId());
-        Stage stage = (Stage) root.getScene().getWindow();
-        if (clickedButton.getId().equals("login")) {
+        String ID = "";
+        Object clickedButton = e.getSource();
+        if(clickedButton instanceof MenuItem) {
+            ID = ((MenuItem) clickedButton).getId();
+        } else if (clickedButton instanceof Button) {
+            ID = ((Button) clickedButton).getId();
+        }
+        System.out.println(ID);
+//        Stage stage = (Stage) root.getScene().getWindow();
+        if (ID.equals("login")) {
             Parent loginfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
             Scene loginPage = new Scene(loginfxml, 700, 600);
             stage.setScene(loginPage);
-        } else if(clickedButton.getId().equals("saveAndExit")) {
+        } else if(ID.equals("roleChooserPage")) {
+            Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+            Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
+            stage.setScene(roleChooser);
+        }
+        else if(ID.equals("saveAndExit")) {
             System.out.println("Graceful exit");
         }
     }
@@ -83,7 +95,7 @@ public class Controller implements Initializable {
             sb.append(userFactory.getOwners().get(i).toCSVString());
             sb.append("\n");
         }
-        Files.write(Paths.get("./data/owners.csv"), sb.toString().getBytes());
+        Files.write(Paths.get("data/owners.csv"), sb.toString().getBytes());
     }
 
     public void saveAgentsToFile() throws IOException {

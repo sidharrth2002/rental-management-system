@@ -20,7 +20,7 @@ public class Property {
     private static int count;
 
     //temp constructor for testing
-    public Property(String name, String address, String description, double price, User manager) {
+    public Property(String name, String address, String description, double price, String type, User manager) {
         this.name = name;
         this.address = address;
         this.description = description;
@@ -29,6 +29,7 @@ public class Property {
 
         this.owner = (Owner) manager;
         this.ID = "p" + ++count;
+        this.type = type;
     }
 
     public Property(String ID, String name, String address, String description, String photo, double price, char rating, Date timePutOnMarket, boolean activeStatus, boolean assigned, String type, Agent agent, Owner owner, Tenant tenant) {
