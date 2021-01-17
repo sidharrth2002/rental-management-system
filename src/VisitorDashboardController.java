@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -21,9 +22,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class VisitorDashboardController extends Controller implements Initializable {
+    public VBox root;
     public TextField searchField;
     public VBox propertyTable;
     public VBox menuArea;
+    public Text welcomeMessage;
+    public HBox specialOptions;
 
     public VisitorDashboardController() {
         System.out.println("Child controller");
@@ -32,6 +36,47 @@ public class VisitorDashboardController extends Controller implements Initializa
     //write to fxml elements on the page
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(stage.getUserData() != null) {
+            User user = (User) stage.getUserData();
+            System.out.println(user.getName());
+            welcomeMessage.setText("Hello " + user.getName());
+
+            Button specialInterface = new Button("Manage your property");
+            specialInterface.setOnAction(e -> {
+                if(user instanceof Owner) {
+                    // render owner interface
+                    try {
+                        Parent ownerfxml = FXMLLoader.load(getClass().getResource("ownerScreen.fxml"));
+                        Scene page = new Scene(ownerfxml, 700, 600);
+                        stage.setScene(page);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                } else if (user instanceof Tenant) {
+                    // render tenant interface
+                    try {
+                        Parent tenantfxml = FXMLLoader.load(getClass().getResource("tenantScreen.fxml"));
+                        Scene page = new Scene(tenantfxml, 700, 600);
+                        stage.setScene(page);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                } else if (user instanceof Agent) {
+                    // render agent interface
+                    try {
+                        Parent agentfxml = FXMLLoader.load(getClass().getResource("agentScreen.fxml"));
+                        Scene page = new Scene(agentfxml, 700, 600);
+                        stage.setScene(page);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                } else if (user instanceof Admin) {
+                    //go to ahmed's admin interface
+                }
+            });
+            specialOptions.getChildren().add(specialInterface);
+        }
+
         ArrayList<Property> properties = propertySearchFacade.getProperties();
         for (Property property : properties) {
             HBox outerBox = new HBox();
@@ -51,10 +96,9 @@ public class VisitorDashboardController extends Controller implements Initializa
                 PropertyPageController.propertyToDisplay = property;
                 //render the page
                 try {
-                    Stage stage = (Stage) root.getScene().getWindow();
                     Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
                     Scene propertyPage = new Scene(root, 700, 600);
-                    stage.setScene(propertyPage);
+//                    stage.setScene(propertyPage);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -65,7 +109,6 @@ public class VisitorDashboardController extends Controller implements Initializa
             propertyTable.getChildren().add(outerBox);
         }
 
-        //load property arraylists temporarily
     }
 
     public void searchProperty(KeyEvent e) throws IOException {

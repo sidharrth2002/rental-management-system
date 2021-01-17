@@ -37,12 +37,10 @@ import java.util.ArrayList;
 //9. file handling controllers- Sid
 
 public class Main extends Application {
-    Scene roleChooser;
-    Scene loginScreen;
-    public static String role = "";
+//    public static String role = "";
     public static String name = "John Doe";
-    public static String loginError = "";
-    public static ArrayList<Property> propertyToDisplay;
+//    public static String loginError = "";
+//    public static ArrayList<Property> propertyToDisplay;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -50,13 +48,15 @@ public class Main extends Application {
         PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
         UserFactory userFactory = UserFactory.getInstance();
         Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
+        userFactory.readUsersFromFile();
         propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "Big fat bungalow", 3000000, tempOwner));
         propertySearchFacade.addProperty(new Property("Condominium in the World", "2, Jalan Cochrane", "C fat bungalow", 3000000, tempOwner));
         propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, tempOwner));
         propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000, tempOwner));
 
-        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene scene = new Scene(root, 700, 600);
+        Controller.stage = primaryStage;
         primaryStage.setTitle("Rental Management System");
         primaryStage.setScene(scene);
         primaryStage.show();

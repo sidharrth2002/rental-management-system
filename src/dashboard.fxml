@@ -17,22 +17,25 @@
 <VBox fx:id="root" fx:controller="VisitorDashboardController"
       xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white">
     <VBox>
-        <MenuBar>
+        <MenuBar fx:id="menuBar">
             <menus>
-                <Menu text="Options">
+                <Menu text="options">
                     <items>
                         <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
-                        <MenuItem fx:id="registerPage" text="Register" onAction="#changeScene" />
-                        <MenuItem fx:id="login" text="Login" onAction="#changeScene" />
-                        <MenuItem fx:id="tempRegister" text="Temp Register Route" onAction="#changeScene" />
-                        <MenuItem fx:id="saveAndExit" text="Save And Exit" onAction="#changeScene" />
+                        <MenuItem fx:id="login" text="Login/Register" onAction="#changeScene" />
+                        <MenuItem fx:id="saveAndExit" text="Exit" onAction="#changeScene" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
     </VBox>
 
+    <HBox fx:id="specialOptions">
+
+    </HBox>
+
     <VBox alignment="center" style="-fx-padding: 10 10 10 10;" spacing="20">
+        <Text fx:id="welcomeMessage" />
         <Text text="Welcome To MudahXXX.my" style="-fx-font-size: 20; -fx-fill: darkred; -fx-font-weight: bold"/>
         <Text text="Your premier solution to buying fake property" style="-fx-font-size: 15"/>
 
