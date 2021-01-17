@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.web.HTMLEditor?>
+<?import javafx.scene.text.Text?>
+<VBox fx:id="root" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="PropertyPageController"
+      prefHeight="400.0" prefWidth="600.0">
+<GridPane>
+<!--    format property object and print nicely here-->
+    <VBox fx:id="imageArea" GridPane.columnIndex="0">
+<!--        add photo here-->
+    </VBox>
+    <VBox fx:id="detailsArea" GridPane.columnIndex="1">
+<!--add details here-->
+        <Text fx:id="propertyName" />
+        <Text fx:id="propertyAddress" />
+        <Text fx:id="propertyDescription" />
+        <Text fx:id="propertyPrice" />
+    </VBox>
+</GridPane>
+</VBox>
