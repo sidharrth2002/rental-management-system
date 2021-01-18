@@ -97,8 +97,11 @@ public class LoginController extends Controller {
             Scene register = new Scene(registerfxml, 700, 600);
             stage.setScene(register);
         } else if(typeOfUser.equals("admin")) {
-            showAlert(Alert.AlertType.WARNING, window, "Not Available",
-                    "Admins can only be added by other admins.");
+//            showAlert(Alert.AlertType.WARNING, window, "Not Available",
+//                    "Admins can only be added by other admins.");
+            Parent registerfxml = FXMLLoader.load(getClass().getResource("admindashboard.fxml"));
+            Scene register = new Scene(registerfxml, 700, 600);
+            stage.setScene(register);
         }
 
     }

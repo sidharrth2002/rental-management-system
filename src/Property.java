@@ -26,6 +26,7 @@ public class Property {
         this.description = description;
         this.price = price;
         //maybe convert to builder later, now just for testing
+
         this.owner = (Owner) manager;
         this.ID = "p" + ++count;
         this.type = type;
