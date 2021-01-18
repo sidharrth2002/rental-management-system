@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      prefHeight="400.0" prefWidth="600.0" fx:controller="RegisterPageController">
+    <HBox>
+        <Button fx:id="roleChooserPage" text="Back to Role Chooser" onAction="#changeScene"/>
+    </HBox>
+    <GridPane hgap="20" vgap="20" alignment="CENTER"
+              fx:id="root">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40" />
+        </padding>
+
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.rowSpan="1"
+              GridPane.halignment="CENTER" alignment="CENTER">
+            <Text text="Register as A Tenant" style="-fx-font-size:30;-fx-fill: darkred;"/>
+        </HBox>
+        <Label text="Name: " GridPane.columnIndex="0" GridPane.rowIndex="1">
+        </Label>
+        <TextField fx:id="nameField" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1" />
+
+        <Label text="Username: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="usernameField" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="2"/>
+
+        <Label text="Password: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <PasswordField fx:id="passwordField" prefHeight="40" GridPane.columnIndex="1"
+                       GridPane.rowIndex="3"/>
+
+        <Label fx:id="extraInfo" text="Agent License Code: " GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="credential" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="4"/>
+
+        <Button fx:id="submitButton" text="Submit For Approval" prefWidth="200" prefHeight="30" defaultButton="true"
+                GridPane.columnIndex="0" GridPane.rowIndex="5"
+                GridPane.columnSpan="2" GridPane.rowSpan="2"
+                GridPane.halignment="CENTER"
+                onAction="#submitForm">
+            <GridPane.margin>
+                <Insets top="20" bottom="20"/>
+            </GridPane.margin>
+        </Button>
+    </GridPane>
+</VBox>
+
+
+
+        <!--<Label text="Mudahxxx.my registration" GridPane.columnIndex="0"-->
+        <!--       GridPane.rowIndex="0" GridPane.columnSpan="2"-->
+        <!--       GridPane.rowSpan="1" GridPane.halignment="CENTER">-->
+        <!--<GridPane.margin>-->
+        <!--    <Insets top="20" right="20" bottom="20" left="20" />-->
+        <!--</GridPane.margin>-->
+        <!--</Label>-->
+
+        <!--<Label text="What Type of User Are You?: " GridPane.columnIndex="0" GridPane.rowIndex="4" />-->
+        <!--<HBox GridPane.columnIndex="1" GridPane.rowIndex="4" alignment="CENTER">-->
+        <!--<fx:define>-->
+        <!--    <ToggleGroup fx:id="toggleGroup" />-->
+        <!--</fx:define>-->
+
+        <!--<RadioButton fx:id="agentButton" text="Agent" toggleGroup="$toggleGroup">-->
+        <!--    <HBox.margin>-->
+        <!--        <Insets right="30.0" bottom="10.0"/>-->
+        <!--    </HBox.margin>-->
+        <!--</RadioButton>-->
+
+        <!--<RadioButton fx:id="ownerButton" text="Owner" toggleGroup="$toggleGroup">-->
+        <!--    <HBox.margin>-->
+        <!--        <Insets right="30.0" bottom="10.0"/>-->
+        <!--    </HBox.margin>-->
+        <!--</RadioButton>-->
+
+        <!--<RadioButton fx:id="tenantButton" text="Tenant" toggleGroup="$toggleGroup">-->
+        <!--    <HBox.margin>-->
+        <!--        <Insets right="30.0" bottom="10.0"/>-->
+        <!--    </HBox.margin>-->
+        <!--</RadioButton>-->
+        <!--</HBox>-->

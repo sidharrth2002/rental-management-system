@@ -1,0 +1,64 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.TilePane?>
+<VBox fx:id="root" fx:controller="VisitorDashboardController"
+      xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white">
+    <VBox>
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu text="Options">
+                    <items>
+                        <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
+                        <MenuItem fx:id="login" text="Login/Register" onAction="#changeScene" />
+                        <MenuItem fx:id="saveAndExit" text="Exit" onAction="#changeScene" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </VBox>
+
+    <HBox fx:id="specialOptions">
+
+    </HBox>
+
+    <VBox alignment="center" style="-fx-padding: 10 10 10 10;" spacing="20">
+        <Text fx:id="welcomeMessage" />
+        <Text text="Welcome To MudahXXX.my" style="-fx-font-size: 20; -fx-fill: darkred; -fx-font-weight: bold"/>
+        <Text text="Your premier solution to buying fake property" style="-fx-font-size: 15"/>
+
+        <GridPane alignment="center" hgap="10" vgap="10" >
+            <Text text="Search (Start Typing...)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="searchField" onKeyTyped="#searchProperty" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        </GridPane>
+<!--        <Button text="Search" onKeyTyped="#searchProperty" />-->
+        <Text text="Or Sort Property By One of the Options Below" />
+        <HBox alignment="CENTER" spacing="20">
+            <Button text="Sort By Price" onAction="#sortByPrice"/>
+            <Button text="Sort By Type" onAction="#sortByType"/>
+        </HBox>
+    </VBox>
+
+
+    <VBox>
+    <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="400">
+<!--        controller will fill this container-->
+        <VBox fx:id="propertyTable">
+
+        </VBox>
+    </ScrollPane>
+    </VBox>
+</VBox>
+
