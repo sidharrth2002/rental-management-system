@@ -50,16 +50,33 @@ public class Main extends Application {
         PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
         UserFactory userFactory = UserFactory.getInstance();
         Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "Big fat bungalow", 3000000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Condominium in the World", "2, Jalan Cochrane", "C fat bungalow", 3000000, tempOwner));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, tempOwner));
-        propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000, tempOwner));
+        Owner tempOwner2 = (Owner) userFactory.makeUser("owner", "Ahmed", "asm", "123456789", "K1234ft");
 
-        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+        propertySearchFacade.addProperty(new Property("Maadi", "New Degla", "Big fat bungalow", 3000000, "Condominium", "Mutiara", tempOwner2));
+        propertySearchFacade.addProperty(new Property("New Capital", "Ring Road", "C fat bungalow", 3000000, "Studio", "Mutiara", tempOwner2));
+        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, "Condominium", "DPulze", tempOwner));
+        propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000, "Condominium", "DPulze", tempOwner));
+
+        Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene scene = new Scene(root, 700, 600);
+        Controller.stage = primaryStage;
         primaryStage.setTitle("Rental Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
+//        PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
+//        UserFactory userFactory = UserFactory.getInstance();
+//        Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
+//
+//        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "Big fat bungalow", 1000, "Condominium", "Mutiara", tempOwner));
+//        propertySearchFacade.addProperty(new Property("Condominium in the World", "2, Jalan Cochrane", "C fat bungalow", 3000, "Studio", "Mutiara",tempOwner));
+//        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, "Condominium", "DPulze", tempOwner));
+//        propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000,"Condominium", "DPulze",  tempOwner));
+//
+//        Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+//        Scene scene = new Scene(root, 700, 600);
+//        primaryStage.setTitle("Rental Management System");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
     }
 
     public static void main(String[] args) {

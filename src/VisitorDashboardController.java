@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class VisitorDashboardController extends Controller implements Initializable {
@@ -244,6 +246,89 @@ public class VisitorDashboardController extends Controller implements Initializa
 
     }
 
+    public void sortByProject(ActionEvent actionEvent) {
+        propertyTable.getChildren().clear();
+        ArrayList<Property> results = propertySearchFacade.getProperties();
+        ArrayList<String> projects = new ArrayList<>();
+        for (Property property : results) {
+            if(!projects.contains(property.getProject())) {
+                projects.add(property.getProject());
+            }
+        }
+        System.out.println(projects);
+        for (String project: projects) {
+            HBox projectTitle = new HBox();
+            Text projectHeading = new Text(project);
+            projectHeading.setFont(Font.font(null, FontWeight.BOLD, 20));
+            projectTitle.getChildren().add(projectHeading);
+            projectTitle.setPadding(new Insets(10, 10, 10, 10));
+            propertyTable.getChildren().add(projectTitle);
+
+            ArrayList<Property> propertiesInProject = new ArrayList<>();
+            for(Property property: results) {
+                if (property.getProject().equalsIgnoreCase(project)) {
+                    propertiesInProject.add(property);
+                }
+            }
+            ArrayList<String> propertyTypes = new ArrayList<>();
+            for(Property property: propertiesInProject) {
+                if(!propertyTypes.contains(property.getType())) {
+                    propertyTypes.add(property.getType());
+                }
+            }
+            for(String type: propertyTypes) {
+                HBox typeTitle = new HBox();
+                Text typeText = new Text(type + "s");
+                typeText.setFont(Font.font(null, FontWeight.BOLD, 15));
+                typeTitle.getChildren().add(typeText);
+                typeTitle.setPadding(new Insets(10, 10, 10, 10));
+                propertyTable.getChildren().add(typeTitle);
+                ArrayList<Property> propertyOfType = new ArrayList<>();
+                for(Property property: propertiesInProject) {
+                    if(property.getType().equals(type)) {
+                        propertyOfType.add(property);
+                    }
+                }
+                Collections.sort(propertyOfType, new Comparator<Property>() {
+                    @Override
+                    public int compare(final Property property1, final Property property2) {
+                        return Double.compare(property1.getPrice(), property2.getPrice());
+                    }
+                });
+                for (Property property: propertyOfType) {
+                    HBox outerBox = new HBox();
+                    outerBox.setSpacing(10);
+                    outerBox.setAlignment(Pos.CENTER_LEFT);
+                    outerBox.setPadding(new Insets(10, 10, 10, 10));
+                    VBox tableEntry = new VBox();
+                    tableEntry.setPadding(new Insets(10, 10, 10, 10));
+//            outerBox.getChildren().add(new Separator());
+                    tableEntry.getChildren().add(new Text(property.getName()));
+                    tableEntry.getChildren().add(new Text(property.getAddress()));
+                    tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                    outerBox.getChildren().add(tableEntry);
+                    Button seeMore = new Button("View Details");
+                    seeMore.setOnAction(event -> {
+                        //sets property that will be viewed on the special propery page
+                        PropertyPageController.propertyToDisplay = property;
+                        //render the page
+                        try {
+                            Stage stage = (Stage) root.getScene().getWindow();
+                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                            Scene propertyPage = new Scene(root, 700, 600);
+                            stage.setScene(propertyPage);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    });
+
+                    outerBox.getChildren().add(seeMore);
+//            outerBox.getChildren().add(new Separator());
+                    propertyTable.getChildren().add(outerBox);
+                }
+            }
+        }
+    }
 }
 
 //        for (Property property: results) {

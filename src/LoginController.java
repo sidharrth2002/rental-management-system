@@ -45,27 +45,10 @@ public class LoginController extends Controller {
             }
         }
         if(correct) {
-            //each will have their own dashboard(menu will have a few different options)
-            //but same until those are all ready
             stage.setUserData(loggedInUser);
             Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
             Scene dashboard = new Scene(dashboardfxml, 700, 600);
             stage.setScene(dashboard);
-//            if(loggedInUser instanceof Agent) {
-//
-//            } else if(loggedInUser instanceof Owner) {
-//                Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-//                Scene dashboard = new Scene(dashboardfxml, 700, 600);
-//                stage.setScene(dashboard);
-//            } else if(loggedInUser instanceof Tenant) {
-//                Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-//                Scene dashboard = new Scene(dashboardfxml, 700, 600);
-//                stage.setScene(dashboard);
-//            } else if(loggedInUser instanceof Admin) {
-//                Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-//                Scene dashboard = new Scene(dashboardfxml, 700, 600);
-//                stage.setScene(dashboard);
-//            }
         } else {
             showAlert(Alert.AlertType.ERROR, window, "Incorrect Login!",
                     "Please try again!");
@@ -81,8 +64,6 @@ public class LoginController extends Controller {
     }
 
     public void goToRegisterPage(ActionEvent actionEvent) throws IOException {
-//        Stage stage = (Stage) root.getScene().getWindow();
-//        Window window = root.getScene().getWindow();
         Window window = (Window) stage;
         if(typeOfUser.equals("agent")) {
             Parent registerfxml = FXMLLoader.load(getClass().getResource("agentRegister.fxml"));
@@ -97,8 +78,6 @@ public class LoginController extends Controller {
             Scene register = new Scene(registerfxml, 700, 600);
             stage.setScene(register);
         } else if(typeOfUser.equals("admin")) {
-//            showAlert(Alert.AlertType.WARNING, window, "Not Available",
-//                    "Admins can only be added by other admins.");
             Parent registerfxml = FXMLLoader.load(getClass().getResource("admindashboard.fxml"));
             Scene register = new Scene(registerfxml, 700, 600);
             stage.setScene(register);

@@ -17,16 +17,26 @@ public class Property {
     private Agent agent;
     private Owner owner;
     private Tenant tenant;
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    private String project;
     private static int count;
 
     //temp constructor for testing
-    public Property(String name, String address, String description, double price, String type, User manager) {
+    public Property(String name, String address, String description, double price, String type, String project, User manager) {
         this.name = name;
         this.address = address;
         this.description = description;
         this.price = price;
         //maybe convert to builder later, now just for testing
-
+        this.project = project;
         this.owner = (Owner) manager;
         this.ID = "p" + ++count;
         this.type = type;

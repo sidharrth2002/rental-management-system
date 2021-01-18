@@ -21,7 +21,7 @@
             <menus>
                 <Menu text="Options">
                     <items>
-                        <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
+                        <MenuItem fx:id="roleChooserPage" text="Role Chooser" onAction="#changeScene" />
                         <MenuItem fx:id="login" text="Login/Register" onAction="#changeScene" />
                         <MenuItem fx:id="saveAndExit" text="Exit" onAction="#changeScene" />
                     </items>
@@ -48,6 +48,7 @@
         <HBox alignment="CENTER" spacing="20">
             <Button text="Sort By Price" onAction="#sortByPrice"/>
             <Button text="Sort By Type" onAction="#sortByType"/>
+            <Button text="Sort By Project And Type" onAction="#sortByProject"/>
         </HBox>
     </VBox>
 
