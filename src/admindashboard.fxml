@@ -23,8 +23,6 @@
                     <items>
                         <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
                         <MenuItem fx:id="registerPage" text="Register" onAction="#changeScene" />
-                        <MenuItem fx:id="login" text="Login" onAction="#changeScene" />
-                        <MenuItem fx:id="tempRegister" text="Temp Register Route" onAction="#changeScene" />
                         <MenuItem fx:id="saveAndExit" text="Save And Exit" onAction="#changeScene" />
                     </items>
                 </Menu>

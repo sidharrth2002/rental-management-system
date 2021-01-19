@@ -56,7 +56,6 @@ public class Controller implements Initializable {
             ID = ((Button) clickedButton).getId();
         }
         System.out.println(ID);
-//        Stage stage = (Stage) root.getScene().getWindow();
         if (ID.equals("login")) {
             Parent loginfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
             Scene loginPage = new Scene(loginfxml, 700, 600);
@@ -65,8 +64,10 @@ public class Controller implements Initializable {
             Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
             Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
             stage.setScene(roleChooser);
-        }
-        else if(ID.equals("saveAndExit")) {
+        } else if(ID.equals("agentOwnerPage")) {
+            Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
+            Scene agentOwnerScreen = new Scene(agentOwnerfxml, 700, 600);
+        } else if(ID.equals("saveAndExit")) {
             System.out.println("Graceful exit");
         }
     }

@@ -5,15 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
-import javafx.scene.shape.Box;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -47,37 +43,27 @@ public class VisitorDashboardController extends Controller implements Initializa
 
             Button specialInterface = new Button("Manage your property");
             specialInterface.setOnAction(e -> {
-                if(user instanceof Owner) {
+                if(user instanceof Owner || user instanceof Agent) {
                     // render owner interface
                     try {
-                        Parent ownerfxml = FXMLLoader.load(getClass().getResource("ownerScreen.fxml"));
-                        Scene page = new Scene(ownerfxml, 700, 600);
-                        stage.setScene(page);
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                } else if (user instanceof Tenant) {
-                    // render tenant interface
-                    try {
-                        Parent tenantfxml = FXMLLoader.load(getClass().getResource("tenantScreen.fxml"));
-                        Scene page = new Scene(tenantfxml, 700, 600);
-                        stage.setScene(page);
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                } else if (user instanceof Agent) {
-                    // render agent interface
-                    try {
-                        Parent agentfxml = FXMLLoader.load(getClass().getResource("agentScreen.fxml"));
-                        Scene page = new Scene(agentfxml, 700, 600);
+                        Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
+                        Scene page = new Scene(agentOwnerfxml, 700, 600);
                         stage.setScene(page);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
                 } else if (user instanceof Admin) {
                     //go to ahmed's admin interface
+                    try {
+                        Parent adminfxml = FXMLLoader.load(getClass().getResource("admindashboard.fxml"));
+                        Scene page = new Scene(adminfxml, 700, 600);
+                        stage.setScene(page);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             });
+            specialOptions.setPadding(new Insets(10, 10, 10, 10));
             specialOptions.getChildren().add(specialInterface);
         }
 
