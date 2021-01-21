@@ -86,7 +86,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByAssigned() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (property.getAssigned()) {
+            if (property.getStatus()) {
                 filteredProperty.add(property);
             }
         }
@@ -96,7 +96,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByUnassigned() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (!property.getAssigned()) {
+            if (!property.getStatus()) {
                 filteredProperty.add(property);
             }
         }

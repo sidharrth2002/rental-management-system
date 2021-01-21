@@ -18,7 +18,6 @@ public class Property {
     private boolean activeStatus; //active or inactive
     private Agent agent;
     private Owner owner;
-    private Tenant tenant;
 
     // private constructor to be called by builder only
     private Property() {
@@ -41,10 +40,9 @@ public class Property {
     public double getPrice() { return price; }
     public char getRating() { return rating; }
     public Date getInitialMarketDate() { return new Date(timePutOnMarket.getTime()); }
-    public boolean getActiveStatus() { return activeStatus; } // duplicated
+    public boolean getStatus() { return activeStatus; } // duplicated
     public Agent getAgent() { return agent; }
     public Owner getOwner() { return owner; }
-    public Tenant getTenant() { return tenant; }
 
     // fields mutator methods
     public void setID(String ID) { this.ID = ID; } // make private?
@@ -57,14 +55,13 @@ public class Property {
     public void setPrice(double price) { this.price = price; }
     public void setRating(char rating) { this.rating = rating; }
     public void setInitialMarketDate(Date date) { timePutOnMarket = new Date(date.getTime()); }
-    public void setActiveStatus(boolean activeStatus) { this.activeStatus = activeStatus; }
+    public void setStatus(boolean activeStatus) { this.activeStatus = activeStatus; }
     public void setAgent(Agent agent) { this.agent = agent; }
     public void setOwner(Owner owner) { this.owner = owner; }
-    public void setTenant(Tenant tenant) { this.tenant = tenant; }
 
     // returns true if  a tenant is assigned to the property
     public boolean isAssigned() {
-        return tenant != null;
+        return activeStatus;
     }
 
     // converts property to a csv format string
@@ -80,17 +77,13 @@ public class Property {
                 .append("\"" + getPrice() + "\"" + ", ")
                 .append("\"" + getRating() + "\"" + ", ")
                 .append("\"" + getInitialMarketDate() + "\"" + ", ")
-                .append("\"" + getActiveStatus() + "\", ");
+                .append("\"" + getStatus() + "\", ");
         if(getOwner() != null) {
             sb.append("\"Owner\"");
             sb.append("\"" + getOwner().getUserID() + "\", ");
         } else if (getAgent() != null) {
             sb.append("\"Agent\"");
             sb.append("\"" + getAgent().getUserID() + "\", ");
-        }
-        if(getTenant() != null) {
-            sb.append("\"Tenant\"");
-            sb.append("\"" + getTenant().getUserID() + "\"");
         }
         return sb.toString();
     }
@@ -110,7 +103,6 @@ public class Property {
         private boolean activeStatus;
         private Agent agent;
         private Owner owner;
-        private Tenant tenant;
 
         public Builder() {}
 
@@ -179,11 +171,6 @@ public class Property {
             return this;
         }
 
-        public Builder withTenant(Tenant tenant) {
-            this.tenant = tenant;
-            return this;
-        }
-
         // called to generate the final property object
         public Property build() {
             // check to ensure either agent or owner, but not both, is given
@@ -202,10 +189,9 @@ public class Property {
             property.setPrice(price); // required
             property.setRating(rating); // optional
             property.setInitialMarketDate(timePutOnMarket); // required
-            property.setActiveStatus(activeStatus); // optional, default is false
+            property.setStatus(activeStatus); // optional, default is false
             property.setAgent(agent); // required but not allowed if owner is set
             property.setOwner(owner); // required but not allowed if agent is set
-            property.setTenant(tenant); // optional
 
             return property;
         }
