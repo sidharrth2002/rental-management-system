@@ -24,6 +24,10 @@ public class PropertySearchFacade {
         properties.add(property);
     }
 
+    public void deleteProperty(Property property) {
+        properties.remove(property);
+    }
+
     public ArrayList<Property> getByPrice() {
         ArrayList<Property> sortedProperty = new ArrayList<>(properties);
         Collections.sort(sortedProperty, new Comparator<Property>() {

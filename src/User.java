@@ -4,20 +4,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class User {
+public class User {
     private String name;
     private String userID;
     private String username;
     private String password;
     private boolean approvalStatus;
-    private ArrayList<Property> propertyList;
+    private List<String> propertyCodes = new ArrayList<>();
+    private ArrayList<Property> propertyList = new ArrayList<>();
 
-    public abstract String toCSVString();
+    public String toCSVString() {
+        return "";
+    };
 
     public User() {}
 
     public User(String userCode, String name, String username, String password, boolean approvalStatus) {
         this.userID = userCode;
+        System.out.println(userID);
         this.name = name;
         this.username = username;
         this.password = password;
@@ -57,7 +61,7 @@ public abstract class User {
     }
 
     public ArrayList<Property> getPropertyList() {
-        return propertyList;
+        return this.propertyList;
     }
 
     public void setPropertyList(ArrayList<Property> propertyList) {
@@ -72,5 +76,21 @@ public abstract class User {
         this.approvalStatus = approvalStatus;
     }
 
+    public void addProperty(Property property) {
+        this.propertyList.add(property);
+        System.out.println(getName());
+        System.out.println(property.getName());
+    }
 
+    public void deleteProperty(Property property) {
+        propertyList.remove(property);
+    }
+
+    public void setPropertyCodes(List<String> propertyCodes) {
+        this.propertyCodes = propertyCodes;
+    }
+
+    public List<String> getPropertyCodes() {
+        return propertyCodes;
+    }
 }

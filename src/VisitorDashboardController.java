@@ -48,6 +48,7 @@ public class VisitorDashboardController extends Controller implements Initializa
                     try {
                         Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
                         Scene page = new Scene(agentOwnerfxml, 700, 600);
+                        System.out.println(user.getPropertyList());
                         stage.setScene(page);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();

@@ -35,14 +35,10 @@ public class Controller implements Initializable {
 
     public Controller() {
         System.out.println("Main Controller");
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //take an arraylist
-        //create vbox
-        //in a loop, propertyTable.getChildren().add()
     }
 
     //method to change scene from the menu
@@ -130,21 +126,21 @@ public class Controller implements Initializable {
 //            .append("\"" + getAssigned() + "\"");
 
 
-    public void getPropertyToFile() throws IOException, ParseException {
+    public void getPropertyFromFile() throws IOException, ParseException {
         DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
         List<String> lines = Files.readAllLines(Paths.get("./data/property.csv"));
         for(int i = 0; i < lines.size(); i++) {
             String[] dataInFile = lines.get(i).split(",");
-            String ID = dataInFile[0].substring(1, dataInFile[0].length() - 1);
-            String name = dataInFile[1].substring(1, dataInFile[1].length() - 1);
-            String address = dataInFile[2].substring(1, dataInFile[2].length() - 1);
-            String description = dataInFile[3].substring(1, dataInFile[3].length() - 1);
-            String photo = dataInFile[4].substring(1, dataInFile[4].length() - 1);
-            double price = Double.parseDouble(dataInFile[5].substring(1, dataInFile[5].length() - 1));
-            String rating = dataInFile[6].substring(1, dataInFile[6].length() - 1);
-            Date initialMarketRate = format.parse(dataInFile[7].substring(1, dataInFile[7].length() - 1));
-            boolean status = Boolean.parseBoolean(dataInFile[8].substring(1, dataInFile[8].length() - 1));
-            boolean assigned = Boolean.parseBoolean(dataInFile[9].substring(1, dataInFile[9].length() - 1));
+            String ID = dataInFile[0].substring(2, dataInFile[0].length() - 1);
+            String name = dataInFile[1].substring(2, dataInFile[1].length() - 1);
+            String address = dataInFile[2].substring(2, dataInFile[2].length() - 1);
+            String description = dataInFile[3].substring(2, dataInFile[3].length() - 1);
+            String photo = dataInFile[4].substring(2, dataInFile[4].length() - 1);
+            double price = Double.parseDouble(dataInFile[5].substring(2, dataInFile[5].length() - 1));
+            String rating = dataInFile[6].substring(2, dataInFile[6].length() - 1);
+            Date initialMarketRate = format.parse(dataInFile[7].substring(2, dataInFile[7].length() - 1));
+            boolean status = Boolean.parseBoolean(dataInFile[8].substring(2, dataInFile[8].length() - 1));
+            boolean assigned = Boolean.parseBoolean(dataInFile[9].substring(2, dataInFile[9].length() - 1));
         }
     }
 }

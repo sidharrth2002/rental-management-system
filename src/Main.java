@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 // Screens to do:
 // make a separate FXML file for each page
@@ -49,9 +50,10 @@ public class Main extends Application {
         //load all the data here- now just adding dummy data
         PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
         UserFactory userFactory = UserFactory.getInstance();
-        Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
-        Owner tempOwner2 = (Owner) userFactory.makeUser("owner", "Ahmed", "asm", "123456789", "K1234ft");
-        Agent tempAgent1 = (Agent) userFactory.makeUser("agent", "Maheson", "mmm", "123456789", "ABCD5678");
+        userFactory.readUsersFromFile();
+//        Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
+//        Owner tempOwner2 = (Owner) userFactory.makeUser("owner", "Ahmed", "asm", "123456789", "K1234ft");
+//        Agent tempAgent1 = (Agent) userFactory.makeUser("agent", "Maheson", "mmm", "123456789", "ABCD5678");
 
         // test property builder
         Property property1 = new Property.Builder()
@@ -62,8 +64,10 @@ public class Main extends Application {
                 .withPrice(3000000)
                 .withInitialMarketDate(new Date(1993, 7, 10))
                 .withType("Condominium")
-                .withAgent(tempAgent1)
+                .withOwner(userFactory.getOwners().get(0))
                 .build();
+
+        propertySearchFacade.addProperty(property1);
 
         Property property2 = new Property.Builder()
                 .withName("New Capital")
@@ -73,9 +77,11 @@ public class Main extends Application {
                 .withPrice(3000000)
                 .withInitialMarketDate(new Date(1995, 9, 10))
                 .withType("Studio")
-                .withOwner(tempOwner2)
+                .withOwner(userFactory.getOwners().get(1))
                 .withActiveStatus(true)
                 .build();
+
+        propertySearchFacade.addProperty(property2);
 
         Property property3 = new Property.Builder()
                 .withName("Bungalow in the World")
@@ -85,8 +91,10 @@ public class Main extends Application {
                 .withPrice(10000)
                 .withInitialMarketDate(new Date(2000, 9, 11))
                 .withType("Condominium")
-                .withOwner(tempOwner)
+                .withOwner(userFactory.getOwners().get(0))
                 .build();
+
+        propertySearchFacade.addProperty(property3);
 
         Property property4 = new Property.Builder()
                 .withName("SemiD in the World")
@@ -96,13 +104,19 @@ public class Main extends Application {
                 .withPrice(500000)
                 .withInitialMarketDate(new Date(2001, 1, 12))
                 .withType("Condominium")
-                .withOwner(tempOwner)
+                .withOwner(userFactory.getOwners().get(1))
                 .build();
 
-        System.out.println(property1.toCSVString());
-        System.out.println(property2.toCSVString());
-        System.out.println(property3.toCSVString());
-        System.out.println(property4.toCSVString());
+        propertySearchFacade.addProperty(property4);
+
+        userFactory.loadPropertyToUsers();
+
+//        System.out.println(property1.toCSVString());
+//        System.out.println(property2.toCSVString());
+//        System.out.println(property3.toCSVString());
+//        System.out.println(property4.toCSVString());
+
+//        System.out.println(property2.getID());
 
         Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene scene = new Scene(root, 700, 600);
