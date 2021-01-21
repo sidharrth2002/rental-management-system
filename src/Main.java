@@ -51,11 +51,58 @@ public class Main extends Application {
         UserFactory userFactory = UserFactory.getInstance();
         Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
         Owner tempOwner2 = (Owner) userFactory.makeUser("owner", "Ahmed", "asm", "123456789", "K1234ft");
+        Agent tempAgent1 = (Agent) userFactory.makeUser("agent", "Maheson", "mmm", "123456789", "ABCD5678");
 
-        propertySearchFacade.addProperty(new Property("Maadi", "New Degla", "Big fat bungalow", 3000000, "Condominium", "Mutiara", tempOwner2));
-        propertySearchFacade.addProperty(new Property("New Capital", "Ring Road", "C fat bungalow", 3000000, "Studio", "Mutiara", tempOwner2));
-        propertySearchFacade.addProperty(new Property("Bungalow in the World", "2, Jalan Cochrane", "D fat bungalow", 10000, "Condominium", "DPulze", tempOwner));
-        propertySearchFacade.addProperty(new Property("SemiD in the World", "2, Jalan Special", "D fat bungalow", 500000, "Condominium", "DPulze", tempOwner));
+        // test property builder
+        Property property1 = new Property.Builder()
+                .withName("Maadi")
+                .withAddress("New Degla")
+                .withProject("Mutiara")
+                .withDescription("Big fat bungalow")
+                .withPrice(3000000)
+                .withInitialMarketDate(new Date(1993, 7, 10))
+                .withType("Condominium")
+                .withAgent(tempAgent1)
+                .build();
+
+        Property property2 = new Property.Builder()
+                .withName("New Capital")
+                .withAddress("Ring Road")
+                .withProject("Mutiara")
+                .withDescription("C fat bungalow")
+                .withPrice(3000000)
+                .withInitialMarketDate(new Date(1995, 9, 10))
+                .withType("Studio")
+                .withOwner(tempOwner2)
+                .withActiveStatus(true)
+                .build();
+
+        Property property3 = new Property.Builder()
+                .withName("Bungalow in the World")
+                .withAddress("2, Jalan Cochrane")
+                .withProject("DPulze")
+                .withDescription("D fat bungalow")
+                .withPrice(10000)
+                .withInitialMarketDate(new Date(2000, 9, 11))
+                .withType("Condominium")
+                .withOwner(tempOwner)
+                .build();
+
+        Property property4 = new Property.Builder()
+                .withName("SemiD in the World")
+                .withAddress("2, Jalan Special")
+                .withProject("DPulze")
+                .withDescription("another D fat bungalow")
+                .withPrice(500000)
+                .withInitialMarketDate(new Date(2001, 1, 12))
+                .withType("Condominium")
+                .withOwner(tempOwner)
+                .build();
+
+        System.out.println(property1.toCSVString());
+        System.out.println(property2.toCSVString());
+        System.out.println(property3.toCSVString());
+        System.out.println(property4.toCSVString());
 
         Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene scene = new Scene(root, 700, 600);
