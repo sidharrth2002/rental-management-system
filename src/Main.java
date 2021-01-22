@@ -121,7 +121,9 @@ public class Main extends Application {
 
 //        System.out.println(property2.getID());
 
-        Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+        //temp to test
+        Parent root = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
         Scene scene = new Scene(root, 700, 600);
         Controller.stage = primaryStage;
         primaryStage.setTitle("Rental Management System");

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterPageController extends Controller{
+public class RegisterPageController extends Controller {
     public GridPane root;
     public TextField nameField;
     public TextField usernameField;
@@ -67,24 +67,10 @@ public class RegisterPageController extends Controller{
         if(user != null) {
             //each will have their own dashboard(menu will have a few different options)
             //but same until those are all ready
-            if(user instanceof Agent) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            } else if(user instanceof Owner) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            } else if(user instanceof Tenant) {
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
-            } else if(user instanceof Admin) {
                 Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                 Scene dashboard = new Scene(root, 700, 600);
                 stage.setScene(dashboard);
             }
         }
-
-    }
 }
+
