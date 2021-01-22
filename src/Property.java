@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 //convert to builder design pattern
@@ -19,9 +20,15 @@ public class Property {
     private Agent agent;
     private Owner owner;
 
+    private ArrayList<String> facilities;
+
     // private constructor to be called by builder only
-    private Property() {
-        this.ID = generateID();
+    private Property(String ID) {
+        if(ID.isEmpty()) {
+            this.ID = generateID();
+        } else {
+            this.ID = ID;
+        }
     }
 
     // returns a new property ID based on number of objects created
@@ -43,8 +50,14 @@ public class Property {
     public boolean getStatus() { return activeStatus; } // duplicated
     public Agent getAgent() { return agent; }
     public Owner getOwner() { return owner; }
+    public ArrayList<String> getFacilities() {
+        return facilities;
+    }
 
     // fields mutator methods
+    public void setFacilities(ArrayList<String> facilities) {
+        this.facilities = facilities;
+    }
     public void setID(String ID) { this.ID = ID; } // make private?
     public void setName(String name) { this.name = name; }
     public void setAddress(String address) { this.address = address; }
@@ -75,9 +88,15 @@ public class Property {
                 .append("\"" + getType() + "\"" + ", ")
                 .append("\"" + getPhoto() + "\"" + ", ")
                 .append("\"" + getPrice() + "\"" + ", ")
-                .append("\"" + getRating() + "\"" + ", ")
                 .append("\"" + getInitialMarketDate() + "\"" + ", ")
                 .append("\"" + getStatus() + "\", ");
+        sb.append("\"[");
+        ArrayList<String> facilities = getFacilities();
+        for(int i = 0; i < facilities.size(); i++) {
+            sb.append(facilities.get(i));
+            sb.append(",");
+        }
+        sb.append("\"]");
         if(getOwner() != null) {
             sb.append("\"Owner\"");
             sb.append("\"" + getOwner().getUserID() + "\", ");
@@ -91,6 +110,7 @@ public class Property {
     // builder as static inner class, Joshua Bloch's Builder DP style
     public static class Builder {
         // all fields same as Property except ID and count
+        private String ID;
         private String name;
         private String address;
         private String project;
@@ -103,11 +123,12 @@ public class Property {
         private boolean activeStatus;
         private Agent agent;
         private Owner owner;
+        ArrayList<String> facilities;
 
         public Builder() {}
 
         public Builder withID(String ID) {
-            //this.ID = ID;
+            this.ID = ID;
             return this;
         }
 
@@ -171,14 +192,26 @@ public class Property {
             return this;
         }
 
+        public Builder withFacilities(ArrayList<String> facilities) {
+            this.facilities = facilities;
+            return this;
+        }
+
         // called to generate the final property object
         public Property build() {
             // check to ensure either agent or owner, but not both, is given
-            if (agent == null ^  owner != null) {
-                throw new IllegalArgumentException("Property build error: Must assign either an agent or an owner but not both");
-            }
+            //setting the owner/agent only later not during construction
+//            if (agent == null ^  owner != null) {
+//                throw new IllegalArgumentException("Property build error: Must assign either an agent or an owner but not both");
+//            }
 
-            Property property = new Property();
+            //either autogenerate or use loaded value
+            Property property = null;
+            if(ID.isEmpty()) {
+                property = new Property("");
+            } else {
+                property = new Property(ID);
+            }
 
             property.setName(name); // required
             property.setAddress(address); // required
@@ -192,7 +225,7 @@ public class Property {
             property.setStatus(activeStatus); // optional, default is false
             property.setAgent(agent); // required but not allowed if owner is set
             property.setOwner(owner); // required but not allowed if agent is set
-
+            property.setFacilities(facilities);
             return property;
         }
     }

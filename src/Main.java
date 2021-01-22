@@ -44,72 +44,75 @@ public class Main extends Application {
     public static String name = "John Doe";
     public static String loginError = "";
     public static ArrayList<Property> propertyToDisplay;
+    PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
+    UserFactory userFactory = UserFactory.getInstance();
+    FileHandlers fileHandlers = FileHandlers.getInstance();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         //load all the data here- now just adding dummy data
-        PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
-        UserFactory userFactory = UserFactory.getInstance();
-        userFactory.readUsersFromFile();
+
+        fileHandlers.readUsersFromFile();
+        fileHandlers.getPropertyFromFile();
 //        Owner tempOwner = (Owner) userFactory.makeUser("owner", "Sidharrth", "sidharrth2002", "123456789", "K1234ff");
 //        Owner tempOwner2 = (Owner) userFactory.makeUser("owner", "Ahmed", "asm", "123456789", "K1234ft");
 //        Agent tempAgent1 = (Agent) userFactory.makeUser("agent", "Maheson", "mmm", "123456789", "ABCD5678");
 
         // test property builder
-        Property property1 = new Property.Builder()
-                .withName("Maadi")
-                .withAddress("New Degla")
-                .withProject("Mutiara")
-                .withDescription("Big fat bungalow")
-                .withPrice(3000000)
-                .withInitialMarketDate(new Date(1993, 7, 10))
-                .withType("Condominium")
-                .withOwner(userFactory.getOwners().get(0))
-                .build();
+//        Property property1 = new Property.Builder()
+//                .withName("Maadi")
+//                .withAddress("New Degla")
+//                .withProject("Mutiara")
+//                .withDescription("Big fat bungalow")
+//                .withPrice(3000000)
+//                .withInitialMarketDate(new Date(1993, 7, 10))
+//                .withType("Condominium")
+//                .withOwner(userFactory.getOwners().get(0))
+//                .build();
+//
+//        propertySearchFacade.addProperty(property1);
+//
+//        Property property2 = new Property.Builder()
+//                .withName("New Capital")
+//                .withAddress("Ring Road")
+//                .withProject("Mutiara")
+//                .withDescription("C fat bungalow")
+//                .withPrice(3000000)
+//                .withInitialMarketDate(new Date(1995, 9, 10))
+//                .withType("Studio")
+//                .withOwner(userFactory.getOwners().get(1))
+//                .withActiveStatus(true)
+//                .build();
+//
+//        propertySearchFacade.addProperty(property2);
+//
+//        Property property3 = new Property.Builder()
+//                .withName("Bungalow in the World")
+//                .withAddress("2, Jalan Cochrane")
+//                .withProject("DPulze")
+//                .withDescription("D fat bungalow")
+//                .withPrice(10000)
+//                .withInitialMarketDate(new Date(2000, 9, 11))
+//                .withType("Condominium")
+//                .withOwner(userFactory.getOwners().get(0))
+//                .build();
+//
+//        propertySearchFacade.addProperty(property3);
+//
+//        Property property4 = new Property.Builder()
+//                .withName("SemiD in the World")
+//                .withAddress("2, Jalan Special")
+//                .withProject("DPulze")
+//                .withDescription("another D fat bungalow")
+//                .withPrice(500000)
+//                .withInitialMarketDate(new Date(2001, 1, 12))
+//                .withType("Condominium")
+//                .withOwner(userFactory.getOwners().get(1))
+//                .build();
+//
+//        propertySearchFacade.addProperty(property4);
 
-        propertySearchFacade.addProperty(property1);
-
-        Property property2 = new Property.Builder()
-                .withName("New Capital")
-                .withAddress("Ring Road")
-                .withProject("Mutiara")
-                .withDescription("C fat bungalow")
-                .withPrice(3000000)
-                .withInitialMarketDate(new Date(1995, 9, 10))
-                .withType("Studio")
-                .withOwner(userFactory.getOwners().get(1))
-                .withActiveStatus(true)
-                .build();
-
-        propertySearchFacade.addProperty(property2);
-
-        Property property3 = new Property.Builder()
-                .withName("Bungalow in the World")
-                .withAddress("2, Jalan Cochrane")
-                .withProject("DPulze")
-                .withDescription("D fat bungalow")
-                .withPrice(10000)
-                .withInitialMarketDate(new Date(2000, 9, 11))
-                .withType("Condominium")
-                .withOwner(userFactory.getOwners().get(0))
-                .build();
-
-        propertySearchFacade.addProperty(property3);
-
-        Property property4 = new Property.Builder()
-                .withName("SemiD in the World")
-                .withAddress("2, Jalan Special")
-                .withProject("DPulze")
-                .withDescription("another D fat bungalow")
-                .withPrice(500000)
-                .withInitialMarketDate(new Date(2001, 1, 12))
-                .withType("Condominium")
-                .withOwner(userFactory.getOwners().get(1))
-                .build();
-
-        propertySearchFacade.addProperty(property4);
-
-        userFactory.loadPropertyToUsers();
+        fileHandlers.loadPropertyToUsers();
 
 //        System.out.println(property1.toCSVString());
 //        System.out.println(property2.toCSVString());

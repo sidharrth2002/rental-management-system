@@ -1,5 +1,6 @@
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +33,8 @@ public class AgentOwnerScreenController extends Controller implements Initializa
 
         for (Property property : propertiesManaged) {
             HBox singleProperty = new HBox();
+            singleProperty.setSpacing(15);
+            singleProperty.setPadding(new Insets(10, 10, 10, 10));
             VBox propertyDetails = new VBox();
             propertyDetails.getChildren().add(new Text(property.getName()));
             propertyDetails.getChildren().add(new Text(property.getAddress()));
