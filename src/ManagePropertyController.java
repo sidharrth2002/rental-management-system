@@ -5,13 +5,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 public class ManagePropertyController extends Controller implements Initializable {
     public TextField nameField;
@@ -22,20 +26,19 @@ public class ManagePropertyController extends Controller implements Initializabl
     public Button photoChooseButton;
     public Label photoFileLabel;
     public TextField priceField;
+    public TextField facilitiesField;
     public CheckBox assignedStatusField;
     public Button submitButton;
     public File selectedFile; // for property photo
     public static Property propertyManaged;
 
-    private static final Pattern DOUBLE_PATTERN = Pattern.compile(
-            "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
-                    "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
-                    "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
-                    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");
-
-    public static boolean isDouble(String s)
-    {
-        return DOUBLE_PATTERN.matcher(s).matches();
+    public static boolean isValidPrice(String strNum) {
+        try {
+            double value = Double.parseDouble(strNum);
+            return (value > 0.0);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override
@@ -46,8 +49,9 @@ public class ManagePropertyController extends Controller implements Initializabl
             projectField.setText(propertyManaged.getProject());
             descriptionField.setText(propertyManaged.getDescription());
             typeField.setValue(propertyManaged.getType());
+            // photoFileLabel.setGraphic(propertyImageView);
             priceField.setText(Double.toString(propertyManaged.getPrice()));
-            assignedStatusField.setSelected(propertyManaged.getStatus());
+            assignedStatusField.setSelected(propertyManaged.getAssignedStatus());
         }
     }
 
@@ -70,6 +74,7 @@ public class ManagePropertyController extends Controller implements Initializabl
 
     public void submitForm(ActionEvent actionEvent) throws IOException {
         Window window = root.getScene().getWindow();
+
         if(nameField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, window, "Incomplete Data!",
                     "Please enter the name");
@@ -105,23 +110,25 @@ public class ManagePropertyController extends Controller implements Initializabl
                     "Please enter the price");
             return;
         }
-        if(!DOUBLE_PATTERN.matcher(priceField.getText()).matches()) {
+        if(!isValidPrice(priceField.getText())) {
             showAlert(Alert.AlertType.ERROR, window, "Incomplete Data!",
                     "Invalid price format");
             return;
         }
-//        try {
-//            Double price = Double.valueOf(priceField.getText());
-//        } catch(NumberFormatException e) {
-//            showAlert(Alert.AlertType.ERROR, window, "Incomplete Data!",
-//                    "Price must be a number");
-//        }
+
 
         //if all goes well, make the property using property builder
-        //then add to propertySearchFacade
-        if(propertyManaged == null) {
-            // [1] copy photo image file to property photo package "./src/data/propertyPhotos"
-            // [2] rename copied image file
+        //then add to propertySearchFacade (or write to file first?)
+        if (propertyManaged == null) {
+            // creating a new property..
+
+            // doesn't belong here but works for now,
+            // later move to FileHandler static method and call from Property's setPhoto()
+            String photoStorePath = "./src/photos/";
+            Files.copy(selectedFile.toPath(), Paths.get(photoStorePath, selectedFile.getName()),
+                    StandardCopyOption.REPLACE_EXISTING); // copy selected photo to photo store
+
+            String[] facilitiesArray = facilitiesField.getText().split(","); // string array of facilities, assume user enters in csv format
 
             Property newProperty = new Property.Builder()
                     .withName(nameField.getText())
@@ -129,17 +136,27 @@ public class ManagePropertyController extends Controller implements Initializabl
                     .withProject(projectField.getText())
                     .withDescription(descriptionField.getText())
                     .withType((String)typeField.getValue())
-                    // [3] withPhoto(photo.getAbsolutePath())
+                    .withPhoto(photoStorePath + selectedFile.getName()) // use the copied photo
                     .withPrice(Double.parseDouble(priceField.getText()))
+                    .withInitialMarketDate(new Date()) // pick now as date
+                    .withAssignedStatus(assignedStatusField.isSelected())
+                    .withFacilities(new ArrayList<>(Arrays.asList(facilitiesArray)))
+                    // with owner / agent ????
                     .build();
-            propertySearchFacade.addProperty(newProperty);
-        } else {
+
+            System.out.println(newProperty.toCSVString()); // test entered data
+
+            // if everything checks out, can save this property to file, but need to load all the data again
+//            propertySearchFacade.addProperty(newProperty);
+        }
+        else {
+            // not yet completed
             propertyManaged.setName(nameField.getText());
             propertyManaged.setAddress(addressField.getText());
             propertyManaged.setProject(projectField.getText());
             propertyManaged.setDescription(descriptionField.getText());
             propertyManaged.setType((String)typeField.getValue());
-            propertyManaged.setPrice(Double.parseDouble(priceField.getText()));        }
+            propertyManaged.setPrice(Double.parseDouble(priceField.getText()));
+        }
     }
-
 }

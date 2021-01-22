@@ -1,12 +1,14 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 //convert to builder design pattern
 public class Property {
     // fields
     private static int count = 0; // property object counter
     private String ID;
-
     private String name; // property name
     private String address; // address, fix length? format?
     private String project;
@@ -16,24 +18,14 @@ public class Property {
     private double price; // current market price of the property
     private char rating; // temporary type for now, can possibly use enum
     private Date timePutOnMarket; // initial market date, mutable type!
-    private boolean activeStatus; //active or inactive
+    private boolean assignedStatus; // true if this property is assigned to a tenant
     private Agent agent;
     private Owner owner;
-
     private ArrayList<String> facilities;
 
     // private constructor to be called by builder only
-    private Property(String ID) {
-        if(ID.isEmpty()) {
-            this.ID = generateID();
-        } else {
-            this.ID = ID;
-        }
-    }
-
-    // returns a new property ID based on number of objects created
-    private String generateID() {
-        return "p" + ++count;
+    private Property() {
+        count++;
     }
 
     // fields accessor methods
@@ -47,7 +39,7 @@ public class Property {
     public double getPrice() { return price; }
     public char getRating() { return rating; }
     public Date getInitialMarketDate() { return new Date(timePutOnMarket.getTime()); }
-    public boolean getStatus() { return activeStatus; } // duplicated
+    public boolean getAssignedStatus() { return assignedStatus; } // duplicated
     public Agent getAgent() { return agent; }
     public Owner getOwner() { return owner; }
     public ArrayList<String> getFacilities() {
@@ -55,61 +47,61 @@ public class Property {
     }
 
     // fields mutator methods
-    public void setFacilities(ArrayList<String> facilities) {
-        this.facilities = facilities;
-    }
-    public void setID(String ID) { this.ID = ID; } // make private?
+    private void setID(String ID) { this.ID = ID; } // only for builder to use
     public void setName(String name) { this.name = name; }
     public void setAddress(String address) { this.address = address; }
     public void setProject(String project) { this.project = project; }
     public void setDescription(String description) { this.description = description; }
     public void setType(String type) { this.type = type; }
-    public void setPhoto(String photo) { this.photo = photo; }
+    public void setPhoto(String photo) { this.photo = photo; } // needs call appropriate routine to copy photo to folder
     public void setPrice(double price) { this.price = price; }
     public void setRating(char rating) { this.rating = rating; }
     public void setInitialMarketDate(Date date) { timePutOnMarket = new Date(date.getTime()); }
-    public void setStatus(boolean activeStatus) { this.activeStatus = activeStatus; }
+    public void setAssignedStatus(boolean assignedStatus) { this.assignedStatus = assignedStatus; }
     public void setAgent(Agent agent) { this.agent = agent; }
     public void setOwner(Owner owner) { this.owner = owner; }
-
-    // returns true if  a tenant is assigned to the property
-    public boolean isAssigned() {
-        return activeStatus;
+    public void setFacilities(ArrayList<String> facilities) {
+        this.facilities = facilities;
     }
 
     // converts property to a csv format string
     public String toCSVString() {
+        DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        ArrayList<String> facilities = getFacilities();
+
         StringBuilder sb = new StringBuilder();
         sb.append("\"" + getID() + "\"" + ", ")
-                .append("\"" + getName() + "\"" + ", ")
-                .append("\"" + getAddress() + "\"" + ", ")
-                .append("\"" + getProject() + "\"" + ", ")
-                .append("\"" + getDescription() + "\"" + ", ")
-                .append("\"" + getType() + "\"" + ", ")
-                .append("\"" + getPhoto() + "\"" + ", ")
-                .append("\"" + getPrice() + "\"" + ", ")
-                .append("\"" + getInitialMarketDate() + "\"" + ", ")
-                .append("\"" + getStatus() + "\", ");
-        sb.append("\"[");
-        ArrayList<String> facilities = getFacilities();
-        for(int i = 0; i < facilities.size(); i++) {
-            sb.append(facilities.get(i));
-            sb.append(",");
-        }
-        sb.append("\"]");
+            .append("\"" + getName() + "\"" + ", ")
+            .append("\"" + getAddress() + "\"" + ", ")
+            .append("\"" + getProject() + "\"" + ", ")
+            .append("\"" + getDescription() + "\"" + ", ")
+            .append("\"" + getType() + "\"" + ", ")
+            .append("\"" + getPhoto() + "\"" + ", ")
+            .append("\"" + getPrice() + "\"" + ", ")
+            .append("\"" + simpleDateFormat.format(getInitialMarketDate()) + "\"" + ", ")
+            .append("\"" + getAssignedStatus() + "\", ");
         if(getOwner() != null) {
-            sb.append("\"Owner\"");
             sb.append("\"" + getOwner().getUserID() + "\", ");
         } else if (getAgent() != null) {
-            sb.append("\"Agent\"");
             sb.append("\"" + getAgent().getUserID() + "\", ");
         }
+        sb.append("\"[");
+        for(int i = 0; i < facilities.size(); i++) {
+            sb.append(facilities.get(i));
+            sb.append((i != facilities.size() - 1) ? "," : "");
+        }
+        sb.append("]\"");
         return sb.toString();
+    }
+
+    // returns a new property ID based on number of objects created
+    private static String generateNewID() {
+        return "p" + count;
     }
 
     // builder as static inner class, Joshua Bloch's Builder DP style
     public static class Builder {
-        // all fields same as Property except ID and count
+        // all fields same as Property (except count)
         private String ID;
         private String name;
         private String address;
@@ -120,7 +112,7 @@ public class Property {
         private double price;
         private char rating;
         private Date timePutOnMarket;
-        private boolean activeStatus;
+        private boolean assignedStatus;
         private Agent agent;
         private Owner owner;
         ArrayList<String> facilities;
@@ -177,8 +169,8 @@ public class Property {
             return this;
         }
 
-        public Builder withActiveStatus(boolean activeStatus) {
-            this.activeStatus = activeStatus;
+        public Builder withAssignedStatus(boolean assignedStatus) {
+            this.assignedStatus = assignedStatus;
             return this;
         }
 
@@ -205,14 +197,8 @@ public class Property {
 //                throw new IllegalArgumentException("Property build error: Must assign either an agent or an owner but not both");
 //            }
 
-            //either autogenerate or use loaded value
-            Property property = null;
-            if(ID.isEmpty()) {
-                property = new Property("");
-            } else {
-                property = new Property(ID);
-            }
-
+            Property property = new Property();
+            property.setID((ID == null) ? generateNewID() : ID); // either autogenerate or use loaded value
             property.setName(name); // required
             property.setAddress(address); // required
             property.setProject(project); // required
@@ -222,7 +208,7 @@ public class Property {
             property.setPrice(price); // required
             property.setRating(rating); // optional
             property.setInitialMarketDate(timePutOnMarket); // required
-            property.setStatus(activeStatus); // optional, default is false
+            property.setAssignedStatus(assignedStatus); // optional, default is false
             property.setAgent(agent); // required but not allowed if owner is set
             property.setOwner(owner); // required but not allowed if agent is set
             property.setFacilities(facilities);

@@ -125,45 +125,45 @@ public class FileHandlers {
             sb.append(propertyList.get(i).toCSVString());
             sb.append("\n");
         }
-        Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
+        Files.write(Paths.get("./data/properties.csv"), sb.toString().getBytes());
     }
 
     public void getPropertyFromFile() throws IOException, ParseException {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         List<String> lines = Files.readAllLines(Paths.get("./src/data/properties.csv"));
         for(int i = 0; i < lines.size(); i++) {
-            String[] dataInFile = lines.get(i).split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+            String[] dataInFile = lines.get(i).split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)\\s*");
             String ID = dataInFile[0].substring(1, dataInFile[0].length() - 1);
-            System.out.println(ID);
+//            System.out.println(ID);
             String name = dataInFile[1].substring(1, dataInFile[1].length() - 1);
-            System.out.println(name);
+//            System.out.println(name);
 
             String address = dataInFile[2].substring(1, dataInFile[2].length() - 1);
-            System.out.println(address);
+//            System.out.println(address);
 
             String project = dataInFile[3].substring(1, dataInFile[3].length() - 1);
-            System.out.println(project);
+//            System.out.println(project);
 
             String description = dataInFile[4].substring(1, dataInFile[4].length() - 1);
-            System.out.println(description);
+//            System.out.println(description);
 
             String type = dataInFile[5].substring(1, dataInFile[5].length()-1);
-            System.out.println(type);
+//            System.out.println(type);
 
             String photo = dataInFile[6].substring(1, dataInFile[6].length() - 1);
-            System.out.println(photo);
+//            System.out.println(photo);
 
             double price = Double.parseDouble(dataInFile[7].substring(1, dataInFile[7].length() - 1));
-            System.out.println(price);
+//            System.out.println(price);
 
             Date initialMarketRate = format.parse(dataInFile[8].substring(1, dataInFile[8].length() - 1));
-            System.out.println(initialMarketRate);
+//            System.out.println(initialMarketRate);
 
             boolean status = Boolean.parseBoolean(dataInFile[9].substring(1, dataInFile[9].length() - 1));
-            System.out.println(status);
+//            System.out.println(status);
 
             String user = dataInFile[10].substring(1, dataInFile[10].length() - 1);
-            System.out.println(user);
+//            System.out.println(user);
 
             String facilities = dataInFile[11].substring(2, dataInFile[11].length()-2);
             String[] facilitiesList = facilities.split(",");
@@ -181,7 +181,7 @@ public class FileHandlers {
                     .withPhoto(photo)
                     .withPrice(price)
                     .withInitialMarketDate(initialMarketRate)
-                    .withActiveStatus(status)
+                    .withAssignedStatus(status)
                     .withFacilities(loadFacilities)
                     .build();
             if(user.charAt(0) == 'o') {
@@ -196,7 +196,7 @@ public class FileHandlers {
                 property.setOwner(chosenOwner);
             } else if (user.charAt(0) == 'a') {
                 Agent chosenAgent = null;
-                for(int j = 0; i < userFactory.getAgents().size(); j++) {
+                for(int j = 0; j < userFactory.getAgents().size(); j++) {
                     Agent agent = userFactory.getAgents().get(j);
                     if(agent.getUserID().equals(user)) {
                         chosenAgent = agent;
@@ -205,6 +205,8 @@ public class FileHandlers {
                 }
                 property.setAgent(chosenAgent);
             }
+
+            System.out.println(property.toCSVString()); // test output the read property, should match directly with raw csv data
             propertySearchFacade.addProperty(property);
         }
     }

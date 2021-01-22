@@ -70,7 +70,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByActive() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (property.getStatus()) {
+            if (property.getAssignedStatus()) {
                 filteredProperty.add(property);
             }
         }
@@ -80,7 +80,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByInactive() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (!property.getStatus()) {
+            if (!property.getAssignedStatus()) {
                 filteredProperty.add(property);
             }
         }
@@ -90,7 +90,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByAssigned() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (property.getStatus()) {
+            if (property.getAssignedStatus()) {
                 filteredProperty.add(property);
             }
         }
@@ -100,7 +100,7 @@ public class PropertySearchFacade {
     public ArrayList<Property> getByUnassigned() {
         ArrayList<Property> filteredProperty = new ArrayList<>();
         for (Property property: properties) {
-            if (!property.getStatus()) {
+            if (!property.getAssignedStatus()) {
                 filteredProperty.add(property);
             }
         }

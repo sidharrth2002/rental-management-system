@@ -65,13 +65,13 @@ public class AgentOwnerScreenController extends Controller implements Initializa
             Label assignLabel = new Label("Assigned?");
             CheckBox checkBox = new CheckBox();
             assign.setFillHeight(true);
-            if(property.isAssigned()) {
+            if(property.getAssignedStatus()) {
                 checkBox.setSelected(true);
             } else {
                 checkBox.setSelected(false);
             }
             checkBox.setOnAction(e -> {
-                property.setStatus(checkBox.isSelected());
+                property.setAssignedStatus(checkBox.isSelected());
             });
             assign.getChildren().addAll(assignLabel, checkBox);
 
