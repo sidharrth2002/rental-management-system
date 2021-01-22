@@ -1,12 +1,17 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,28 +23,58 @@ public class AgentOwnerScreenController extends Controller implements Initializa
     public VBox root;
     public Text welcomeMessage;
     public Text dateToday;
-    public VBox propertyList;
+    public GridPane propertyList;
+    public Text stats;
+    private User user = (User) stage.getUserData();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        User user = (User) stage.getUserData();
         String name = user.getName();
         welcomeMessage.setText("Welcome " + name);
         dateToday.setText(new Date().toString());
+        stats.setText("You currently manage: " + user.getPropertyList().size() + " properties");
 
+        propertyList.setPadding(new Insets(10, 10, 10, 10));
+        displayList();
+    }
+
+    public void displayList() {
         ArrayList<Property> propertiesManaged = user.getPropertyList();
-
-        System.out.println("Properties are " + propertiesManaged);
-
-        for (Property property : propertiesManaged) {
-            HBox singleProperty = new HBox();
-            singleProperty.setSpacing(15);
-            singleProperty.setPadding(new Insets(10, 10, 10, 10));
+        stats.setText("You currently manage: " + propertiesManaged.size() + " properties");
+        for(int i = 0; i < propertiesManaged.size(); i++) {
+            Property property = propertiesManaged.get(i);
             VBox propertyDetails = new VBox();
-            propertyDetails.getChildren().add(new Text(property.getName()));
-            propertyDetails.getChildren().add(new Text(property.getAddress()));
-            propertyDetails.getChildren().add(new Text("RM " + property.getPrice()));
-            singleProperty.getChildren().add(propertyDetails);
+            propertyDetails.setSpacing(10);
+            Text propertyName = new Text("Name: " + property.getName());
+            propertyName.setWrappingWidth(220);
+            Text propertyAddress = new Text("Address:  "+ property.getAddress());
+            propertyAddress.setWrappingWidth(220);
+            Text propertyPrice = new Text("Rent: RM " + property.getPrice());
+            propertyPrice.setWrappingWidth(220);
+
+            propertyDetails.getChildren().add(propertyName);
+            propertyDetails.getChildren().add(propertyAddress);
+            propertyDetails.getChildren().add(propertyPrice);
+
+            propertyList.add(propertyDetails, 0, i);
+            HBox buttons = new HBox();
+            buttons.setSpacing(20);
+
+            HBox assign = new HBox();
+            assign.setSpacing(10);
+            Label assignLabel = new Label("Assigned?");
+            CheckBox checkBox = new CheckBox();
+            assign.setFillHeight(true);
+            if(property.isAssigned()) {
+                checkBox.setSelected(true);
+            } else {
+                checkBox.setSelected(false);
+            }
+            checkBox.setOnAction(e -> {
+                property.setStatus(checkBox.isSelected());
+            });
+            assign.getChildren().addAll(assignLabel, checkBox);
+
             Button moreDetails = new Button("Manage This");
             moreDetails.setOnAction(e -> {
                 PropertyPageController.propertyToDisplay = property;
@@ -57,9 +92,15 @@ public class AgentOwnerScreenController extends Controller implements Initializa
                 user.deleteProperty(property);
                 propertySearchFacade.deleteProperty(property);
                 //need to refresh or auto?
+                propertyList.getChildren().clear();
+                displayList();
             });
-            singleProperty.getChildren().addAll(moreDetails, deleteProperty);
-            propertyList.getChildren().add(singleProperty);
+            buttons.getChildren().addAll(assign, moreDetails, deleteProperty);
+            propertyList.add(buttons, 1, i);
+//            propertyList.getChildren().add(singleProperty);
         }
+    }
+
+    public void goToAddNewProperty(ActionEvent actionEvent) {
     }
 }
