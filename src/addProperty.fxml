@@ -58,11 +58,10 @@
             </items>
         </ComboBox>
 
-<!--        Photo upload here-->
-<!--        upload photo-->
-<!--        save photo to a folder here (propertyphotos)-->
-<!--        name the file the property code(p1.jpeg)-->
-<!--        return the string location-->
+        <Button fx:id="photoChooseButton" text="Choose photo file" GridPane.columnIndex="0" GridPane.rowIndex="6"
+            onAction="#photoFileChooser"/>
+        <Label fx:id="photoFileLabel" text="No photo uploaded" prefHeight="40" maxHeight="150" maxWidth="150"
+               GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
         <Label text="Price: " GridPane.columnIndex="0" GridPane.rowIndex="7" />
         <TextField fx:id="priceField" prefHeight="40" GridPane.columnIndex="1"
