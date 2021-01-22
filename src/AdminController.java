@@ -25,7 +25,7 @@ public class AdminController extends Controller implements Initializable {
 
     public VBox propertyTable;
     public VBox menuArea;
-    public ArrayList<Property> properties = propertySearchFacade.getProperties();
+    public ArrayList<Property> propertiesMain = propertySearchFacade.getProperties();
     public ArrayList<Owner> owners = UserFactory.getInstance().getOwners();
     public ArrayList<Tenant> tenants = UserFactory.getInstance().getTenants();
     public ArrayList<Agent> agents = UserFactory.getInstance().getAgents();
@@ -41,73 +41,51 @@ public class AdminController extends Controller implements Initializable {
     //show Users:
     public void sortByUsers(ActionEvent e) {
         propertyTable.getChildren().clear();
-
         //options:
         HBox options = new HBox();
-        options.getChildren().add(new Text("More User Options:"));
+        options.getChildren().add(new Text("Show By:"));
 
-        // add user button:
-        Button adduser = new Button("Add User");
-        options.getChildren().add(adduser);
-        adduser.setOnAction(event ->{
-            try {
-                Stage stage = (Stage) root.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("ownerRegister.fxml"));
-                Scene RegisterPage = new Scene(root, 700, 600);
-                stage.setScene(RegisterPage);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
         options.setSpacing(10);
         options.setPadding(new Insets(10, 10, 10, 10));
         propertyTable.getChildren().add(options);
 
+        //show Owners only:
+        Button showOwners = new Button("Owners");
+        showOwners.setOnAction(c ->{
+            propertyTable.getChildren().clear();
+            propertyTable.getChildren().add(options);
+            for (Owner owner : owners) {
+                HBox outerBox = new HBox();
+                outerBox.setSpacing(10);
+                outerBox.setAlignment(Pos.CENTER_LEFT);
+                outerBox.setPadding(new Insets(10, 10, 10, 10));
+                VBox tableEntry = new VBox();
+                // User Info:
+                tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                tableEntry.getChildren().add(new Text("Owner Name: "+ owner.getName()));
+                tableEntry.getChildren().add(new Text("Owner ID: "+ owner.getUserID()));
+                // edit User button
+                Button seeMoreu = new Button("View Details");
+                tableEntry.getChildren().add(seeMoreu);
+                //redirect to user dashboard
+                seeMoreu.setOnAction(event -> {
+                });
 
-        // show users:
-        for (Owner owner : owners) {
-            HBox outerBox = new HBox();
-            String currentOwner = owner.getUserID();
-            outerBox.setSpacing(10);
-            outerBox.setAlignment(Pos.CENTER_LEFT);
-            outerBox.setPadding(new Insets(10, 10, 10, 10));
-            VBox tableEntry = new VBox();
-            // User Info:
-            tableEntry.setPadding(new Insets(10, 10, 10, 10));
-            tableEntry.getChildren().add(new Text("Owner Name: "+ owner.getName()));
-            tableEntry.getChildren().add(new Text("Owner ID: "+ owner.getUserID()));
-            // edit User button
-            Button seeMoreu = new Button("View Details");
-            tableEntry.getChildren().add(seeMoreu);
-            seeMoreu.setOnAction(event -> {
-                // go to edit page
-//                try {
-//                    Stage stage = (Stage) root.getScene().getWindow();
-//                    Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-//                    Scene propertyPage = new Scene(root, 700, 600);
-//                    stage.setScene(propertyPage);
-//                } catch (IOException ioException) {
-//                    ioException.printStackTrace();
-//                }
-            });
+                // delete User button
+                Button deleteu = new Button("Delete");
+                deleteu.setOnAction(event ->{
+                    owners.remove(owner);
+                    propertyTable.getChildren().clear();
+                });
+                tableEntry.getChildren().add(deleteu);
 
-            // delete User button
-            Button deleteu = new Button("Delete");
-            deleteu.setOnAction(event ->{
-                owners.remove(owner);
-                propertyTable.getChildren().clear();
-
-            });
-            tableEntry.getChildren().add(deleteu);
-
-            tableEntry.setSpacing(10);
-
-            // Property by User:
-            tableEntry.getChildren().add(new Text("Properties:---------"));
-            for (Property property: properties) {
-                if (property.getOwner().getUserID().equals(currentOwner)){
-                    tableEntry.getChildren().add(new Text("Title: "+property.getName()));
-                    tableEntry.getChildren().add(new Text("Type: "+property.getType()));
+                tableEntry.setSpacing(10);
+                // Property by User:
+                tableEntry.getChildren().add(new Text("Properties:____________________________________"));
+                ArrayList <Property> properties = owner.getPropertyList();
+                for (Property property: properties) {
+                    tableEntry.getChildren().add(new Text("Title: "+ property.getName()));
+                    tableEntry.getChildren().add(new Text("Type: "+ property.getType()));
                     tableEntry.getChildren().add(new Text("Address: "+property.getAddress()));
                     // edit property button
                     Button seeMore = new Button("View Details");
@@ -129,21 +107,118 @@ public class AdminController extends Controller implements Initializable {
                     delete.setOnAction(event ->{
                         properties.remove(property);
                         propertyTable.getChildren().clear();
-
                     });
                     tableEntry.getChildren().add(delete);
                 }
-
+                outerBox.getChildren().add(tableEntry);
+                propertyTable.getChildren().add(outerBox);
 
             }
 
-            outerBox.getChildren().add(tableEntry);
-            propertyTable.getChildren().add(outerBox);
 
-        }
+        });
+
+        //show Agents only:
+        Button showAgents = new Button("Agents");
+        showAgents.setOnAction(c ->{
+            propertyTable.getChildren().clear();
+            propertyTable.getChildren().add(options);
+            for (Agent agent : agents) {
+                HBox outerBox = new HBox();
+                outerBox.setSpacing(10);
+                outerBox.setAlignment(Pos.CENTER_LEFT);
+                outerBox.setPadding(new Insets(10, 10, 10, 10));
+                VBox tableEntry = new VBox();
+                // User Info:
+                tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                tableEntry.getChildren().add(new Text("Agent Name: "+ agent.getName()));
+                tableEntry.getChildren().add(new Text("Agent ID: "+ agent.getUserID()));
+                // edit User button
+                Button seeMoreu = new Button("View Details");
+                tableEntry.getChildren().add(seeMoreu);
+                //redirect to user dashboard
+                seeMoreu.setOnAction(event -> {
+                });
+
+                // delete User button
+                Button deleteu = new Button("Delete");
+                deleteu.setOnAction(event ->{
+                    agents.remove(agent);
+                    propertyTable.getChildren().clear();
+                });
+                tableEntry.getChildren().add(deleteu);
+
+                tableEntry.setSpacing(10);
+                // Property by User:
+                tableEntry.getChildren().add(new Text("Properties:____________________________________"));
+                ArrayList <Property> properties = agent.getPropertyList();
+                for (Property property: properties) {
+                    tableEntry.getChildren().add(new Text("Title: "+ property.getName()));
+                    tableEntry.getChildren().add(new Text("Type: "+ property.getType()));
+                    tableEntry.getChildren().add(new Text("Address: "+property.getAddress()));
+                    // edit property button
+                    Button seeMore = new Button("View Details");
+                    tableEntry.getChildren().add(seeMore);
+                    seeMore.setOnAction(event -> {
+                        PropertyPageController.propertyToDisplay = property;
+                        try {
+                            Stage stage = (Stage) root.getScene().getWindow();
+                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                            Scene propertyPage = new Scene(root, 700, 600);
+                            stage.setScene(propertyPage);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    });
+
+                    // delete property button
+                    Button delete = new Button("Delete");
+                    delete.setOnAction(event ->{
+                        properties.remove(property);
+                        propertyTable.getChildren().clear();
+                    });
+                    tableEntry.getChildren().add(delete);
+                }
+                outerBox.getChildren().add(tableEntry);
+                propertyTable.getChildren().add(outerBox);
+
+            }
+
+        });
+        //show Tenants only:
+        Button showTenats = new Button("Tenants");
+        showTenats.setOnAction(c ->{
+            propertyTable.getChildren().clear();
+            propertyTable.getChildren().add(options);
+            for (Tenant tenant : tenants) {
+                HBox outerBox = new HBox();
+                outerBox.setSpacing(10);
+                outerBox.setAlignment(Pos.CENTER_LEFT);
+                outerBox.setPadding(new Insets(10, 10, 10, 10));
+                VBox tableEntry = new VBox();
+                // User Info:
+                tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                tableEntry.getChildren().add(new Text("Agent Name: "+ tenant.getName()));
+                tableEntry.getChildren().add(new Text("Agent ID: "+ tenant.getUserID()));
+
+                // delete User button
+                Button deleteu = new Button("Delete");
+                deleteu.setOnAction(event ->{
+                    tenants.remove(tenant);
+                    propertyTable.getChildren().clear();
+                });
+                tableEntry.getChildren().add(deleteu);
+                tableEntry.setSpacing(10);
+                outerBox.getChildren().add(tableEntry);
+                propertyTable.getChildren().add(outerBox);
+
+            }
+
+        });
+
+        options.getChildren().addAll(showOwners,showAgents,showTenats);
 
     }
-
 
 
     // show properties:
@@ -153,18 +228,110 @@ public class AdminController extends Controller implements Initializable {
         //options:
         HBox options = new HBox();
         options.getChildren().add(new Text("More Property Options:"));
-        Button getByActiveb = new Button("Get By Active");
-        Button getByInactiveb = new Button("Get By Inactive");
+
+        // print assigned:
         Button getByAssignedb = new Button("Get By Assigned");
+        getByAssignedb.setOnAction(event ->{
+            propertyTable.getChildren().clear();
+            propertyTable.getChildren().add(options);
+            ArrayList<Property> activeproperties = propertySearchFacade.getByActive();
+            for (Property property: activeproperties){
+                HBox outerBox = new HBox();
+                outerBox.setSpacing(10);
+                outerBox.setAlignment(Pos.CENTER_LEFT);
+                outerBox.setPadding(new Insets(10, 10, 10, 10));
+                VBox tableEntry = new VBox();
+                tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                tableEntry.getChildren().add(new Text(property.getName()));
+                tableEntry.getChildren().add(new Text(property.getAddress()));
+                tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                outerBox.getChildren().add(tableEntry);
+                // view property button
+                Button seeMore = new Button("View Details");
+                seeMore.setOnAction(c -> {
+                    PropertyPageController.propertyToDisplay = property;
+                    try {
+                        Stage stage = (Stage) root.getScene().getWindow();
+                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                        Scene propertyPage = new Scene(root, 700, 600);
+                        stage.setScene(propertyPage);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+
+                // delete property button
+                Button deletep = new Button("Delete");
+                deletep.setOnAction(c ->{
+                    propertiesMain.remove(property);
+                    propertyTable.getChildren().clear();
+
+                });
+                outerBox.getChildren().add(deletep);
+                outerBox.getChildren().add(seeMore);
+                propertyTable.getChildren().add(outerBox);
+
+            }
+        });
+
+
+
+        // print unassigned:
         Button getByUnassignedb = new Button("Get By Unassigned");
-        Button getByTypeb = new Button("Get By Type");
-        options.getChildren().addAll(getByActiveb,getByInactiveb,getByAssignedb,getByUnassignedb,getByTypeb);
+        getByUnassignedb.setOnAction(event ->{
+            System.out.println("unassigned");
+            propertyTable.getChildren().clear();
+            propertyTable.getChildren().add(options);
+            ArrayList<Property> inactiveproperties = propertySearchFacade.getByInactive();
+            for (Property property: inactiveproperties){
+                HBox outerBox = new HBox();
+                outerBox.setSpacing(10);
+                outerBox.setAlignment(Pos.CENTER_LEFT);
+                outerBox.setPadding(new Insets(10, 10, 10, 10));
+                VBox tableEntry = new VBox();
+                tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                tableEntry.getChildren().add(new Text(property.getName()));
+                tableEntry.getChildren().add(new Text(property.getAddress()));
+                tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                outerBox.getChildren().add(tableEntry);
+                // view property button
+                Button seeMore = new Button("View Details");
+                seeMore.setOnAction(c -> {
+                    PropertyPageController.propertyToDisplay = property;
+                    try {
+                        Stage stage = (Stage) root.getScene().getWindow();
+                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                        Scene propertyPage = new Scene(root, 700, 600);
+                        stage.setScene(propertyPage);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+
+                // delete property button
+                Button deletep = new Button("Delete");
+                deletep.setOnAction(c ->{
+                    propertiesMain.remove(property);
+                    propertyTable.getChildren().clear();
+
+                });
+                outerBox.getChildren().add(deletep);
+                outerBox.getChildren().add(seeMore);
+                propertyTable.getChildren().add(outerBox);
+
+            }
+        });
+
+
+
+
+        options.getChildren().addAll(getByAssignedb,getByUnassignedb);
         options.setSpacing(10);
         options.setPadding(new Insets(10, 10, 10, 10));
         propertyTable.getChildren().add(options);
 
-        //print properties:
-        for (Property property : properties) {
+        //print ALL properties:
+        for (Property property : propertiesMain) {
             HBox outerBox = new HBox();
             outerBox.setSpacing(10);
             outerBox.setAlignment(Pos.CENTER_LEFT);
@@ -189,10 +356,10 @@ public class AdminController extends Controller implements Initializable {
                 }
             });
 
-            // delete User button
+            // delete property button
             Button deletep = new Button("Delete");
             deletep.setOnAction(event ->{
-                properties.remove(property);
+                propertiesMain.remove(property);
                 propertyTable.getChildren().clear();
 
             });
@@ -208,8 +375,12 @@ public class AdminController extends Controller implements Initializable {
     //show reports:
     public void showreports(ActionEvent e) {
         propertyTable.getChildren().clear();
-
-        propertyTable.getChildren().add(new Text("Coming Soon"));
+        propertyTable.setAlignment(Pos.CENTER);
+        propertyTable.getChildren().add(new Text("Number of Owners Registered: " + owners.size()));
+        propertyTable.setSpacing(10);
+        propertyTable.getChildren().add(new Text("Number of Agents Registered: " + agents.size()));
+        propertyTable.getChildren().add(new Text("Number of Tenants Registered: " + tenants.size()));
+        propertyTable.getChildren().add(new Text("Number of Properties in System: " + propertiesMain.size()));
 
     }
 

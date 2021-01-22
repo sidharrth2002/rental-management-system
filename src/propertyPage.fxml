@@ -15,15 +15,19 @@
       prefHeight="400.0" prefWidth="600.0">
 <GridPane>
 <!--    format property object and print nicely here-->
-    <VBox fx:id="imageArea" GridPane.columnIndex="0">
+    <VBox fx:id="imageArea" GridPane.columnIndex="0" GridPane.rowIndex="0">
 <!--        add photo here-->
     </VBox>
-    <VBox fx:id="detailsArea" GridPane.columnIndex="1">
+    <VBox fx:id="detailsArea" GridPane.columnIndex="0" GridPane.rowIndex="1">
 <!--add details here-->
+        <Button text="Manage Property" onAction="#mproperty"/>
         <Text fx:id="propertyName" />
         <Text fx:id="propertyAddress" />
         <Text fx:id="propertyDescription" />
         <Text fx:id="propertyPrice" />
+        <Text fx:id="propertyFacilities" />
+        <Text fx:id="Facilities" />
+
     </VBox>
 </GridPane>
 </VBox>
