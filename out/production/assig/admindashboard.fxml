@@ -32,13 +32,7 @@
 
     <VBox alignment="center" style="-fx-padding: 10 10 10 10;" spacing="20">
         <Text text="Welcome Admin" style="-fx-font-size: 20; -fx-fill: #8b0000; -fx-font-weight: bold"/>
-
-<!--        <GridPane alignment="center" hgap="10" vgap="10" >-->
-<!--            <Text text="Search (Start Typing...)" GridPane.columnIndex="0" GridPane.rowIndex="0" />-->
-<!--            <TextField fx:id="searchField" onKeyTyped="#searchProperty" text="Go ahead" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
-<!--        </GridPane>-->
-<!--        <Button text="Search" onKeyTyped="#searchProperty" />-->
-
+        <Button text="Add Admin" onAction="#addAdmin"/>
         <Text text="Click to view" />
         <HBox alignment="CENTER" spacing="20">
             <Button text="Users" onAction="#sortByUsers"/>

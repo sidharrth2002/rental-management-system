@@ -30,10 +30,18 @@ public class AdminController extends Controller implements Initializable {
     public ArrayList<Tenant> tenants = UserFactory.getInstance().getTenants();
     public ArrayList<Agent> agents = UserFactory.getInstance().getAgents();
 
+    //admin register page
+    public void addAdmin(ActionEvent e) {
+        try {
+            Stage stage = (Stage) root.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("adminRegister.fxml"));
+            Scene propertyPage = new Scene(root, 700, 600);
+            stage.setScene(propertyPage);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
 
-    //todo:
-    // need to delete property if user is deleted
-    // add tenants and agents in users tab
+    }
 
 
 

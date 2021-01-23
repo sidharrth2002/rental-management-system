@@ -48,6 +48,8 @@ public class Main extends Application {
     UserFactory userFactory = UserFactory.getInstance();
     FileHandlers fileHandlers = FileHandlers.getInstance();
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         //load all the data here- now just adding dummy data
