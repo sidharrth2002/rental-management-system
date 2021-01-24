@@ -1,5 +1,8 @@
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,9 +52,10 @@ public class ManagePropertyController extends Controller implements Initializabl
             projectField.setText(propertyManaged.getProject());
             descriptionField.setText(propertyManaged.getDescription());
             typeField.setValue(propertyManaged.getType());
-            // photoFileLabel.setGraphic(propertyImageView);
+//             photoFileLabel.setGraphic(propertyImageView);
             priceField.setText(Double.toString(propertyManaged.getPrice()));
             assignedStatusField.setSelected(propertyManaged.getAssignedStatus());
+            System.out.println(propertyManaged.getFacilities());
         }
     }
 
@@ -143,11 +147,18 @@ public class ManagePropertyController extends Controller implements Initializabl
                     .withFacilities(new ArrayList<>(Arrays.asList(facilitiesArray)))
                     // with owner / agent ????
                     .build();
+            User user = (User) stage.getUserData();
+            if (user instanceof Agent) {
+                newProperty.setAgent((Agent) user);
+            } else if (user instanceof Owner) {
+                newProperty.setOwner((Owner) user);
+            }
 
             System.out.println(newProperty.toCSVString()); // test entered data
 
             // if everything checks out, can save this property to file, but need to load all the data again
-//            propertySearchFacade.addProperty(newProperty);
+            propertySearchFacade.addProperty(newProperty);
+            user.addProperty(newProperty);
         }
         else {
             // not yet completed
@@ -157,6 +168,11 @@ public class ManagePropertyController extends Controller implements Initializabl
             propertyManaged.setDescription(descriptionField.getText());
             propertyManaged.setType((String)typeField.getValue());
             propertyManaged.setPrice(Double.parseDouble(priceField.getText()));
+            String[] facilitiesArray = facilitiesField.getText().split(","); // string array of facilities, assume user enters in csv format
+            propertyManaged.setFacilities(new ArrayList<>(Arrays.asList(facilitiesArray)));
         }
+        Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
+        Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
+        stage.setScene(roleChooser);
     }
 }

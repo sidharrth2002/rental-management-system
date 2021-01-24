@@ -24,7 +24,7 @@ public class Property {
     private ArrayList<String> facilities;
 
     // private constructor to be called by builder only
-    private Property() {
+    public Property() {
         count++;
     }
 

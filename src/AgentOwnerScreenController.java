@@ -65,6 +65,7 @@ public class AgentOwnerScreenController extends Controller implements Initializa
             Label assignLabel = new Label("Assigned?");
             CheckBox checkBox = new CheckBox();
             assign.setFillHeight(true);
+
             if(property.getAssignedStatus()) {
                 checkBox.setSelected(true);
             } else {
@@ -81,7 +82,7 @@ public class AgentOwnerScreenController extends Controller implements Initializa
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
                     Scene propertyPage = new Scene(root, 700, 600);
-//                    stage.setScene(propertyPage);
+                    stage.setScene(propertyPage);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -101,6 +102,9 @@ public class AgentOwnerScreenController extends Controller implements Initializa
         }
     }
 
-    public void goToAddNewProperty(ActionEvent actionEvent) {
+    public void goToAddNewProperty(ActionEvent actionEvent) throws IOException {
+        Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
+        Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
+        stage.setScene(roleChooser);
     }
 }

@@ -89,7 +89,7 @@ public class VisitorDashboardController extends Controller implements Initializa
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
                     Scene propertyPage = new Scene(root, 700, 600);
-//                    stage.setScene(propertyPage);
+                    stage.setScene(propertyPage);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

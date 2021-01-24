@@ -12,6 +12,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -67,6 +68,14 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        primaryStage.setOnCloseRequest(e -> {
+            e.consume();
+            try {
+                closeProgram();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
 //        PropertySearchFacade propertySearchFacade = PropertySearchFacade.getInstance();
 //        UserFactory userFactory = UserFactory.getInstance();
@@ -82,6 +91,16 @@ public class Main extends Application {
 //        primaryStage.setTitle("Rental Management System");
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
+    }
+
+    private void closeProgram() throws IOException {
+        //save to owners, tenants and agents
+        //save to properties
+        fileHandlers.saveOwnersToFile();
+        fileHandlers.saveAgentsToFile();
+        fileHandlers.saveTenantsToFile();
+        fileHandlers.savePropertyToFile();
+        Controller.stage.close();
     }
 
     public static void main(String[] args) {

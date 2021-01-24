@@ -97,7 +97,7 @@ public class FileHandlers {
             sb.append(userFactory.getTenants().get(i).toCSVString());
             sb.append("\n");
         }
-        Files.write(Paths.get("./data/tenants.csv"), sb.toString().getBytes());
+        Files.write(Paths.get("./src/data/tenants.csv"), sb.toString().getBytes());
     }
 
     public void saveOwnersToFile() throws IOException {
@@ -106,7 +106,7 @@ public class FileHandlers {
             sb.append(userFactory.getOwners().get(i).toCSVString());
             sb.append("\n");
         }
-        Files.write(Paths.get("data/owners.csv"), sb.toString().getBytes());
+        Files.write(Paths.get("./src/data/owners.csv"), sb.toString().getBytes());
     }
 
     public void saveAgentsToFile() throws IOException {
@@ -115,7 +115,7 @@ public class FileHandlers {
             sb.append(userFactory.getAgents().get(i).toCSVString());
             sb.append("\n");
         }
-        Files.write(Paths.get("./data/agents.csv"), sb.toString().getBytes());
+        Files.write(Paths.get("./src/data/tenants.csv"), sb.toString().getBytes());
     }
 
     public void savePropertyToFile() throws IOException {
@@ -125,7 +125,7 @@ public class FileHandlers {
             sb.append(propertyList.get(i).toCSVString());
             sb.append("\n");
         }
-        Files.write(Paths.get("./data/properties.csv"), sb.toString().getBytes());
+        Files.write(Paths.get("./src/data/properties.csv"), sb.toString().getBytes());
     }
 
     public void getPropertyFromFile() throws IOException, ParseException {

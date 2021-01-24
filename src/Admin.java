@@ -8,8 +8,6 @@ public class Admin extends User{
         super(userCode + adminnum++, name, username, password, approvalStatus);
     }
 
-
-
     @Override
     public String toCSVString() {
         return null;
