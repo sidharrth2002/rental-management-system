@@ -17,14 +17,10 @@ import java.util.ResourceBundle;
 
 public class PropertyPageController extends Controller implements Initializable {
     public static Property propertyToDisplay;
+    private User user = (User) stage.getUserData();
 
-    @FXML
-    private void mproperty(ActionEvent event) throws IOException {
-        ManagePropertyController.propertyManaged = propertyToDisplay;
-        Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
-        Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-        stage.setScene(roleChooser);
-    }
+
+
 
     public VBox imageArea;
     public VBox detailsArea;
@@ -34,11 +30,29 @@ public class PropertyPageController extends Controller implements Initializable 
     public Text propertyPrice;
     public Text propertyFacilities;
     public Text Facilities;
+    public Button mproperty;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Image image = new Image(propertyToDisplay.getPhoto().substring(6, propertyToDisplay.getPhoto().length()), 100, 100, true, true);
+        Image image = new Image(propertyToDisplay.getPhoto().substring(6, propertyToDisplay.getPhoto().length()), 800, 400, true, true);
         imageArea.getChildren().add(new ImageView(image));
+
+        if (user != null) {
+            Button mproperty = new Button("Manage Property");
+            detailsArea.getChildren().add(mproperty);
+            mproperty.setOnAction(e -> {
+                ManagePropertyController.propertyManaged = propertyToDisplay;
+                Parent roleChooserfxml = null;
+                try {
+                    roleChooserfxml = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
+                stage.setScene(roleChooser);
+
+            });
+        }
 
         propertyName.setText(propertyToDisplay.getName());
         propertyAddress.setText("Address: " + "\n" + propertyToDisplay.getAddress());

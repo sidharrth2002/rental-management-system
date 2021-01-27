@@ -4,10 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -79,6 +76,24 @@ public class AdminController extends Controller implements Initializable {
                 seeMoreu.setOnAction(event -> {
                 });
 
+                // approve user
+                HBox assign = new HBox();
+                assign.setSpacing(10);
+                Label assignLabel = new Label("Approve?");
+                CheckBox checkBox = new CheckBox();
+                assign.setFillHeight(true);
+
+                if(owner.getApprovalStatus()) {
+                    checkBox.setSelected(true);
+                } else {
+                    checkBox.setSelected(false);
+                }
+                checkBox.setOnAction(event -> {
+                    owner.setApprovalStatus(checkBox.isSelected());
+                });
+                assign.getChildren().addAll(assignLabel, checkBox);
+                tableEntry.getChildren().add(assign);
+
                 // delete User button
                 Button deleteu = new Button("Delete");
                 deleteu.setOnAction(event ->{
@@ -148,6 +163,24 @@ public class AdminController extends Controller implements Initializable {
                 seeMoreu.setOnAction(event -> {
                 });
 
+                // approve user
+                HBox assign = new HBox();
+                assign.setSpacing(10);
+                Label assignLabel = new Label("Approve?");
+                CheckBox checkBox = new CheckBox();
+                assign.setFillHeight(true);
+
+                if(agent.getApprovalStatus()) {
+                    checkBox.setSelected(true);
+                } else {
+                    checkBox.setSelected(false);
+                }
+                checkBox.setOnAction(event -> {
+                    agent.setApprovalStatus(checkBox.isSelected());
+                });
+                assign.getChildren().addAll(assignLabel, checkBox);
+                tableEntry.getChildren().add(assign);
+
                 // delete User button
                 Button deleteu = new Button("Delete");
                 deleteu.setOnAction(event ->{
@@ -208,6 +241,24 @@ public class AdminController extends Controller implements Initializable {
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
                 tableEntry.getChildren().add(new Text("Agent Name: "+ tenant.getName()));
                 tableEntry.getChildren().add(new Text("Agent ID: "+ tenant.getUserID()));
+
+                // approve user
+                HBox assign = new HBox();
+                assign.setSpacing(10);
+                Label assignLabel = new Label("Approve?");
+                CheckBox checkBox = new CheckBox();
+                assign.setFillHeight(true);
+
+                if(tenant.getApprovalStatus()) {
+                    checkBox.setSelected(true);
+                } else {
+                    checkBox.setSelected(false);
+                }
+                checkBox.setOnAction(event -> {
+                    tenant.setApprovalStatus(checkBox.isSelected());
+                });
+                assign.getChildren().addAll(assignLabel, checkBox);
+                tableEntry.getChildren().add(assign);
 
                 // delete User button
                 Button deleteu = new Button("Delete");

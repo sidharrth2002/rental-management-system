@@ -20,7 +20,7 @@
     </VBox>
     <VBox fx:id="detailsArea" GridPane.columnIndex="0" GridPane.rowIndex="1">
 <!--add details here-->
-        <Button text="Manage Property" onAction="#mproperty"/>
+
         <Text fx:id="propertyName" />
         <Text fx:id="propertyAddress" />
         <Text fx:id="propertyDescription" />
