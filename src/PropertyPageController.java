@@ -37,15 +37,8 @@ public class PropertyPageController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(propertyToDisplay.getPhoto());
         Image image = new Image(propertyToDisplay.getPhoto().substring(6, propertyToDisplay.getPhoto().length()), 100, 100, true, true);
         imageArea.getChildren().add(new ImageView(image));
-
-        // edit property
-        Button editproperty = new Button("Edit Property");
-        editproperty.setOnAction(event -> {
-            // open form with data loaded inside
-        });
 
         propertyName.setText(propertyToDisplay.getName());
         propertyAddress.setText("Address: " + "\n" + propertyToDisplay.getAddress());
