@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.text.Text?>
 <VBox fx:id="root" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="PropertyPageController"
       prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu fx:id="options" text="Options">
+                    <items>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </VBox>
 <GridPane>
 <!--    format property object and print nicely here-->
     <VBox fx:id="imageArea" GridPane.columnIndex="0" GridPane.rowIndex="0">

@@ -19,11 +19,8 @@
     <VBox>
         <MenuBar fx:id="menuBar">
             <menus>
-                <Menu text="Options">
+                <Menu fx:id="options" text="Options">
                     <items>
-                        <MenuItem fx:id="roleChooserPage" text="Role Chooser" onAction="#changeScene" />
-                        <MenuItem fx:id="login" text="Login/Register" onAction="#changeScene" />
-                        <MenuItem fx:id="saveAndExit" text="Exit" onAction="#changeScene" />
                     </items>
                 </Menu>
             </menus>

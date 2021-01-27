@@ -40,9 +40,6 @@ public class AdminController extends Controller implements Initializable {
 
     }
 
-
-
-
     //show Users:
     public void sortByUsers(ActionEvent e) {
         propertyTable.getChildren().clear();

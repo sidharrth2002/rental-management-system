@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -25,7 +27,7 @@ public class VisitorDashboardController extends Controller implements Initializa
     public VBox root;
     public TextField searchField;
     public VBox propertyTable;
-    public VBox menuArea;
+    public Menu options;
     public Text welcomeMessage;
     public HBox specialOptions;
 
@@ -40,6 +42,10 @@ public class VisitorDashboardController extends Controller implements Initializa
             User user = (User) stage.getUserData();
             System.out.println(user.getName());
             welcomeMessage.setText("Hello " + user.getName());
+
+            MenuItem logoutItem = new MenuItem("Logout");
+            logoutItem.setOnAction(e -> logout());
+            options.getItems().add(logoutItem);
 
             Button specialInterface = new Button("Manage your property");
             specialInterface.setOnAction(e -> {
@@ -66,6 +72,18 @@ public class VisitorDashboardController extends Controller implements Initializa
             });
             specialOptions.setPadding(new Insets(10, 10, 10, 10));
             specialOptions.getChildren().add(specialInterface);
+        } else {
+            //if not logged in, give option to go and login
+            MenuItem loginItem = new MenuItem("Login");
+            loginItem.setId("login");
+            loginItem.setOnAction(e -> {
+                try {
+                    changeScene(e);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            options.getItems().add(loginItem);
         }
 
         ArrayList<Property> properties = propertySearchFacade.getProperties();

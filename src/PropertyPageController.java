@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -21,8 +23,6 @@ public class PropertyPageController extends Controller implements Initializable 
     private User user = (User) stage.getUserData();
     boolean myunit = false;
 
-
-
     public VBox imageArea;
     public VBox detailsArea;
     public VBox optionsArea;
@@ -32,10 +32,12 @@ public class PropertyPageController extends Controller implements Initializable 
     public Text propertyPrice;
     public Text propertyFacilities;
     public Text Facilities;
+    public Menu options;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Image image = new Image(propertyToDisplay.getPhoto().substring(6, propertyToDisplay.getPhoto().length()), 600, 300, false, false);
+        System.out.println("." + propertyToDisplay.getPhoto().substring(5, propertyToDisplay.getPhoto().length()));
+        Image image = new Image("." + propertyToDisplay.getPhoto().substring(5, propertyToDisplay.getPhoto().length()), 600, 300, false, false);
         imageArea.getChildren().add(new ImageView(image));
 
         // check user properties compare it with displayed property page to make sure it's owned by that user
@@ -44,11 +46,24 @@ public class PropertyPageController extends Controller implements Initializable 
         for (Property property: userProperties){
             if (property.getID().equals(propertyToDisplay.getID())){
                 myunit = true;
-            }else if (user.getUserID().substring(0,1).equals("ad")){ // admin access
+            }else if (user.getUserID().substring(0,1).equals("ad")) { // admin access
                 myunit = true;
-
             }
         }
+            MenuItem logoutItem = new MenuItem("Logout");
+            logoutItem.setOnAction(e -> logout());
+            options.getItems().add(logoutItem);
+        } else {
+            MenuItem loginItem = new MenuItem("Login");
+            loginItem.setId("login");
+            loginItem.setOnAction(e -> {
+                try {
+                    changeScene(e);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            options.getItems().add(loginItem);
         }
 
 

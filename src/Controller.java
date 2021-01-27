@@ -51,20 +51,29 @@ public class Controller implements Initializable {
         } else if (clickedButton instanceof Button) {
             ID = ((Button) clickedButton).getId();
         }
-        System.out.println(ID);
-        if (ID.equals("login")) {
-            Parent loginfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-            Scene loginPage = new Scene(loginfxml, 700, 600);
-            stage.setScene(loginPage);
-        } else if(ID.equals("roleChooserPage")) {
-            Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-            Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-            stage.setScene(roleChooser);
-        } else if(ID.equals("agentOwnerPage")) {
-            Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
-            Scene agentOwnerScreen = new Scene(agentOwnerfxml, 700, 600);
-        } else if(ID.equals("saveAndExit")) {
-            System.out.println("Graceful exit");
+        switch (ID) {
+            case "login":
+                Parent loginfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+                Scene loginPage = new Scene(loginfxml, 700, 600);
+                stage.setScene(loginPage);
+                break;
+            case "roleChooserPage":
+                Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+                Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
+                stage.setScene(roleChooser);
+                break;
+            case "agentOwnerPage":
+                Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
+                Scene agentOwnerScreen = new Scene(agentOwnerfxml, 700, 600);
+                stage.setScene(agentOwnerScreen);
+                break;
+            case "searchArea":
+            case "backToDashboard":
+                System.out.println("I reach here");
+                Parent searchPage = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+                Scene searchArea = new Scene(searchPage, 700, 600);
+                stage.setScene(searchArea);
+                break;
         }
     }
 
@@ -77,5 +86,15 @@ public class Controller implements Initializable {
         alert.show();
     }
 
-
+    public void logout() {
+        stage.setUserData(null);
+        Parent agentOwnerfxml = null;
+        try {
+            Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
+            Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
+            stage.setScene(roleChooser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -24,6 +24,7 @@
                         <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
                         <MenuItem fx:id="registerPage" text="Register" onAction="#changeScene" />
                         <MenuItem fx:id="saveAndExit" text="Save And Exit" onAction="#changeScene" />
+                        <MenuItem fx:id="logout" text="Logout" onAction="#logout" />
                     </items>
                 </Menu>
             </menus>
