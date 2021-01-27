@@ -18,16 +18,22 @@
     <VBox fx:id="imageArea" GridPane.columnIndex="0" GridPane.rowIndex="0">
 <!--        add photo here-->
     </VBox>
-    <VBox fx:id="detailsArea" GridPane.columnIndex="0" GridPane.rowIndex="1">
-<!--add details here-->
+    <VBox   GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <VBox  fx:id="optionsArea">
 
-        <Text fx:id="propertyName" />
-        <Text fx:id="propertyAddress" />
-        <Text fx:id="propertyDescription" />
-        <Text fx:id="propertyPrice" />
-        <Text fx:id="propertyFacilities" />
-        <Text fx:id="Facilities" />
-
+        </VBox>
+            <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="500">
+                <!--        controller will fill this container-->
+                <VBox fx:id="detailsArea" >
+                    <Text fx:id="propertyName" />
+                    <Text fx:id="propertyAddress" />
+                    <Text fx:id="propertyDescription" />
+                    <Text fx:id="propertyPrice" />
+                    <Text fx:id="propertyFacilities" />
+                    <Text fx:id="Facilities" />
+                </VBox>
+            </ScrollPane>
     </VBox>
+
 </GridPane>
 </VBox>
