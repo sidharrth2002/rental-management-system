@@ -44,6 +44,7 @@ public class AdminRegisterController extends Controller {
 
         Stage stage = (Stage) root.getScene().getWindow();
         Admin admin = new Admin("ad",nameField.getText(), usernameField.getText(), passwordField.getText(),true);
+        UserFactory.getInstance().admins.add(admin);
 
 
         stage.setUserData(admin);

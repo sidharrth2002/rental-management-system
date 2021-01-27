@@ -11,6 +11,7 @@ public class UserFactory {
     public ArrayList<Tenant> tenants = new ArrayList<>();
     public ArrayList<Agent> agents = new ArrayList<>();
     public ArrayList<Owner> owners = new ArrayList<>();
+    public ArrayList<Admin> admins = new ArrayList<>();
     private static int numTenants, numAgents, numOwners;
 
     private UserFactory() {}
