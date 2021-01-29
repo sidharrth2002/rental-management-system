@@ -67,10 +67,6 @@ public class AdminController extends Controller implements Initializable {
                 tableEntry.getChildren().add(t2);
                 // edit User button
 
-                Button seeMoreu = new Button("View Details");
-                //redirect to user dashboard
-                seeMoreu.setOnAction(event -> {
-                });
 
                 // approve user
                 HBox assign = new HBox();
@@ -97,7 +93,7 @@ public class AdminController extends Controller implements Initializable {
                     propertyTable.getChildren().clear();
                 });
 
-                useroptions.getChildren().addAll(new Text("More Options:"),seeMoreu,deleteu,assign);//2
+                useroptions.getChildren().addAll(new Text("More Options:"),deleteu,assign);//2
                 useroptions.setSpacing(10);
                 tableEntry.getChildren().add(useroptions);//3
                 tableEntry.setSpacing(10);
@@ -168,10 +164,6 @@ public class AdminController extends Controller implements Initializable {
                 t2.setFill(Color.DARKRED);
                 tableEntry.getChildren().add(t2);
                 // edit User button
-                Button seeMoreu = new Button("View Details");
-                //redirect to user dashboard
-                seeMoreu.setOnAction(event -> {
-                });
 
                 // approve user
                 HBox assign = new HBox();
@@ -199,7 +191,7 @@ public class AdminController extends Controller implements Initializable {
                 });
 
 
-                useroptions.getChildren().addAll(new Text("More Options:"),seeMoreu,deleteu,assign);//2
+                useroptions.getChildren().addAll(new Text("More Options:"),deleteu,assign);//2
                 useroptions.setSpacing(10);
                 tableEntry.getChildren().add(useroptions);//3
                 tableEntry.setSpacing(10);
