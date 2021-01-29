@@ -22,7 +22,7 @@
 
         <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.rowSpan="1"
               GridPane.halignment="CENTER" alignment="CENTER">
-            <Text text="Register as A Tenant" style="-fx-font-size:30;-fx-fill: darkred;"/>
+            <Text text="Register as An Agent" style="-fx-font-size:30;-fx-fill: darkred;"/>
         </HBox>
         <Label text="Name: " GridPane.columnIndex="0" GridPane.rowIndex="1">
         </Label>
@@ -42,7 +42,7 @@
                    GridPane.rowIndex="4"/>
 
         <Label text="Phone Number: " GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <TextField fx:id="phone" prefHeight="40" GridPane.columnIndex="1"
+        <TextField fx:id="tphone" prefHeight="40" GridPane.columnIndex="1"
                    GridPane.rowIndex="5"/>
 
         <Button fx:id="submitButton" text="Submit For Approval" prefWidth="200" prefHeight="30" defaultButton="true"

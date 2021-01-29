@@ -28,7 +28,10 @@
         <Text fx:id="dateToday" style="-fx-font-size: 16; -fx-fill: red" />
         <Text fx:id="stats" style="-fx-font-size: 15; -fx-font-weight: bold"/>
         <Text text="Below, the properties you manage are listed: " />
-        <Button fx:id="addNewPropertyButton" text="Add New Property" onAction="#goToAddNewProperty" />
+        <HBox alignment="CENTER">
+            <Button fx:id="addNewPropertyButton" text="Add New Property" onAction="#goToAddNewProperty" />
+            <Button fx:id="editDetails" text="Edit Details" onAction="#editDetails" />
+        </HBox>
 
         <GridPane fx:id="propertyList" alignment="CENTER"
         hgap="30" vgap="50" style="-fx-padding: 10;-fx-border-style: solid inside;

@@ -55,6 +55,18 @@ public class ManagePropertyController extends Controller implements Initializabl
 //             photoFileLabel.setGraphic(propertyImageView);
             priceField.setText(Double.toString(propertyManaged.getPrice()));
             assignedStatusField.setSelected(propertyManaged.getAssignedStatus());
+            StringBuilder sb = new StringBuilder();
+            for(String facility: propertyManaged.getFacilities()) {
+                sb.append(facility).append(",");
+            }
+            facilitiesField.setText(sb.toString());
+            Image propertyImage = new Image("." + propertyManaged.getPhoto().substring(5));
+            ImageView propertyImageView = new ImageView(propertyImage);
+            propertyImageView.setPreserveRatio(true); // fix image view ratio
+            propertyImageView.setFitHeight(100); // set image view height
+            photoFileLabel.setText(null); // remove the text
+            photoFileLabel.setGraphic(propertyImageView); // set the scaled image
+            selectedFile = new File(propertyManaged.getPhoto().substring(13));
         }
     }
 
@@ -103,7 +115,7 @@ public class ManagePropertyController extends Controller implements Initializabl
                     "Please enter the type");
             return;
         }
-        if (selectedFile == null || ImageIO.read(selectedFile) == null) {
+        if (selectedFile == null) {
             showAlert(Alert.AlertType.ERROR, window, "Incomplete Data!",
                     "Please upload a photo");
             return;
@@ -122,13 +134,13 @@ public class ManagePropertyController extends Controller implements Initializabl
 
         //if all goes well, make the property using property builder
         //then add to propertySearchFacade (or write to file first?)
+        String photoStorePath = "./src/photos/";
+        String photoStorePath2 = "./out/production/assig/photos";
         if (propertyManaged == null) {
             // creating a new property..
 
             // doesn't belong here but works for now,
             // later move to FileHandler static method and call from Property's setPhoto()
-            String photoStorePath = "./src/photos/";
-            String photoStorePath2 = "./out/production/assig/photos";
             Files.copy(selectedFile.toPath(), Paths.get(photoStorePath, selectedFile.getName()),
                     StandardCopyOption.REPLACE_EXISTING); // copy selected photo to photo store
             Files.copy(selectedFile.toPath(), Paths.get(photoStorePath2, selectedFile.getName()),
@@ -169,6 +181,7 @@ public class ManagePropertyController extends Controller implements Initializabl
             propertyManaged.setDescription(descriptionField.getText());
             propertyManaged.setType((String)typeField.getValue());
             propertyManaged.setPrice(Double.parseDouble(priceField.getText()));
+            propertyManaged.setPhoto(photoStorePath + selectedFile.getName());
             String[] facilitiesArray = facilitiesField.getText().split(","); // string array of facilities, assume user enters in csv format
             propertyManaged.setFacilities(new ArrayList<>(Arrays.asList(facilitiesArray)));
         }

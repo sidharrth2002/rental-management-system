@@ -107,6 +107,7 @@ public class AgentOwnerScreenController extends Controller implements Initializa
     }
 
     public void editDetails(ActionEvent actionEvent) throws IOException {
+        RegisterPageController.setUserManaged(user);
         if (user instanceof Agent) {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("agentRegister.fxml")), 700, 600));
         } else if(user instanceof Owner) {

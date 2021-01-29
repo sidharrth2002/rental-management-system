@@ -39,7 +39,6 @@ public class RegisterPageController extends Controller implements Initializable 
 
     private static User userManaged;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (userManaged != null) {
@@ -97,17 +96,29 @@ public class RegisterPageController extends Controller implements Initializable 
                     role = "tenant";
                     break;
             }
-
-            Stage stage = (Stage) root.getScene().getWindow();
-            User user = userFactory.makeUser(role, nameField.getText(), usernameField.getText(), passwordField.getText(), credential.getText(), tphone.getText());
-            stage.setUserData(user);
-            if(user != null) {
-                //each will have their own dashboard(menu will have a few different options)
-                //but same until those are all ready
+            if(userManaged == null) {
+                Stage stage = (Stage) root.getScene().getWindow();
+                User user = userFactory.makeUser(role, nameField.getText(), usernameField.getText(), passwordField.getText(), credential.getText(), tphone.getText());
+                stage.setUserData(user);
+                if(user != null) {
+                    Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+                    Scene dashboard = new Scene(root, 700, 600);
+                    stage.setScene(dashboard);
+                }
+            } else {
+                userManaged.setName(nameField.getText());
+                userManaged.setUsername(usernameField.getText());
+                userManaged.setPassword(passwordField.getText());
+                if(userManaged instanceof Owner) {
+                    ((Owner) userManaged).setOwnershipCode(credential.getText());
+                } else if(userManaged instanceof Agent) {
+                    ((Agent) userManaged).setLicenseCode(credential.getText());
+                }
+                userManaged.setPhone(tphone.getText());
                 Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                 Scene dashboard = new Scene(root, 700, 600);
                 stage.setScene(dashboard);
+                userManaged = null;
             }
     }
 }
-

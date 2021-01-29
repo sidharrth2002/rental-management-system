@@ -243,7 +243,6 @@ public class AdminController extends Controller implements Initializable {
         //show Tenants only:
         Button showTenats = new Button("Tenants");
         showTenats.setOnAction(c ->{
-            System.out.println(tenants.size());
             propertyTable.getChildren().clear();
             propertyTable.getChildren().add(options);
             for (Tenant tenant : tenants) {

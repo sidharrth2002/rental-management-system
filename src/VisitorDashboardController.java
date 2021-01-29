@@ -32,7 +32,6 @@ public class VisitorDashboardController extends Controller implements Initializa
     public HBox specialOptions;
 
     public VisitorDashboardController() {
-        System.out.println("Child controller");
     }
 
     //write to fxml elements on the page
@@ -47,7 +46,7 @@ public class VisitorDashboardController extends Controller implements Initializa
             logoutItem.setOnAction(e -> logout());
             options.getItems().add(logoutItem);
 
-            Button specialInterface = new Button("Manage your property");
+            Button specialInterface = new Button("Go To Dashboard");
             specialInterface.setOnAction(e -> {
                 if(user instanceof Owner || user instanceof Agent) {
                     // render owner interface
@@ -87,36 +86,38 @@ public class VisitorDashboardController extends Controller implements Initializa
 
         ArrayList<Property> properties = propertySearchFacade.getProperties();
         for (Property property : properties) {
-            HBox outerBox = new HBox();
-            outerBox.setSpacing(10);
-            outerBox.setAlignment(Pos.CENTER_LEFT);
-            outerBox.setPadding(new Insets(10, 10, 10, 10));
-            VBox tableEntry = new VBox();
-            tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//                outerBox.getChildren().add(new Separator());
-            tableEntry.getChildren().add(new Text(property.getName()));
-            tableEntry.getChildren().add(new Text(property.getAddress()));
-            tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
-            outerBox.getChildren().add(tableEntry);
-            Button seeMore = new Button("View Details");
-            seeMore.setOnAction(event -> {
-                //sets property that will be viewed on the special propery page
-                PropertyPageController.propertyToDisplay = property;
-                //render the page
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                    Scene propertyPage = new Scene(root, 700, 600);
-                    stage.setScene(propertyPage);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            });
+            if (!property.getAssignedStatus()) {
 
-            outerBox.getChildren().add(seeMore);
+                HBox outerBox = new HBox();
+                outerBox.setSpacing(10);
+                outerBox.setAlignment(Pos.CENTER_LEFT);
+                outerBox.setPadding(new Insets(10, 10, 10, 10));
+                VBox tableEntry = new VBox();
+                tableEntry.setPadding(new Insets(10, 10, 10, 10));
 //                outerBox.getChildren().add(new Separator());
-            propertyTable.getChildren().add(outerBox);
+                tableEntry.getChildren().add(new Text(property.getName()));
+                tableEntry.getChildren().add(new Text(property.getAddress()));
+                tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                outerBox.getChildren().add(tableEntry);
+                Button seeMore = new Button("View Details");
+                seeMore.setOnAction(event -> {
+                    //sets property that will be viewed on the special propery page
+                    PropertyPageController.propertyToDisplay = property;
+                    //render the page
+                    try {
+                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                        Scene propertyPage = new Scene(root, 700, 600);
+                        stage.setScene(propertyPage);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
+
+                outerBox.getChildren().add(seeMore);
+//                outerBox.getChildren().add(new Separator());
+                propertyTable.getChildren().add(outerBox);
+            }
         }
-
     }
 
     public void searchProperty(KeyEvent e) throws IOException {
@@ -125,13 +126,53 @@ public class VisitorDashboardController extends Controller implements Initializa
         if(searchText.length() != 0) {
             ArrayList<Property> results = propertySearchFacade.getByKeyword(searchText);
             for (Property property : results) {
+                if(!property.getAssignedStatus()) {
+                    HBox outerBox = new HBox();
+                    outerBox.setSpacing(10);
+                    outerBox.setAlignment(Pos.CENTER_LEFT);
+                    outerBox.setPadding(new Insets(10, 10, 10, 10));
+                    VBox tableEntry = new VBox();
+                    tableEntry.setPadding(new Insets(10, 10, 10, 10));
+//                outerBox.getChildren().add(new Separator());
+                    tableEntry.getChildren().add(new Text(property.getName()));
+                    tableEntry.getChildren().add(new Text(property.getAddress()));
+                    tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                    outerBox.getChildren().add(tableEntry);
+                    Button seeMore = new Button("View Details");
+                    seeMore.setOnAction(event -> {
+                        //sets property that will be viewed on the special propery page
+                        PropertyPageController.propertyToDisplay = property;
+                        //render the page
+                        try {
+                            Stage stage = (Stage) root.getScene().getWindow();
+                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                            Scene propertyPage = new Scene(root, 700, 600);
+                            stage.setScene(propertyPage);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    });
+
+                    outerBox.getChildren().add(seeMore);
+//                outerBox.getChildren().add(new Separator());
+                    propertyTable.getChildren().add(outerBox);
+                }
+            }
+        }
+    }
+
+    public void sortByPrice(ActionEvent e) {
+        propertyTable.getChildren().clear();
+        ArrayList<Property> results = propertySearchFacade.getByPrice();
+        for (Property property : results) {
+            if (!property.getAssignedStatus()) {
                 HBox outerBox = new HBox();
                 outerBox.setSpacing(10);
                 outerBox.setAlignment(Pos.CENTER_LEFT);
                 outerBox.setPadding(new Insets(10, 10, 10, 10));
                 VBox tableEntry = new VBox();
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//                outerBox.getChildren().add(new Separator());
+//            outerBox.getChildren().add(new Separator());
                 tableEntry.getChildren().add(new Text(property.getName()));
                 tableEntry.getChildren().add(new Text(property.getAddress()));
                 tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
@@ -152,47 +193,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                 });
 
                 outerBox.getChildren().add(seeMore);
-//                outerBox.getChildren().add(new Separator());
+//            outerBox.getChildren().add(new Separator());
                 propertyTable.getChildren().add(outerBox);
             }
-        }
-    }
-
-    public void sortByPrice(ActionEvent e) {
-        propertyTable.getChildren().clear();
-        ArrayList<Property> results = propertySearchFacade.getByPrice();
-
-        for (Property property : results) {
-            HBox outerBox = new HBox();
-            outerBox.setSpacing(10);
-            outerBox.setAlignment(Pos.CENTER_LEFT);
-            outerBox.setPadding(new Insets(10, 10, 10, 10));
-            VBox tableEntry = new VBox();
-            tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//            outerBox.getChildren().add(new Separator());
-            tableEntry.getChildren().add(new Text(property.getName()));
-            tableEntry.getChildren().add(new Text(property.getAddress()));
-            tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
-            outerBox.getChildren().add(tableEntry);
-            Button seeMore = new Button("View Details");
-            seeMore.setOnAction(event -> {
-                //sets property that will be viewed on the special propery page
-                PropertyPageController.propertyToDisplay = property;
-                //render the page
-                try {
-                    Stage stage = (Stage) root.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                    Scene propertyPage = new Scene(root, 700, 600);
-                    stage.setScene(propertyPage);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            });
-
-            outerBox.getChildren().add(seeMore);
-//            outerBox.getChildren().add(new Separator());
-            propertyTable.getChildren().add(outerBox);
-        }
+         }
 
     }
 
@@ -201,8 +205,10 @@ public class VisitorDashboardController extends Controller implements Initializa
         ArrayList<Property> results = propertySearchFacade.getByPrice();
         ArrayList<String> propertyTypes = new ArrayList<>();
         for (Property property : results) {
-            if(!propertyTypes.contains(property.getType())) {
-                propertyTypes.add(property.getType());
+            if(!property.getAssignedStatus()) {
+                if(!propertyTypes.contains(property.getType())) {
+                    propertyTypes.add(property.getType());
+                }
             }
         }
         for (String type: propertyTypes) {
@@ -213,36 +219,38 @@ public class VisitorDashboardController extends Controller implements Initializa
             typeHeading.setPadding(new Insets(10, 10, 10, 10));
             propertyTable.getChildren().add(typeHeading);
             for (Property property : results) {
-                if(type.equals(property.getType())) {
-                    HBox outerBox = new HBox();
-                    outerBox.setSpacing(10);
-                    outerBox.setAlignment(Pos.CENTER_LEFT);
-                    outerBox.setPadding(new Insets(10, 10, 10, 10));
-                    VBox tableEntry = new VBox();
-                    tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                if(!property.getAssignedStatus()) {
+                    if (type.equals(property.getType())) {
+                        HBox outerBox = new HBox();
+                        outerBox.setSpacing(10);
+                        outerBox.setAlignment(Pos.CENTER_LEFT);
+                        outerBox.setPadding(new Insets(10, 10, 10, 10));
+                        VBox tableEntry = new VBox();
+                        tableEntry.setPadding(new Insets(10, 10, 10, 10));
 //            outerBox.getChildren().add(new Separator());
-                    tableEntry.getChildren().add(new Text(property.getName()));
-                    tableEntry.getChildren().add(new Text(property.getAddress()));
-                    tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
-                    outerBox.getChildren().add(tableEntry);
-                    Button seeMore = new Button("View Details");
-                    seeMore.setOnAction(event -> {
-                        //sets property that will be viewed on the special propery page
-                        PropertyPageController.propertyToDisplay = property;
-                        //render the page
-                        try {
-                            Stage stage = (Stage) root.getScene().getWindow();
-                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                            Scene propertyPage = new Scene(root, 700, 600);
-                            stage.setScene(propertyPage);
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }
-                    });
+                        tableEntry.getChildren().add(new Text(property.getName()));
+                        tableEntry.getChildren().add(new Text(property.getAddress()));
+                        tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                        outerBox.getChildren().add(tableEntry);
+                        Button seeMore = new Button("View Details");
+                        seeMore.setOnAction(event -> {
+                            //sets property that will be viewed on the special propery page
+                            PropertyPageController.propertyToDisplay = property;
+                            //render the page
+                            try {
+                                Stage stage = (Stage) root.getScene().getWindow();
+                                Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                                Scene propertyPage = new Scene(root, 700, 600);
+                                stage.setScene(propertyPage);
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        });
 
-                    outerBox.getChildren().add(seeMore);
+                        outerBox.getChildren().add(seeMore);
 //            outerBox.getChildren().add(new Separator());
-                    propertyTable.getChildren().add(outerBox);
+                        propertyTable.getChildren().add(outerBox);
+                    }
                 }
             }
         }
@@ -254,8 +262,10 @@ public class VisitorDashboardController extends Controller implements Initializa
         ArrayList<Property> results = propertySearchFacade.getProperties();
         ArrayList<String> projects = new ArrayList<>();
         for (Property property : results) {
-            if(!projects.contains(property.getProject())) {
-                projects.add(property.getProject());
+            if(!property.getAssignedStatus()) {
+                if (!projects.contains(property.getProject())) {
+                    projects.add(property.getProject());
+                }
             }
         }
         for (String project: projects) {
@@ -268,14 +278,18 @@ public class VisitorDashboardController extends Controller implements Initializa
 
             ArrayList<Property> propertiesInProject = new ArrayList<>();
             for(Property property: results) {
-                if (property.getProject().equalsIgnoreCase(project)) {
-                    propertiesInProject.add(property);
+                if(!property.getAssignedStatus()) {
+                    if (property.getProject().equalsIgnoreCase(project)) {
+                        propertiesInProject.add(property);
+                    }
                 }
             }
             ArrayList<String> propertyTypes = new ArrayList<>();
             for(Property property: propertiesInProject) {
-                if(!propertyTypes.contains(property.getType())) {
-                    propertyTypes.add(property.getType());
+                if(!property.getAssignedStatus()) {
+                    if (!propertyTypes.contains(property.getType())) {
+                        propertyTypes.add(property.getType());
+                    }
                 }
             }
             for(String type: propertyTypes) {
@@ -287,8 +301,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                 propertyTable.getChildren().add(typeTitle);
                 ArrayList<Property> propertyOfType = new ArrayList<>();
                 for(Property property: propertiesInProject) {
-                    if(property.getType().equals(type)) {
-                        propertyOfType.add(property);
+                    if(!property.getAssignedStatus()) {
+                        if (property.getType().equals(type)) {
+                            propertyOfType.add(property);
+                        }
                     }
                 }
                 Collections.sort(propertyOfType, new Comparator<Property>() {
@@ -298,35 +314,37 @@ public class VisitorDashboardController extends Controller implements Initializa
                     }
                 });
                 for (Property property: propertyOfType) {
-                    HBox outerBox = new HBox();
-                    outerBox.setSpacing(10);
-                    outerBox.setAlignment(Pos.CENTER_LEFT);
-                    outerBox.setPadding(new Insets(10, 10, 10, 10));
-                    VBox tableEntry = new VBox();
-                    tableEntry.setPadding(new Insets(10, 10, 10, 10));
+                    if (!property.getAssignedStatus()) {
+                        HBox outerBox = new HBox();
+                        outerBox.setSpacing(10);
+                        outerBox.setAlignment(Pos.CENTER_LEFT);
+                        outerBox.setPadding(new Insets(10, 10, 10, 10));
+                        VBox tableEntry = new VBox();
+                        tableEntry.setPadding(new Insets(10, 10, 10, 10));
 //            outerBox.getChildren().add(new Separator());
-                    tableEntry.getChildren().add(new Text(property.getName()));
-                    tableEntry.getChildren().add(new Text(property.getAddress()));
-                    tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
-                    outerBox.getChildren().add(tableEntry);
-                    Button seeMore = new Button("View Details");
-                    seeMore.setOnAction(event -> {
-                        //sets property that will be viewed on the special propery page
-                        PropertyPageController.propertyToDisplay = property;
-                        //render the page
-                        try {
-                            Stage stage = (Stage) root.getScene().getWindow();
-                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                            Scene propertyPage = new Scene(root, 700, 600);
-                            stage.setScene(propertyPage);
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }
-                    });
+                        tableEntry.getChildren().add(new Text(property.getName()));
+                        tableEntry.getChildren().add(new Text(property.getAddress()));
+                        tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
+                        outerBox.getChildren().add(tableEntry);
+                        Button seeMore = new Button("View Details");
+                        seeMore.setOnAction(event -> {
+                            //sets property that will be viewed on the special propery page
+                            PropertyPageController.propertyToDisplay = property;
+                            //render the page
+                            try {
+                                Stage stage = (Stage) root.getScene().getWindow();
+                                Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
+                                Scene propertyPage = new Scene(root, 700, 600);
+                                stage.setScene(propertyPage);
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        });
 
-                    outerBox.getChildren().add(seeMore);
+                        outerBox.getChildren().add(seeMore);
 //            outerBox.getChildren().add(new Separator());
-                    propertyTable.getChildren().add(outerBox);
+                        propertyTable.getChildren().add(outerBox);
+                    }
                 }
             }
         }
