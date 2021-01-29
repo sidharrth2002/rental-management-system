@@ -42,8 +42,12 @@
     <TextField fx:id="credential" prefHeight="40" GridPane.columnIndex="1"
                GridPane.rowIndex="4"/>
 
+        <Label fx:id="Phone : " text="Phone Number: " GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField fx:id="tphone" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="5"/>
+
     <Button fx:id="submitButton" text="Submit For Approval" prefWidth="200" prefHeight="30" defaultButton="true"
-            GridPane.columnIndex="0" GridPane.rowIndex="5"
+            GridPane.columnIndex="0" GridPane.rowIndex="6"
             GridPane.columnSpan="2" GridPane.rowSpan="2"
             GridPane.halignment="CENTER"
             onAction="#submitForm">

@@ -40,7 +40,7 @@ public class VisitorDashboardController extends Controller implements Initializa
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(stage.getUserData() != null) {
             User user = (User) stage.getUserData();
-            System.out.println(user.getName());
+
             welcomeMessage.setText("Hello " + user.getName());
 
             MenuItem logoutItem = new MenuItem("Logout");
@@ -54,7 +54,6 @@ public class VisitorDashboardController extends Controller implements Initializa
                     try {
                         Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
                         Scene page = new Scene(agentOwnerfxml, 700, 600);
-                        System.out.println(user.getPropertyList());
                         stage.setScene(page);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
@@ -123,7 +122,6 @@ public class VisitorDashboardController extends Controller implements Initializa
     public void searchProperty(KeyEvent e) throws IOException {
         propertyTable.getChildren().clear();
         String searchText = searchField.getText();
-        System.out.println("Search with the keyword. " + searchText);
         if(searchText.length() != 0) {
             ArrayList<Property> results = propertySearchFacade.getByKeyword(searchText);
             for (Property property : results) {
@@ -260,7 +258,6 @@ public class VisitorDashboardController extends Controller implements Initializa
                 projects.add(property.getProject());
             }
         }
-        System.out.println(projects);
         for (String project: projects) {
             HBox projectTitle = new HBox();
             Text projectHeading = new Text(project);

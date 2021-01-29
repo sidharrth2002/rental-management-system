@@ -48,7 +48,7 @@ public class Property {
         } else if(owner == null) {
             return agent;
         }
-        System.out.println("Am Null");
+
         return null;
     }
     public ArrayList<String> getFacilities() {

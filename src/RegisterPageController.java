@@ -22,7 +22,7 @@ public class RegisterPageController extends Controller {
     public RadioButton ownerButton;
     public RadioButton tenantButton;
     public TextField credential;
-    public TextField phone;
+    public TextField tphone;
     public Label extraInfo;
 
     public void submitForm(ActionEvent actionEvent) throws IOException {
@@ -47,7 +47,7 @@ public class RegisterPageController extends Controller {
                     "Please enter the needed credential for verification");
             return;
         }
-        if(phone.getText().isEmpty()) {
+        if(tphone.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, window, "Incomplete Data!",
                     "Please enter your phone number.");
             return;
@@ -66,10 +66,10 @@ public class RegisterPageController extends Controller {
                 role = "tenant";
                 break;
         }
-        System.out.println("Type of user is: " + role);
+
         Stage stage = (Stage) root.getScene().getWindow();
 //        public User makeUser(String userType, String name, String username, String password, String credential) {
-        User user = userFactory.makeUser(role, nameField.getText(), usernameField.getText(), passwordField.getText(), credential.getText(), phone.getText());
+        User user = userFactory.makeUser(role, nameField.getText(), usernameField.getText(), passwordField.getText(), credential.getText(), tphone.getText());
         stage.setUserData(user);
         if(user != null) {
             //each will have their own dashboard(menu will have a few different options)

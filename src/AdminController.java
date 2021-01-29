@@ -5,18 +5,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
-import javafx.scene.shape.Box;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
+
 
 public class AdminController extends Controller implements Initializable {
 
@@ -63,12 +60,14 @@ public class AdminController extends Controller implements Initializable {
                 outerBox.setPadding(new Insets(10, 10, 10, 10));
                 VBox tableEntry = new VBox();
                 // User Info:
+                HBox useroptions = new HBox(); //1
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
-                tableEntry.getChildren().add(new Text("Owner Name: "+ owner.getName()));
-                tableEntry.getChildren().add(new Text("Owner ID: "+ owner.getUserID()));
+                Text t2 = new Text(owner.getUserID() + " - " + owner.getName());
+                t2.setFill(Color.DARKRED);
+                tableEntry.getChildren().add(t2);
                 // edit User button
+
                 Button seeMoreu = new Button("View Details");
-                tableEntry.getChildren().add(seeMoreu);
                 //redirect to user dashboard
                 seeMoreu.setOnAction(event -> {
                 });
@@ -89,27 +88,37 @@ public class AdminController extends Controller implements Initializable {
                     owner.setApprovalStatus(checkBox.isSelected());
                 });
                 assign.getChildren().addAll(assignLabel, checkBox);
-                tableEntry.getChildren().add(assign);
+
 
                 // delete User button
                 Button deleteu = new Button("Delete");
                 deleteu.setOnAction(event ->{
-                    owners.remove(owner);
+                    UserFactory.getInstance().removeOwner(owner);
                     propertyTable.getChildren().clear();
                 });
-                tableEntry.getChildren().add(deleteu);
 
+                useroptions.getChildren().addAll(new Text("More Options:"),seeMoreu,deleteu,assign);//2
+                useroptions.setSpacing(10);
+                tableEntry.getChildren().add(useroptions);//3
                 tableEntry.setSpacing(10);
                 // Property by User:
-                tableEntry.getChildren().add(new Text("Properties:____________________________________"));
+                Text t = new Text("Properties: ");
+                t.setFill(Color.DARKRED);
+                tableEntry.getChildren().add(t);
+
                 ArrayList <Property> properties = owner.getPropertyList();
                 for (Property property: properties) {
-                    tableEntry.getChildren().add(new Text("Title: "+ property.getName()));
+                    tableEntry.getChildren().add(new Text(property.getName()));
                     tableEntry.getChildren().add(new Text("Type: "+ property.getType()));
                     tableEntry.getChildren().add(new Text("Address: "+property.getAddress()));
+
+                    HBox poptions = new HBox();//1
+                    poptions.setSpacing(10);
+
+
                     // edit property button
                     Button seeMore = new Button("View Details");
-                    tableEntry.getChildren().add(seeMore);
+
                     seeMore.setOnAction(event -> {
                         PropertyPageController.propertyToDisplay = property;
                         try {
@@ -125,11 +134,14 @@ public class AdminController extends Controller implements Initializable {
                     // delete property button
                     Button delete = new Button("Delete");
                     delete.setOnAction(event ->{
-                        properties.remove(property);
+                        owner.deleteProperty(property);
+                        propertySearchFacade.deleteProperty(property);
                         propertyTable.getChildren().clear();
                     });
-                    tableEntry.getChildren().add(delete);
+                    poptions.getChildren().addAll(seeMore,delete);//2
+                    tableEntry.getChildren().add(poptions);//3
                 }
+                tableEntry.getChildren().add(new Text("_______________________________________________________________________________"));
                 outerBox.getChildren().add(tableEntry);
                 propertyTable.getChildren().add(outerBox);
 
@@ -150,12 +162,13 @@ public class AdminController extends Controller implements Initializable {
                 outerBox.setPadding(new Insets(10, 10, 10, 10));
                 VBox tableEntry = new VBox();
                 // User Info:
+                HBox useroptions = new HBox(); //1
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
-                tableEntry.getChildren().add(new Text("Agent Name: "+ agent.getName()));
-                tableEntry.getChildren().add(new Text("Agent ID: "+ agent.getUserID()));
+                Text t2 = new Text(agent.getUserID() + " - " + agent.getName());
+                t2.setFill(Color.DARKRED);
+                tableEntry.getChildren().add(t2);
                 // edit User button
                 Button seeMoreu = new Button("View Details");
-                tableEntry.getChildren().add(seeMoreu);
                 //redirect to user dashboard
                 seeMoreu.setOnAction(event -> {
                 });
@@ -181,22 +194,30 @@ public class AdminController extends Controller implements Initializable {
                 // delete User button
                 Button deleteu = new Button("Delete");
                 deleteu.setOnAction(event ->{
-                    agents.remove(agent);
+                    UserFactory.getInstance().removeAgent(agent);
                     propertyTable.getChildren().clear();
                 });
-                tableEntry.getChildren().add(deleteu);
 
+
+                useroptions.getChildren().addAll(new Text("More Options:"),seeMoreu,deleteu,assign);//2
+                useroptions.setSpacing(10);
+                tableEntry.getChildren().add(useroptions);//3
                 tableEntry.setSpacing(10);
                 // Property by User:
-                tableEntry.getChildren().add(new Text("Properties:____________________________________"));
+                Text t = new Text("Properties: ");
+                t.setFill(Color.DARKRED);
+                tableEntry.getChildren().add(t);
+
                 ArrayList <Property> properties = agent.getPropertyList();
                 for (Property property: properties) {
                     tableEntry.getChildren().add(new Text("Title: "+ property.getName()));
                     tableEntry.getChildren().add(new Text("Type: "+ property.getType()));
                     tableEntry.getChildren().add(new Text("Address: "+property.getAddress()));
+
+                    HBox poptions = new HBox();//1
+                    poptions.setSpacing(10);
                     // edit property button
                     Button seeMore = new Button("View Details");
-                    tableEntry.getChildren().add(seeMore);
                     seeMore.setOnAction(event -> {
                         PropertyPageController.propertyToDisplay = property;
                         try {
@@ -212,20 +233,25 @@ public class AdminController extends Controller implements Initializable {
                     // delete property button
                     Button delete = new Button("Delete");
                     delete.setOnAction(event ->{
-                        properties.remove(property);
+                        agent.deleteProperty(property);
+                        propertySearchFacade.deleteProperty(property);
                         propertyTable.getChildren().clear();
                     });
-                    tableEntry.getChildren().add(delete);
+                    poptions.getChildren().addAll(seeMore,delete);//2
+                    tableEntry.getChildren().add(poptions);//3
                 }
+                tableEntry.getChildren().add(new Text("_______________________________________________________________________________"));
                 outerBox.getChildren().add(tableEntry);
                 propertyTable.getChildren().add(outerBox);
 
             }
 
         });
+
         //show Tenants only:
         Button showTenats = new Button("Tenants");
         showTenats.setOnAction(c ->{
+            System.out.println(tenants.size());
             propertyTable.getChildren().clear();
             propertyTable.getChildren().add(options);
             for (Tenant tenant : tenants) {
@@ -235,9 +261,11 @@ public class AdminController extends Controller implements Initializable {
                 outerBox.setPadding(new Insets(10, 10, 10, 10));
                 VBox tableEntry = new VBox();
                 // User Info:
+                HBox useroptions = new HBox(); //1
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
-                tableEntry.getChildren().add(new Text("Agent Name: "+ tenant.getName()));
-                tableEntry.getChildren().add(new Text("Agent ID: "+ tenant.getUserID()));
+                Text t2 = new Text(tenant.getUserID() + " - " + tenant.getName());
+                t2.setFill(Color.DARKRED);
+                tableEntry.getChildren().add(t2);
 
                 // approve user
                 HBox assign = new HBox();
@@ -255,7 +283,6 @@ public class AdminController extends Controller implements Initializable {
                     tenant.setApprovalStatus(checkBox.isSelected());
                 });
                 assign.getChildren().addAll(assignLabel, checkBox);
-                tableEntry.getChildren().add(assign);
 
                 // delete User button
                 Button deleteu = new Button("Delete");
@@ -263,7 +290,10 @@ public class AdminController extends Controller implements Initializable {
                     tenants.remove(tenant);
                     propertyTable.getChildren().clear();
                 });
-                tableEntry.getChildren().add(deleteu);
+
+                useroptions.getChildren().addAll(new Text("More Options:"),deleteu,assign);//2
+                useroptions.setSpacing(10);
+                tableEntry.getChildren().add(useroptions);//3
                 tableEntry.setSpacing(10);
                 outerBox.getChildren().add(tableEntry);
                 propertyTable.getChildren().add(outerBox);
@@ -316,14 +346,6 @@ public class AdminController extends Controller implements Initializable {
                     }
                 });
 
-                // delete property button
-                Button deletep = new Button("Delete");
-                deletep.setOnAction(c ->{
-                    propertiesMain.remove(property);
-                    propertyTable.getChildren().clear();
-
-                });
-                outerBox.getChildren().add(deletep);
                 outerBox.getChildren().add(seeMore);
                 propertyTable.getChildren().add(outerBox);
 
@@ -363,14 +385,6 @@ public class AdminController extends Controller implements Initializable {
                     }
                 });
 
-                // delete property button
-                Button deletep = new Button("Delete");
-                deletep.setOnAction(c ->{
-                    propertiesMain.remove(property);
-                    propertyTable.getChildren().clear();
-
-                });
-                outerBox.getChildren().add(deletep);
                 outerBox.getChildren().add(seeMore);
                 propertyTable.getChildren().add(outerBox);
 
@@ -411,14 +425,6 @@ public class AdminController extends Controller implements Initializable {
                 }
             });
 
-            // delete property button
-            Button deletep = new Button("Delete");
-            deletep.setOnAction(event ->{
-                propertiesMain.remove(property);
-                propertyTable.getChildren().clear();
-
-            });
-            outerBox.getChildren().add(deletep);
             outerBox.getChildren().add(seeMore);
             propertyTable.getChildren().add(outerBox);
         }

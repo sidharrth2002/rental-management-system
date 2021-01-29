@@ -38,7 +38,7 @@ public class PropertyPageController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        System.out.println("." + propertyToDisplay.getPhoto().substring(5, propertyToDisplay.getPhoto().length()));
+
         Image image = new Image("." + propertyToDisplay.getPhoto().substring(5, propertyToDisplay.getPhoto().length()), 600, 300, false, false);
         imageArea.getChildren().add(new ImageView(image));
 
@@ -48,10 +48,13 @@ public class PropertyPageController extends Controller implements Initializable 
         for (Property property: userProperties){
             if (property.getID().equals(propertyToDisplay.getID())) {
                 myunit = true;
-            }else if (user.getUserID().substring(0,1).equals("ad")) { // admin access
-                myunit = true;
             }
         }
+         if (user.getUserID().substring(0,2).equals("ad")) { // admin access
+                myunit = true;
+
+            }
+
             MenuItem logoutItem = new MenuItem("Logout");
             logoutItem.setOnAction(e -> logout());
             options.getItems().add(logoutItem);
