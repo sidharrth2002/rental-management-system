@@ -18,19 +18,20 @@ public class Agent extends User {
                 .append("\"" + getUsername() + "\"" + ",")
                 .append("\"" + getPassword() + "\"" + ",")
                 .append("\"" + getApprovalStatus() + "\"" + ",")
-                .append("\"" + getLicenseCode() + "\"" + ",");
+                .append("\"" + getLicenseCode() + "\"" + ",")
+                .append("\"" + getPhone() + "\"" + ",");
         sb.append("\"[");
         ArrayList<Property> propertyList = getPropertyList();
         for(int i = 0; i < propertyList.size(); i++) {
             sb.append(propertyList.get(i).getID());
             sb.append(",");
         }
-        sb.append("\"]");
+        sb.append("]\"");
         return sb.toString();
     }
 
-    public Agent(String userCode, String name, String username, String password, String licenseCode, boolean approvalStatus) {
-        super(userCode, name, username, password, approvalStatus);
+    public Agent(String userCode, String name, String username, String password, String licenseCode, String phone, boolean approvalStatus) {
+        super(userCode, name, username, password, phone, approvalStatus);
         this.licenseCode = licenseCode;
     }
 }

@@ -11,8 +11,8 @@ public class Tenant extends User {
 
     private String ICNumber;
 
-    public Tenant(String userCode, String name, String username, String password, String ICNumber, boolean approvalStatus) {
-        super(userCode, name, username, password, approvalStatus);
+    public Tenant(String userCode, String name, String username, String password, String ICNumber, String phone, boolean approvalStatus) {
+        super(userCode, name, username, password, phone, approvalStatus);
         this.ICNumber = ICNumber;
     }
 
@@ -23,14 +23,15 @@ public class Tenant extends User {
                 .append("\"" + getUsername() + "\"" + ",")
                 .append("\"" + getPassword() + "\"" + ",")
                 .append("\"" + getApprovalStatus() + "\"" + ",")
-                .append("\"" + getICNumber() + "\"" + ",");
+                .append("\"" + getICNumber() + "\"" + ",")
+                .append("\"" + getPhone() + "\"" + ",");
         sb.append("\"[");
         ArrayList<Property> propertyList = getPropertyList();
         for(int i = 0; i < propertyList.size(); i++) {
             sb.append(propertyList.get(i).getID());
             sb.append(",");
         }
-        sb.append("\"]");
+        sb.append("]\"");
         return sb.toString();
     }
 }

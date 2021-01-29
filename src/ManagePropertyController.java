@@ -55,7 +55,6 @@ public class ManagePropertyController extends Controller implements Initializabl
 //             photoFileLabel.setGraphic(propertyImageView);
             priceField.setText(Double.toString(propertyManaged.getPrice()));
             assignedStatusField.setSelected(propertyManaged.getAssignedStatus());
-            System.out.println(propertyManaged.getFacilities());
         }
     }
 
@@ -129,7 +128,10 @@ public class ManagePropertyController extends Controller implements Initializabl
             // doesn't belong here but works for now,
             // later move to FileHandler static method and call from Property's setPhoto()
             String photoStorePath = "./src/photos/";
+            String photoStorePath2 = "./out/production/assig/photos";
             Files.copy(selectedFile.toPath(), Paths.get(photoStorePath, selectedFile.getName()),
+                    StandardCopyOption.REPLACE_EXISTING); // copy selected photo to photo store
+            Files.copy(selectedFile.toPath(), Paths.get(photoStorePath2, selectedFile.getName()),
                     StandardCopyOption.REPLACE_EXISTING); // copy selected photo to photo store
 
             String[] facilitiesArray = facilitiesField.getText().split(","); // string array of facilities, assume user enters in csv format
@@ -152,9 +154,8 @@ public class ManagePropertyController extends Controller implements Initializabl
                 newProperty.setAgent((Agent) user);
             } else if (user instanceof Owner) {
                 newProperty.setOwner((Owner) user);
+            } else {
             }
-
-            System.out.println(newProperty.toCSVString()); // test entered data
 
             // if everything checks out, can save this property to file, but need to load all the data again
             propertySearchFacade.addProperty(newProperty);

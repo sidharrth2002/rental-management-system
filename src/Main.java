@@ -41,6 +41,7 @@ public class Main extends Application {
         fileHandlers.saveOwnersToFile();
         fileHandlers.saveAgentsToFile();
         fileHandlers.saveTenantsToFile();
+        fileHandlers.saveAdminsToFile();
         fileHandlers.savePropertyToFile();
         Controller.stage.close();
     }

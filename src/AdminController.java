@@ -335,7 +335,6 @@ public class AdminController extends Controller implements Initializable {
         // print unassigned:
         Button getByUnassignedb = new Button("Get By Unassigned");
         getByUnassignedb.setOnAction(event ->{
-            System.out.println("unassigned");
             propertyTable.getChildren().clear();
             propertyTable.getChildren().add(options);
             ArrayList<Property> inactiveproperties = propertySearchFacade.getByInactive();

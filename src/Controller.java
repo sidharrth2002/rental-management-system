@@ -34,7 +34,6 @@ public class Controller implements Initializable {
     public static Stage stage;
 
     public Controller() {
-        System.out.println("Main Controller");
     }
 
     @Override
@@ -69,7 +68,6 @@ public class Controller implements Initializable {
                 break;
             case "searchArea":
             case "backToDashboard":
-                System.out.println("I reach here");
                 Parent searchPage = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                 Scene searchArea = new Scene(searchPage, 700, 600);
                 stage.setScene(searchArea);

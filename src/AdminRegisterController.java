@@ -43,11 +43,8 @@ public class AdminRegisterController extends Controller {
         }
 
         Stage stage = (Stage) root.getScene().getWindow();
-        Admin admin = new Admin("ad",nameField.getText(), usernameField.getText(), passwordField.getText(),true);
-        UserFactory.getInstance().admins.add(admin);
+        User admin = userFactory.makeUser("admin", nameField.getText(), usernameField.getText(), passwordField.getText(), "", "");
 
-
-        stage.setUserData(admin);
         if(admin != null) {
             //each will have their own dashboard(menu will have a few different options)
             //but same until those are all ready

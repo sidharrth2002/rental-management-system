@@ -48,6 +48,11 @@ public class PropertySearchFacade {
                 ) {
                 filteredProperty.add(property);
             }
+            for (String facility: property.getFacilities()) {
+                if(facility.toLowerCase().contains(keyword.toLowerCase()) && !filteredProperty.contains(property)) {
+                    filteredProperty.add(property);
+                }
+            }
         }
         return filteredProperty;
     }

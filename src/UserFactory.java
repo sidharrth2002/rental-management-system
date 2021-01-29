@@ -11,8 +11,73 @@ public class UserFactory {
     public ArrayList<Tenant> tenants = new ArrayList<>();
     public ArrayList<Agent> agents = new ArrayList<>();
     public ArrayList<Owner> owners = new ArrayList<>();
+
+    public ArrayList<Admin> getAdmins() {
+        return admins;
+    }
+
+    public void setAdmins(ArrayList<Admin> admins) {
+        this.admins = admins;
+    }
+
     public ArrayList<Admin> admins = new ArrayList<>();
-    private static int numTenants, numAgents, numOwners;
+    private static int numTenants;
+
+    public static int getNumTenants() {
+        return numTenants;
+    }
+
+    public static void setNumTenants(int numTenants) {
+        UserFactory.numTenants = numTenants;
+    }
+
+    public static int getNumAgents() {
+        return numAgents;
+    }
+
+    public static void setNumAgents(int numAgents) {
+        UserFactory.numAgents = numAgents;
+    }
+
+    public static int getNumOwners() {
+        return numOwners;
+    }
+
+    public static void setNumOwners(int numOwners) {
+        UserFactory.numOwners = numOwners;
+    }
+
+    public static int getNumAdmins() {
+        return numAdmins;
+    }
+
+    public static void setNumAdmins(int numAdmins) {
+        UserFactory.numAdmins = numAdmins;
+    }
+
+    public void removeOwner(Owner owner) {
+        owners.remove(owner);
+        ArrayList<Property> theirproperties = owner.getPropertyList();
+        for(Property property: theirproperties) {
+            PropertySearchFacade.getInstance().deleteProperty(property);
+        }
+    }
+
+    public void removeAgent(Agent agent) {
+        agents.remove(agent);
+        ArrayList<Property> theirproperties = agent.getPropertyList();
+        for(Property property: theirproperties) {
+            PropertySearchFacade.getInstance().deleteProperty(property);
+        }
+    }
+
+    public void removeTenant(Tenant tenant) {
+        tenants.remove(tenant);
+    }
+
+    private static int numAgents;
+    private static int numOwners;
+    private static int numAdmins;
 
     private UserFactory() {}
 
@@ -49,44 +114,54 @@ public class UserFactory {
         combined.addAll(tenants);
         combined.addAll(agents);
         combined.addAll(owners);
+        combined.addAll(admins);
         return combined;
     }
 
     //for use by the program
-    public User makeUser(String userType, String name, String username, String password, String credential) {
+    public User makeUser(String userType, String name, String username, String password, String credential, String phone) {
         if(userType.equalsIgnoreCase("tenant")) {
             String userCode = "t" + ++numTenants;
-            Tenant tenant = new Tenant(userCode, name, username, password, credential, false);
+            Tenant tenant = new Tenant(userCode, name, username, password, credential, phone, false);
             tenants.add(tenant);
             return tenant;
         } else if(userType.equalsIgnoreCase("agent")) {
             String userCode = "a" + ++numAgents;
-            Agent agent = new Agent(userCode, name, username, password, credential, false);
+            Agent agent = new Agent(userCode, name, username, password, credential, phone, false);
             agents.add(agent);
             return agent;
         } else if(userType.equalsIgnoreCase("owner")) {
-            String userCode = "a" + ++numOwners;
-            Owner owner = new Owner(userCode, name, username, password, credential, false);
+            String userCode = "o" + ++numOwners;
+            Owner owner = new Owner(userCode, name, username, password, credential, phone, false);
             owners.add(owner);
             return owner;
+        } else if(userType.equalsIgnoreCase("admin")) {
+            String userCode = "ad" + ++numAdmins;
+            Admin admin = new Admin(userCode, name, username, password, true);
+            admins.add(admin);
+            return admin;
         }
         return null;
     }
 
     //for use by file handling
-    public User makeUser(String userId, String userType, String name, String username, String password, String credential, boolean approvalStatus) {
+    public User makeUser(String userId, String userType, String name, String username, String password, String credential, boolean approvalStatus, String phone) {
         if(userType.equalsIgnoreCase("tenant")) {
-            Tenant tenant = new Tenant(userId, name, username, password, credential, approvalStatus);
+            Tenant tenant = new Tenant(userId, name, username, password, credential, phone, approvalStatus);
             tenants.add(tenant);
             return tenant;
         } else if(userType.equalsIgnoreCase("agent")) {
-            Agent agent = new Agent(userId, name, username, password, credential, approvalStatus);
+            Agent agent = new Agent(userId, name, username, password, credential, phone, approvalStatus);
             agents.add(agent);
             return agent;
         } else if(userType.equalsIgnoreCase("owner")) {
-            Owner owner = new Owner(userId, name, username, password, credential, approvalStatus);
+            Owner owner = new Owner(userId, name, username, password, credential, phone, approvalStatus);
             owners.add(owner);
             return owner;
+        } else if(userType.equalsIgnoreCase("admin")) {
+            Admin admin = new Admin(userId, name, username, password, approvalStatus);
+            admins.add(admin);
+            return admin;
         }
         return null;
     }

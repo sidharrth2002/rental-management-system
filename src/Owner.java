@@ -18,19 +18,20 @@ public class Owner extends User {
                 .append("\"" + getUsername() + "\"" + ",")
                 .append("\"" + getPassword() + "\"" + ",")
                 .append("\"" + getApprovalStatus() + "\"" + ",")
-                .append("\"" + getOwnershipCode() + "\"" + ",");
+                .append("\"" + getOwnershipCode() + "\"" + ",")
+                .append("\"" + getPhone() + "\"" + ",");
         sb.append("\"[");
         ArrayList<Property> propertyList = getPropertyList();
         for(int i = 0; i < propertyList.size(); i++) {
             sb.append(propertyList.get(i).getID());
             sb.append(",");
         }
-        sb.append("\"]");
+        sb.append("]\"");
         return sb.toString();
     }
 
-    public Owner(String userCode, String name, String username, String password, String ownershipCode, boolean approvalStatus) {
-        super(userCode, name, username, password, approvalStatus);
+    public Owner(String userCode, String name, String username, String password, String ownershipCode, String phone, boolean approvalStatus) {
+        super(userCode, name, username, password, phone, approvalStatus);
         this.ownershipCode = ownershipCode;
     }
 }

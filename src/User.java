@@ -9,6 +9,20 @@ public class User {
     private String userID;
     private String username;
     private String password;
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isApprovalStatus() {
+        return approvalStatus;
+    }
+
     private boolean approvalStatus;
     private List<String> propertyCodes = new ArrayList<>();
     private ArrayList<Property> propertyList = new ArrayList<>();
@@ -19,12 +33,12 @@ public class User {
 
     public User() {}
 
-    public User(String userCode, String name, String username, String password, boolean approvalStatus) {
+    public User(String userCode, String name, String username, String password, String phone, boolean approvalStatus) {
         this.userID = userCode;
-        System.out.println(userID);
         this.name = name;
         this.username = username;
         this.password = password;
+        this.phone = phone;
         this.approvalStatus = approvalStatus;
     }
 
@@ -78,8 +92,6 @@ public class User {
 
     public void addProperty(Property property) {
         this.propertyList.add(property);
-        System.out.println(getName());
-        System.out.println(property.getName());
     }
 
     public void deleteProperty(Property property) {

@@ -42,6 +42,15 @@ public class Property {
     public boolean getAssignedStatus() { return assignedStatus; } // duplicated
     public Agent getAgent() { return agent; }
     public Owner getOwner() { return owner; }
+    public User getManager() {
+        if(agent == null) {
+            return owner;
+        } else if(owner == null) {
+            return agent;
+        }
+        System.out.println("Am Null");
+        return null;
+    }
     public ArrayList<String> getFacilities() {
         return facilities;
     }

@@ -78,9 +78,8 @@ public class LoginController extends Controller {
             Scene register = new Scene(registerfxml, 700, 600);
             stage.setScene(register);
         } else if(typeOfUser.equals("admin")) {
-            Parent registerfxml = FXMLLoader.load(getClass().getResource("admindashboard.fxml"));
-            Scene register = new Scene(registerfxml, 700, 600);
-            stage.setScene(register);
+            showAlert(Alert.AlertType.ERROR, window, "Unavailable!",
+                    "Yo, admin cannot register. You have to BE registered by another admin.");
         }
 
     }
