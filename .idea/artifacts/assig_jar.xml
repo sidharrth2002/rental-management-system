@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="assig:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/assig_jar</output-path>
+    <root id="archive" name="assig.jar">
+      <element id="module-output" name="assig" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Developer/javafx/lib/javafx.web.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

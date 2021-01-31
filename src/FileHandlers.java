@@ -23,7 +23,7 @@ public class FileHandlers {
         //read owners
         List<String> ownerLines = Files.readAllLines(Paths.get("./src/data/owners.csv"));
         //set the number of the owners in the system
-        UserFactory.setNumOwners(ownerLines.size());
+//        UserFactory.setNumOwners(ownerLines.size());
         for(int i = 0; i < ownerLines.size(); i++) {
             String[] dataInFile = ownerLines.get(i).split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
             //remove quotation marks
@@ -39,10 +39,14 @@ public class FileHandlers {
             //call makeUser to load them
             User user = userFactory.makeUser(userID, "owner", name, username, password, ownershipCode, approvalStatus, phone);
             user.setPropertyCodes(Arrays.asList(propertyCodes));
+            if(i == ownerLines.size() - 1) {
+                System.out.println(Integer.parseInt(userID.substring(1)));
+                UserFactory.setNumOwners(Integer.parseInt(userID.substring(1)));
+            }
         }
 
         List<String> agentLines = Files.readAllLines(Paths.get("./src/data/agents.csv"));
-        UserFactory.setNumAgents(agentLines.size());
+//        UserFactory.setNumAgents(agentLines.size());
         for(int i = 0; i < agentLines.size(); i++) {
             String[] dataInFile = agentLines.get(i).split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
             //remove quotation marks
@@ -59,10 +63,14 @@ public class FileHandlers {
             User user = userFactory.makeUser(userID, "agent", name, username, password, agentCode, approvalStatus, phone);
             //load property to this user object
             user.setPropertyCodes(Arrays.asList(propertyCodes));
+            if(i == agentLines.size() - 1) {
+                System.out.println(Integer.parseInt(userID.substring(1)));
+                UserFactory.setNumAgents(Integer.parseInt(userID.substring(1)));
+            }
         }
 
         List<String> tenantLines = Files.readAllLines(Paths.get("./src/data/tenants.csv"));
-        UserFactory.setNumTenants(tenantLines.size());
+//        UserFactory.setNumTenants(tenantLines.size());
         for(int i = 0; i < tenantLines.size(); i++) {
             String[] dataInFile = tenantLines.get(i).split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
             //remove quotation marks
@@ -78,10 +86,14 @@ public class FileHandlers {
             //call makeUser to load them
             User user = userFactory.makeUser(userID, "tenant", name, username, password, ICNumber, approvalStatus, phone);
             user.setPropertyCodes(Arrays.asList(propertyCodes));
+            if(i == tenantLines.size() - 1) {
+                System.out.println(Integer.parseInt(userID.substring(1)));
+                UserFactory.setNumTenants(Integer.parseInt(userID.substring(1)));
+            }
         }
 
         List<String> adminLines = Files.readAllLines(Paths.get("./src/data/admins.csv"));
-        UserFactory.setNumAdmins(adminLines.size());
+//        UserFactory.setNumAdmins(adminLines.size());
         for(int i = 0; i < adminLines.size(); i++) {
             String[] dataInFile = adminLines.get(i).split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
             //remove quotation marks
@@ -93,6 +105,10 @@ public class FileHandlers {
             //call makeUser to load them
             //pass empty string in place of credential and phone because admin does not need credentials
             User user = userFactory.makeUser(userID, "admin", name, username, password, "", approvalStatus, "");
+            if(i == adminLines.size() - 1) {
+                System.out.println(Integer.parseInt(userID.substring(2)));
+                UserFactory.setNumAdmins(Integer.parseInt(userID.substring(2)));
+            }
         }
     }
 
@@ -152,6 +168,7 @@ public class FileHandlers {
         StringBuilder sb = new StringBuilder();
         ArrayList<Property> propertyList = propertySearchFacade.getProperties();
         for (int i = 0; i < propertyList.size(); i++) {
+            System.out.println(propertyList.get(i).toCSVString());
             sb.append(propertyList.get(i).toCSVString());
             sb.append("\n");
         }
@@ -214,8 +231,10 @@ public class FileHandlers {
                 }
                 property.setAgent(chosenAgent);
             }
-
             propertySearchFacade.addProperty(property);
+            if(i == lines.size() - 1) {
+                Property.setCount(Integer.parseInt(ID.substring(1)) + 1);
+            }
         }
     }
 }

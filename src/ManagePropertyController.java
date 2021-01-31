@@ -66,7 +66,7 @@ public class ManagePropertyController extends Controller implements Initializabl
             propertyImageView.setFitHeight(100); // set image view height
             photoFileLabel.setText(null); // remove the text
             photoFileLabel.setGraphic(propertyImageView); // set the scaled image
-            selectedFile = new File(propertyManaged.getPhoto().substring(13));
+            selectedFile = new File(propertyManaged.getPhoto());
         }
     }
 
@@ -175,6 +175,12 @@ public class ManagePropertyController extends Controller implements Initializabl
         }
         else {
             // not yet completed
+            if(selectedFile != null) {
+                Files.copy(selectedFile.toPath(), Paths.get(photoStorePath, selectedFile.getName()),
+                        StandardCopyOption.REPLACE_EXISTING); // copy selected photo to photo store
+                Files.copy(selectedFile.toPath(), Paths.get(photoStorePath2, selectedFile.getName()),
+                        StandardCopyOption.REPLACE_EXISTING); // copy selected photo to photo store
+            }
             propertyManaged.setName(nameField.getText());
             propertyManaged.setAddress(addressField.getText());
             propertyManaged.setProject(projectField.getText());

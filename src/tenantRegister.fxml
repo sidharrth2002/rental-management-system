@@ -42,7 +42,7 @@
     <TextField fx:id="credential" prefHeight="40" GridPane.columnIndex="1"
                GridPane.rowIndex="4"/>
 
-        <Label fx:id="Phone : " text="Phone Number: " GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label text="Phone Number: " GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <TextField fx:id="tphone" prefHeight="40" GridPane.columnIndex="1"
                    GridPane.rowIndex="5"/>
 

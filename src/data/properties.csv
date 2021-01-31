@@ -4,4 +4,7 @@
 "p6", "Unit 21-1", "Jalan CyberSquare", "Cyberville", "Nice Project with 2 bedrooms, 2 bathrooms", "Studio", "./src/photos/Screenshot 2021-01-27 at 3.41.12 PM.png", "1500.0", "29/01/2021", "false", "a1", "[Pool, Gym, Spa]"
 "p7", "Until 11-11", "Jalan Cyberville", "Cybervillas", "Nice project with 2 rooms, 2 bathrooms", "Condominium", "./src/photos/Screenshot 2021-01-27 at 3.09.28 PM.png", "1500.0", "29/01/2021", "false", "o4", "[Pool, Gym, Spa]"
 "p8", "dskgjdf", "jdgjkdfgj", "dgidfjogjo", "uighdiofgj", "Apartment", "./src/photos/Screenshot 2021-01-27 at 2.10.41 PM.png", "1500.0", "29/01/2021", "false", "o4", "[1,2,3]"
-"p7", "Villa 20-30", "Octopus Street", "Octopus Developments", "Octopus House with 2 bedrooms, 2 bathrooms.", "SemiD", "./src/photos/Screenshot 2021-01-27 at 3.03.24 PM.png", "2000.0", "29/01/2021", "false", "a4", "[Pool, Gym, Spa, Clubhouse]"
+"p9", "2", "Jalan Duta", "Dutavillas", "2 Bedroom", "Bungalow", "./src/photos/Screenshot 2021-01-27 at 3.22.20 PM.png", "1600.0", "31/01/2021", "false", "o1", "[Pool,Gym,Spa]"
+"p10", "Testing Property", "2, Testing Street", "Testing Project", "Nice Apartment", "Apartment", "./src/photos/Screenshot 2021-01-30 at 11.39.23 AM.png", "1600.0", "31/01/2021", "true", "o1", "[Pool,Gym]"
+"p11", "jghdfhg", "rjhr", "jhg", "dfgjhdfjj", "Villa", "./src/photos/Screenshot 2021-01-30 at 11.06.55 AM.png", "1500.0", "31/01/2021", "false", "o1", "[a,b,c]"
+"p12", "dfgdfgssdfsdgdfg", "sdfjgj", "dssndf", "nsjdkfjkd sdjf", "Villa", "./src/photos/Screenshot 2021-01-27 at 10.45.48 AM.png", "1700.0", "31/01/2021", "false", "o1", "[a,b,c]"

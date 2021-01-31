@@ -6,8 +6,9 @@ import java.util.Locale;
 
 //convert to builder design pattern
 public class Property {
+
     // fields
-    private static int count = 0; // property object counter
+    private static int count; // property object counter
     private String ID;
     private String name; // property name
     private String address; // address, fix length? format?
@@ -25,7 +26,14 @@ public class Property {
 
     // private constructor to be called by builder only
     public Property() {
-        count++;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        Property.count = count;
     }
 
     // fields accessor methods
@@ -105,7 +113,7 @@ public class Property {
 
     // returns a new property ID based on number of objects created
     private static String generateNewID() {
-        return "p" + count;
+        return "p" + count++;
     }
 
     // builder as static inner class, Joshua Bloch's Builder DP style
