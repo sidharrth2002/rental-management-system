@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Owner extends User {
+    private String ownershipCode;
+
     public String getOwnershipCode() {
         return ownershipCode;
     }
@@ -9,8 +11,8 @@ public class Owner extends User {
         this.ownershipCode = ownershipCode;
     }
 
-    private String ownershipCode;
-
+    //custom CSV string generated
+    @Override
     public String toCSVString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\"" + getUserID() + "\"" + ",")

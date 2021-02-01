@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public abstract class User {
     private String name;
     private String userID;
     private String username;
@@ -27,9 +27,7 @@ public class User {
     private List<String> propertyCodes = new ArrayList<>();
     private ArrayList<Property> propertyList = new ArrayList<>();
 
-    public String toCSVString() {
-        return "";
-    };
+    public abstract String toCSVString();
 
     public User() {}
 

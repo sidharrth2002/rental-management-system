@@ -6,7 +6,6 @@ import java.util.Locale;
 
 //convert to builder design pattern
 public class Property {
-
     // fields
     private static int count; // property object counter
     private String ID;
@@ -25,16 +24,7 @@ public class Property {
     private ArrayList<String> facilities;
 
     // private constructor to be called by builder only
-    public Property() {
-    }
-
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        Property.count = count;
-    }
+    public Property() {}
 
     // fields accessor methods
     public String getID() { return ID; }
@@ -50,20 +40,30 @@ public class Property {
     public boolean getAssignedStatus() { return assignedStatus; } // duplicated
     public Agent getAgent() { return agent; }
     public Owner getOwner() { return owner; }
+    public ArrayList<String> getFacilities() {
+        return facilities;
+    }
+    //number of properties in the system
+    public static int getCount() {
+        return count;
+    }
+
+    //property can have either one, so return one
+    //when displaying property, this method will be called
     public User getManager() {
         if(agent == null) {
             return owner;
         } else if(owner == null) {
             return agent;
         }
-
         return null;
-    }
-    public ArrayList<String> getFacilities() {
-        return facilities;
     }
 
     // fields mutator methods
+    //file handler will set the number of properties to make sure next one autogenerates correctly
+    public static void setCount(int count) {
+        Property.count = count;
+    }
     private void setID(String ID) { this.ID = ID; } // only for builder to use
     public void setName(String name) { this.name = name; }
     public void setAddress(String address) { this.address = address; }
@@ -81,11 +81,15 @@ public class Property {
         this.facilities = facilities;
     }
 
+    // returns a new property ID based on number of objects created
+    private static String generateNewID() {
+        return "p" + count++;
+    }
+
     // converts property to a csv format string
     public String toCSVString() {
         DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         ArrayList<String> facilities = getFacilities();
-
         StringBuilder sb = new StringBuilder();
         sb.append("\"" + getID() + "\"" + ", ")
             .append("\"" + getName() + "\"" + ", ")
@@ -103,6 +107,7 @@ public class Property {
             sb.append("\"" + getAgent().getUserID() + "\", ");
         }
         sb.append("\"[");
+        //loads facilities to the file, comma separated
         for(int i = 0; i < facilities.size(); i++) {
             sb.append(facilities.get(i));
             sb.append((i != facilities.size() - 1) ? "," : "");
@@ -111,14 +116,8 @@ public class Property {
         return sb.toString();
     }
 
-    // returns a new property ID based on number of objects created
-    private static String generateNewID() {
-        return "p" + count++;
-    }
-
     // builder as static inner class, Joshua Bloch's Builder DP style
     public static class Builder {
-        // all fields same as Property (except count)
         private String ID;
         private String name;
         private String address;
@@ -207,14 +206,10 @@ public class Property {
         }
 
         // called to generate the final property object
+        // sets the various fields
         public Property build() {
-            // check to ensure either agent or owner, but not both, is given
-            //setting the owner/agent only later not during construction
-//            if (agent == null ^  owner != null) {
-//                throw new IllegalArgumentException("Property build error: Must assign either an agent or an owner but not both");
-//            }
-
             Property property = new Property();
+            //if ID not set, then autogenerate
             property.setID((ID == null) ? generateNewID() : ID); // either autogenerate or use loaded value
             property.setName(name); // required
             property.setAddress(address); // required

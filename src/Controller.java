@@ -40,7 +40,8 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    //method to change scene from the menu
+    //method to change scene from the menu bar
+    //not the only method that handles navigation though
     @FXML
     public void changeScene(ActionEvent e) throws IOException {
         String ID = "";
@@ -75,6 +76,7 @@ public class Controller implements Initializable {
         }
     }
 
+    //method used to show an alert with a custom message
     public void showAlert(Alert.AlertType alertType, Window owner, String title, String message) throws IOException {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -84,6 +86,8 @@ public class Controller implements Initializable {
         alert.show();
     }
 
+    //clean logout
+    //removes user object from the stage and redirects to role chooser
     public void logout() {
         stage.setUserData(null);
         Parent agentOwnerfxml = null;

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Agent extends User {
+    private String licenseCode;
+
     public String getLicenseCode() {
         return licenseCode;
     }
@@ -9,8 +11,9 @@ public class Agent extends User {
         this.licenseCode = licenseCode;
     }
 
-    private String licenseCode;
-
+    //custom toCSVString function for the agent
+    //to write to file
+    @Override
     public String toCSVString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\"" + getUserID() + "\"" + ",")

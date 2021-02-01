@@ -25,6 +25,7 @@ public class AgentOwnerScreenController extends Controller implements Initializa
     public Text stats;
     private User user = (User) stage.getUserData();
 
+    //initialize page by filling in fields with details specific to the user
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String name = user.getName();
@@ -36,6 +37,7 @@ public class AgentOwnerScreenController extends Controller implements Initializa
         displayList();
     }
 
+    //loops to print the properties managed by the user
     public void displayList() {
         ArrayList<Property> propertiesManaged = user.getPropertyList();
         stats.setText("You currently manage: " + propertiesManaged.size() + " properties");
@@ -74,6 +76,7 @@ public class AgentOwnerScreenController extends Controller implements Initializa
             });
             assign.getChildren().addAll(assignLabel, checkBox);
 
+            //button that allows user to visit page specifically for the property
             Button moreDetails = new Button("Manage This");
             moreDetails.setOnAction(e -> {
                 PropertyPageController.propertyToDisplay = property;
@@ -86,8 +89,10 @@ public class AgentOwnerScreenController extends Controller implements Initializa
                 }
             });
 
+            //option to delete the property
             Button deleteProperty = new Button("Delete");
             deleteProperty.setOnAction(e -> {
+                //removes from both user's and property list
                 user.deleteProperty(property);
                 propertySearchFacade.deleteProperty(property);
                 //need to refresh or auto?
@@ -100,12 +105,14 @@ public class AgentOwnerScreenController extends Controller implements Initializa
         }
     }
 
+    //goes to add new property page
     public void goToAddNewProperty(ActionEvent actionEvent) throws IOException {
         Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
         Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
         stage.setScene(roleChooser);
     }
 
+    //allows user to edit their details
     public void editDetails(ActionEvent actionEvent) throws IOException {
         RegisterPageController.setUserManaged(user);
         if (user instanceof Agent) {

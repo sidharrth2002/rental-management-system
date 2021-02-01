@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    //singleton instance of filehandlers
     FileHandlers fileHandlers = FileHandlers.getInstance();
 
     @Override
@@ -16,7 +17,7 @@ public class Main extends Application {
         fileHandlers.getPropertyFromFile();
         fileHandlers.loadPropertyToUsers();
 
-        //temp to test
+        //load role chooser page
         Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene scene = new Scene(root, 700, 600);
         Controller.stage = primaryStage;
@@ -24,6 +25,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        //custom close function that saves to file first
+        //makes sure data saved for next visit
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
             try {
@@ -43,6 +46,7 @@ public class Main extends Application {
         fileHandlers.saveTenantsToFile();
         fileHandlers.saveAdminsToFile();
         fileHandlers.savePropertyToFile();
+        //manually close
         Controller.stage.close();
     }
 

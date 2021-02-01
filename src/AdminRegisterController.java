@@ -24,6 +24,7 @@ public class AdminRegisterController extends Controller {
     public TextField credential;
     public Label extraInfo;
 
+    //validates form fields and calls factory methods to make the new admin
     public void submitForm(ActionEvent actionEvent) throws IOException {
         Window window = root.getScene().getWindow();
         if(nameField.getText().isEmpty()) {

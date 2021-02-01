@@ -2,15 +2,16 @@ import java.util.*;
 
 //singleton- only one propertysearchfacade
 public class PropertySearchFacade {
+    //stores singleton instance
     private static PropertySearchFacade instance = new PropertySearchFacade();
-
     private ArrayList<Property> properties = new ArrayList<>();
 
+    private PropertySearchFacade() {}
+
+    //returns the only instance
     public static PropertySearchFacade getInstance() {
         return instance;
     }
-
-    private PropertySearchFacade() {}
 
     public ArrayList<Property> getProperties() {
         return properties;

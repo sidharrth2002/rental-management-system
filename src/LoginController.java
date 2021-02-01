@@ -17,12 +17,14 @@ public class LoginController extends Controller {
     public GridPane root;
     public TextField usernameField;
     public PasswordField passwordField;
-//    public Stage stage;
     public static String typeOfUser;
 
+    //checks fields and if ok, compares with user list to check if login is correct
+    //if correct, login user and set the user data on the stage
     public void submitForm(ActionEvent actionEvent) throws IOException {
         Window window = root.getScene().getWindow();
         if(usernameField.getText().isEmpty()) {
+            //use showAlert from parent Controller
             showAlert(Alert.AlertType.ERROR, window, "Incomplete Data!",
                     "Please enter your username");
             return;
@@ -56,13 +58,14 @@ public class LoginController extends Controller {
         }
     }
 
+    //back to the role chooser to login from a different interface
     public void goToRoleChooser(ActionEvent actionEvent) throws IOException {
-//        Stage stage = (Stage) root.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
         Scene dashboard = new Scene(root, 700, 600);
         stage.setScene(dashboard);
     }
 
+    //depending on type of user, load corresponding register page
     public void goToRegisterPage(ActionEvent actionEvent) throws IOException {
         Window window = (Window) stage;
         if(typeOfUser.equals("agent")) {
