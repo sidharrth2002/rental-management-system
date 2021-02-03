@@ -1,20 +1,13 @@
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.TilePane?>
-<VBox fx:id="root" fx:controller="VisitorDashboardController"
+<VBox fx:id="root"
       xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white">
     <VBox>
         <MenuBar fx:id="menuBar">
@@ -44,7 +37,6 @@
             <Text text="Max Price: " GridPane.columnIndex="4" GridPane.rowIndex="0" />
             <TextField fx:id="maxPriceField" prefWidth="60" onKeyTyped="#setMaxPrice" GridPane.columnIndex="5" GridPane.rowIndex="0" />
         </GridPane>
-<!--        <Button text="Search" onKeyTyped="#searchProperty" />-->
         <Text text="Or Sort Property By One of the Options Below" />
         <HBox alignment="CENTER" spacing="20">
             <Button text="Sort By Price" onAction="#sortByPrice"/>

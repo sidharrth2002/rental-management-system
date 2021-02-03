@@ -18,11 +18,12 @@ public class Main extends Application {
         fileHandlers.loadPropertyToUsers();
 
         //load role chooser page
-        Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-        Scene scene = new Scene(root, 700, 600);
         Controller.stage = primaryStage;
-        primaryStage.setTitle("Rental Management System");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("roleChooser.fxml"));
+        loader.setController(new RoleChooserController());
+        Scene scene = new Scene(loader.load(), 700, 600);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Rental Management System");
         primaryStage.show();
 
         //custom close function that saves to file first

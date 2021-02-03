@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ScrollPane?>
-<VBox fx:id="root" fx:controller="VisitorDashboardController"
+<VBox fx:id="root"
       xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white">
     <VBox>
         <MenuBar fx:id="menuBar">

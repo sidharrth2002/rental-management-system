@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       xmlns="http://javafx.com/javafx"
-      prefHeight="400.0" prefWidth="600.0" fx:controller="RegisterPageController">
+      prefHeight="400.0" prefWidth="600.0">
     <HBox>
         <Button fx:id="roleChooserPage" text="Back to Role Chooser" onAction="#changeScene"/>
     </HBox>

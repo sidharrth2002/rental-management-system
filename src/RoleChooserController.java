@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class roleChooserController extends Controller {
+public class RoleChooserController extends Controller {
     public VBox root;
 
     public void goToLogin(ActionEvent actionEvent) throws IOException {
@@ -25,16 +25,18 @@ public class roleChooserController extends Controller {
             LoginController.typeOfUser = "tenant";
         }
         //login page
-        Parent loginfxml = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene loginPage = new Scene(loginfxml, 700, 600);
-        stage.setScene(loginPage);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        loader.setController(new LoginController());
+        Scene scene = new Scene(loader.load(), 700, 600);
+        stage.setScene(scene);
     }
 
     //go to search page
     public void goToVisitorDashboard(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
-        Parent dashboard = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-        Scene register = new Scene(dashboard, 700, 600);
-        stage.setScene(register);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+        loader.setController(new VisitorDashboardController());
+        Scene scene = new Scene(loader.load(), 700, 600);
+        stage.setScene(scene);
     }
 }

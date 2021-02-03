@@ -52,6 +52,7 @@ public class VisitorDashboardController extends Controller implements Initializa
             User user = (User) stage.getUserData();
 
             welcomeMessage.setText("Hello " + user.getName());
+            welcomeMessage.setStyle("-fx-font-size: 20");
 
             MenuItem logoutItem = new MenuItem("Logout");
             logoutItem.setOnAction(e -> logout());
@@ -62,25 +63,29 @@ public class VisitorDashboardController extends Controller implements Initializa
                 if(user instanceof Owner || user instanceof Agent) {
                     // render owner interface
                     try {
-                        Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
-                        Scene page = new Scene(agentOwnerfxml, 700, 600);
-                        stage.setScene(page);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("agentOwnerScreen.fxml"));
+                        loader.setController(new AgentOwnerScreenController());
+                        Scene scene = new Scene(loader.load(), 700, 600);
+                        stage.setScene(scene);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
                 } else if (user instanceof Admin) {
                     //go to ahmed's admin interface
                     try {
-                        Parent adminfxml = FXMLLoader.load(getClass().getResource("admindashboard.fxml"));
-                        Scene page = new Scene(adminfxml, 700, 600);
-                        stage.setScene(page);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("admindashboard.fxml"));
+                        loader.setController(new AdminController());
+                        Scene scene = new Scene(loader.load(), 700, 600);
+                        stage.setScene(scene);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
                 }
             });
-            specialOptions.setPadding(new Insets(10, 10, 10, 10));
-            specialOptions.getChildren().add(specialInterface);
+            if(!(user instanceof Tenant)) {
+                specialOptions.setPadding(new Insets(10, 10, 10, 10));
+                specialOptions.getChildren().add(specialInterface);
+            }
         } else {
             //if not logged in, give option to go and login
             MenuItem loginItem = new MenuItem("Login");
@@ -115,9 +120,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                     PropertyPageController.propertyToDisplay = property;
                     //render the page
                     try {
-                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                        Scene propertyPage = new Scene(root, 700, 600);
-                        stage.setScene(propertyPage);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                        loader.setController(new PropertyPageController());
+                        Scene scene = new Scene(loader.load(), 700, 600);
+                        stage.setScene(scene);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -153,10 +159,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                         PropertyPageController.propertyToDisplay = property;
                         //render the page
                         try {
-                            Stage stage = (Stage) root.getScene().getWindow();
-                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                            Scene propertyPage = new Scene(root, 700, 600);
-                            stage.setScene(propertyPage);
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                            loader.setController(new PropertyPageController());
+                            Scene scene = new Scene(loader.load(), 700, 600);
+                            stage.setScene(scene);
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -191,10 +197,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                     PropertyPageController.propertyToDisplay = property;
                     //render the page
                     try {
-                        Stage stage = (Stage) root.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                        Scene propertyPage = new Scene(root, 700, 600);
-                        stage.setScene(propertyPage);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                        loader.setController(new PropertyPageController());
+                        Scene scene = new Scene(loader.load(), 700, 600);
+                        stage.setScene(scene);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -249,10 +255,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                             PropertyPageController.propertyToDisplay = property;
                             //render the page
                             try {
-                                Stage stage = (Stage) root.getScene().getWindow();
-                                Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                                Scene propertyPage = new Scene(root, 700, 600);
-                                stage.setScene(propertyPage);
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                                loader.setController(new PropertyPageController());
+                                Scene scene = new Scene(loader.load(), 700, 600);
+                                stage.setScene(scene);
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
                             }
@@ -345,10 +351,10 @@ public class VisitorDashboardController extends Controller implements Initializa
                             PropertyPageController.propertyToDisplay = property;
                             //render the page
                             try {
-                                Stage stage = (Stage) root.getScene().getWindow();
-                                Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                                Scene propertyPage = new Scene(root, 700, 600);
-                                stage.setScene(propertyPage);
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                                loader.setController(new PropertyPageController());
+                                Scene scene = new Scene(loader.load(), 700, 600);
+                                stage.setScene(scene);
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
                             }

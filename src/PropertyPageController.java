@@ -82,13 +82,13 @@ public class PropertyPageController extends Controller implements Initializable 
                 ManagePropertyController.propertyManaged = propertyToDisplay;
                 Parent roleChooserfxml = null;
                 try {
-                    roleChooserfxml = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("addProperty.fxml"));
+                    loader.setController(new ManagePropertyController());
+                    Scene scene = new Scene(loader.load(), 700, 600);
+                    stage.setScene(scene);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-                Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-                stage.setScene(roleChooser);
-
             });
         }
 

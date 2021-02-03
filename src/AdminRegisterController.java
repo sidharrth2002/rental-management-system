@@ -50,9 +50,10 @@ public class AdminRegisterController extends Controller {
         if(admin != null) {
             //each will have their own dashboard(menu will have a few different options)
             //but same until those are all ready
-            Parent root = FXMLLoader.load(getClass().getResource("admindashboard.fxml"));
-            Scene dashboard = new Scene(root, 700, 600);
-            stage.setScene(dashboard);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("admindashboard.fxml"));
+            loader.setController(new AdminController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         }
     }
 }

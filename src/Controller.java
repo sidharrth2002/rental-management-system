@@ -53,25 +53,24 @@ public class Controller implements Initializable {
         }
         switch (ID) {
             case "login":
-                Parent loginfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-                Scene loginPage = new Scene(loginfxml, 700, 600);
-                stage.setScene(loginPage);
-                break;
             case "roleChooserPage":
-                Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-                Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-                stage.setScene(roleChooser);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("roleChooser.fxml"));
+                loader.setController(new RoleChooserController());
+                Scene scene = new Scene(loader.load(), 700, 600);
+                stage.setScene(scene);
                 break;
             case "agentOwnerPage":
-                Parent agentOwnerfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
-                Scene agentOwnerScreen = new Scene(agentOwnerfxml, 700, 600);
-                stage.setScene(agentOwnerScreen);
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("agentOwnerScreen.fxml"));
+                loader2.setController(new AgentOwnerScreenController());
+                Scene scene2 = new Scene(loader2.load(), 700, 600);
+                stage.setScene(scene2);
                 break;
             case "searchArea":
             case "backToDashboard":
-                Parent searchPage = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene searchArea = new Scene(searchPage, 700, 600);
-                stage.setScene(searchArea);
+                FXMLLoader loader3 = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+                loader3.setController(new VisitorDashboardController());
+                Scene scene3 = new Scene(loader3.load(), 700, 600);
+                stage.setScene(scene3);
                 break;
         }
     }
@@ -92,9 +91,10 @@ public class Controller implements Initializable {
         stage.setUserData(null);
         Parent agentOwnerfxml = null;
         try {
-            Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-            Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-            stage.setScene(roleChooser);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("roleChooser.fxml"));
+            loader.setController(new RoleChooserController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }

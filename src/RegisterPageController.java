@@ -106,9 +106,10 @@ public class RegisterPageController extends Controller implements Initializable 
                 stage.setUserData(user);
                 //make sure user created successfully
                 if(user != null) {
-                    Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                    Scene dashboard = new Scene(root, 700, 600);
-                    stage.setScene(dashboard);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+                    loader.setController(new VisitorDashboardController());
+                    Scene scene = new Scene(loader.load(), 700, 600);
+                    stage.setScene(scene);
                 }
             } else {
                 //if page is used to update profile
@@ -123,9 +124,10 @@ public class RegisterPageController extends Controller implements Initializable 
                 }
                 userManaged.setPhone(tphone.getText());
                 //go to the dashboard
-                Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-                Scene dashboard = new Scene(root, 700, 600);
-                stage.setScene(dashboard);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+                loader.setController(new VisitorDashboardController());
+                Scene scene = new Scene(loader.load(), 700, 600);
+                stage.setScene(scene);
                 userManaged = null;
             }
     }

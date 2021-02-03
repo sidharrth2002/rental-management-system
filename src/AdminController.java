@@ -27,14 +27,13 @@ public class AdminController extends Controller implements Initializable {
     //admin register page
     public void addAdmin(ActionEvent e) {
         try {
-            Stage stage = (Stage) root.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("adminRegister.fxml"));
-            Scene propertyPage = new Scene(root, 700, 600);
-            stage.setScene(propertyPage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminRegister.fxml"));
+            loader.setController(new AdminRegisterController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
     }
 
     //show Users:
@@ -119,9 +118,10 @@ public class AdminController extends Controller implements Initializable {
                         PropertyPageController.propertyToDisplay = property;
                         try {
                             Stage stage = (Stage) root.getScene().getWindow();
-                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                            Scene propertyPage = new Scene(root, 700, 600);
-                            stage.setScene(propertyPage);
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                            loader.setController(new PropertyPageController());
+                            Scene scene = new Scene(loader.load(), 700, 600);
+                            stage.setScene(scene);
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -213,10 +213,10 @@ public class AdminController extends Controller implements Initializable {
                     seeMore.setOnAction(event -> {
                         PropertyPageController.propertyToDisplay = property;
                         try {
-                            Stage stage = (Stage) root.getScene().getWindow();
-                            Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                            Scene propertyPage = new Scene(root, 700, 600);
-                            stage.setScene(propertyPage);
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                            loader.setController(new PropertyPageController());
+                            Scene scene = new Scene(loader.load(), 700, 600);
+                            stage.setScene(scene);
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -328,10 +328,10 @@ public class AdminController extends Controller implements Initializable {
                 seeMore.setOnAction(c -> {
                     PropertyPageController.propertyToDisplay = property;
                     try {
-                        Stage stage = (Stage) root.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                        Scene propertyPage = new Scene(root, 700, 600);
-                        stage.setScene(propertyPage);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                        loader.setController(new PropertyPageController());
+                        Scene scene = new Scene(loader.load(), 700, 600);
+                        stage.setScene(scene);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -367,10 +367,10 @@ public class AdminController extends Controller implements Initializable {
                 seeMore.setOnAction(c -> {
                     PropertyPageController.propertyToDisplay = property;
                     try {
-                        Stage stage = (Stage) root.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                        Scene propertyPage = new Scene(root, 700, 600);
-                        stage.setScene(propertyPage);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                        loader.setController(new PropertyPageController());
+                        Scene scene = new Scene(loader.load(), 700, 600);
+                        stage.setScene(scene);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -407,10 +407,10 @@ public class AdminController extends Controller implements Initializable {
             seeMore.setOnAction(event -> {
                 PropertyPageController.propertyToDisplay = property;
                 try {
-                    Stage stage = (Stage) root.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                    Scene propertyPage = new Scene(root, 700, 600);
-                    stage.setScene(propertyPage);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                    loader.setController(new PropertyPageController());
+                    Scene scene = new Scene(loader.load(), 700, 600);
+                    stage.setScene(scene);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

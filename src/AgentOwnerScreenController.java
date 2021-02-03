@@ -81,9 +81,10 @@ public class AgentOwnerScreenController extends Controller implements Initializa
             moreDetails.setOnAction(e -> {
                 PropertyPageController.propertyToDisplay = property;
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("propertyPage.fxml"));
-                    Scene propertyPage = new Scene(root, 700, 600);
-                    stage.setScene(propertyPage);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("propertyPage.fxml"));
+                    loader.setController(new PropertyPageController());
+                    Scene scene = new Scene(loader.load(), 700, 600);
+                    stage.setScene(scene);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -107,18 +108,25 @@ public class AgentOwnerScreenController extends Controller implements Initializa
 
     //goes to add new property page
     public void goToAddNewProperty(ActionEvent actionEvent) throws IOException {
-        Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("addProperty.fxml"));
-        Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-        stage.setScene(roleChooser);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addProperty.fxml"));
+        loader.setController(new ManagePropertyController());
+        Scene scene = new Scene(loader.load(), 700, 600);
+        stage.setScene(scene);
     }
 
     //allows user to edit their details
     public void editDetails(ActionEvent actionEvent) throws IOException {
         RegisterPageController.setUserManaged(user);
         if (user instanceof Agent) {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("agentRegister.fxml")), 700, 600));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agentRegister.fxml"));
+            loader.setController(new RegisterPageController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } else if(user instanceof Owner) {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("ownerRegister.fxml")), 700, 600));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ownerRegister.fxml"));
+            loader.setController(new RegisterPageController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         }
     }
 }

@@ -14,16 +14,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.TilePane?>
-<VBox fx:id="root" fx:controller="AdminController"
+<VBox fx:id="root"
       xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white">
     <VBox>
         <MenuBar>
             <menus>
                 <Menu text="Options">
                     <items>
-                        <MenuItem fx:id="roleChooser" text="Role Chooser" onAction="#changeScene" />
-                        <MenuItem fx:id="registerPage" text="Register" onAction="#changeScene" />
-                        <MenuItem fx:id="saveAndExit" text="Save And Exit" onAction="#changeScene" />
+                        <MenuItem fx:id="searchArea" text="Search Area" onAction="#changeScene"/>
                         <MenuItem fx:id="logout" text="Logout" onAction="#logout" />
                     </items>
                 </Menu>

@@ -48,9 +48,10 @@ public class LoginController extends Controller {
         }
         if(correct) {
             stage.setUserData(loggedInUser);
-            Parent dashboardfxml = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-            Scene dashboard = new Scene(dashboardfxml, 700, 600);
-            stage.setScene(dashboard);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+            loader.setController(new VisitorDashboardController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } else {
             showAlert(Alert.AlertType.ERROR, window, "Incorrect Login!",
                     "Please try again!");
@@ -60,26 +61,30 @@ public class LoginController extends Controller {
 
     //back to the role chooser to login from a different interface
     public void goToRoleChooser(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("roleChooser.fxml"));
-        Scene dashboard = new Scene(root, 700, 600);
-        stage.setScene(dashboard);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("roleChooser.fxml"));
+        loader.setController(new RoleChooserController());
+        Scene scene = new Scene(loader.load(), 700, 600);
+        stage.setScene(scene);
     }
 
     //depending on type of user, load corresponding register page
     public void goToRegisterPage(ActionEvent actionEvent) throws IOException {
         Window window = (Window) stage;
         if(typeOfUser.equals("agent")) {
-            Parent registerfxml = FXMLLoader.load(getClass().getResource("agentRegister.fxml"));
-            Scene register = new Scene(registerfxml, 700, 600);
-            stage.setScene(register);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("agentRegister.fxml"));
+            loader.setController(new RegisterPageController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } else if(typeOfUser.equals("owner")) {
-            Parent registerfxml= FXMLLoader.load(getClass().getResource("ownerRegister.fxml"));
-            Scene register = new Scene(registerfxml, 700, 600);
-            stage.setScene(register);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ownerRegister.fxml"));
+            loader.setController(new RegisterPageController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } else if(typeOfUser.equals("tenant")) {
-            Parent registerfxml = FXMLLoader.load(getClass().getResource("tenantRegister.fxml"));
-            Scene register = new Scene(registerfxml, 700, 600);
-            stage.setScene(register);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tenantRegister.fxml"));
+            loader.setController(new RegisterPageController());
+            Scene scene = new Scene(loader.load(), 700, 600);
+            stage.setScene(scene);
         } else if(typeOfUser.equals("admin")) {
             showAlert(Alert.AlertType.ERROR, window, "Unavailable!",
                     "Yo, admin cannot register. You have to BE registered by another admin.");
