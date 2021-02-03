@@ -1,27 +1,28 @@
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.event.ActionEvent;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+//controller responsible for controlling GUI elements on individual page for each property
 public class PropertyPageController extends Controller implements Initializable {
+    //the property whose details the page is to display
     public static Property propertyToDisplay;
+    //the data of the logged in user
     private User user = (User) stage.getUserData();
+    //whether the logged in user actually manages the unit
+    //if true, then button for edit options appears
     boolean myunit = false;
 
     public VBox imageArea;
@@ -36,6 +37,7 @@ public class PropertyPageController extends Controller implements Initializable 
     public Text contact;
     public Menu options;
 
+    //initalizes by reading fields
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class VisitorDashboardController extends Controller implements Initializable {
     public VBox root;
@@ -30,9 +31,19 @@ public class VisitorDashboardController extends Controller implements Initializa
     public Menu options;
     public Text welcomeMessage;
     public HBox specialOptions;
+    public TextField minPriceField;
+    public TextField maxPriceField;
+    public double minPrice = 0;
+    public double maxPrice = 10000000;
 
-    public VisitorDashboardController() {
-    }
+    //regex to check for decimal input
+    private static final Pattern DOUBLE_PATTERN = Pattern.compile(
+            "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
+                    "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
+                    "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
+                    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");
+
+    public VisitorDashboardController() {}
 
     //write to fxml elements on the page
     @Override
@@ -85,16 +96,15 @@ public class VisitorDashboardController extends Controller implements Initializa
         }
 
         ArrayList<Property> properties = propertySearchFacade.getProperties();
+        //loops through properties for GUI elements
         for (Property property : properties) {
             if (!property.getAssignedStatus()) {
-
                 HBox outerBox = new HBox();
                 outerBox.setSpacing(10);
                 outerBox.setAlignment(Pos.CENTER_LEFT);
                 outerBox.setPadding(new Insets(10, 10, 10, 10));
                 VBox tableEntry = new VBox();
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//                outerBox.getChildren().add(new Separator());
                 tableEntry.getChildren().add(new Text(property.getName()));
                 tableEntry.getChildren().add(new Text(property.getAddress()));
                 tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
@@ -114,26 +124,25 @@ public class VisitorDashboardController extends Controller implements Initializa
                 });
 
                 outerBox.getChildren().add(seeMore);
-//                outerBox.getChildren().add(new Separator());
                 propertyTable.getChildren().add(outerBox);
             }
         }
     }
 
+    //searches by keyword and price range
     public void searchProperty(KeyEvent e) throws IOException {
         propertyTable.getChildren().clear();
         String searchText = searchField.getText();
         if(searchText.length() != 0) {
             ArrayList<Property> results = propertySearchFacade.getByKeyword(searchText);
             for (Property property : results) {
-                if(!property.getAssignedStatus()) {
+                if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                     HBox outerBox = new HBox();
                     outerBox.setSpacing(10);
                     outerBox.setAlignment(Pos.CENTER_LEFT);
                     outerBox.setPadding(new Insets(10, 10, 10, 10));
                     VBox tableEntry = new VBox();
                     tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//                outerBox.getChildren().add(new Separator());
                     tableEntry.getChildren().add(new Text(property.getName()));
                     tableEntry.getChildren().add(new Text(property.getAddress()));
                     tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
@@ -152,34 +161,33 @@ public class VisitorDashboardController extends Controller implements Initializa
                             ioException.printStackTrace();
                         }
                     });
-
                     outerBox.getChildren().add(seeMore);
-//                outerBox.getChildren().add(new Separator());
                     propertyTable.getChildren().add(outerBox);
                 }
             }
         }
     }
 
+    //sort properties by price(lowest to highest)
     public void sortByPrice(ActionEvent e) {
         propertyTable.getChildren().clear();
+        //calls search facade to return sorted list
+        //logic maintained in facade and not in GUI controller
         ArrayList<Property> results = propertySearchFacade.getByPrice();
         for (Property property : results) {
-            if (!property.getAssignedStatus()) {
+            if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                 HBox outerBox = new HBox();
                 outerBox.setSpacing(10);
                 outerBox.setAlignment(Pos.CENTER_LEFT);
                 outerBox.setPadding(new Insets(10, 10, 10, 10));
                 VBox tableEntry = new VBox();
                 tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//            outerBox.getChildren().add(new Separator());
                 tableEntry.getChildren().add(new Text(property.getName()));
                 tableEntry.getChildren().add(new Text(property.getAddress()));
                 tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
                 outerBox.getChildren().add(tableEntry);
                 Button seeMore = new Button("View Details");
                 seeMore.setOnAction(event -> {
-                    //sets property that will be viewed on the special propery page
                     PropertyPageController.propertyToDisplay = property;
                     //render the page
                     try {
@@ -193,19 +201,21 @@ public class VisitorDashboardController extends Controller implements Initializa
                 });
 
                 outerBox.getChildren().add(seeMore);
-//            outerBox.getChildren().add(new Separator());
                 propertyTable.getChildren().add(outerBox);
             }
          }
 
     }
 
+    //filters through property to get the various property types
+    //then prepares a list of them
+    //sorted by the type of the property
     public void sortByType(ActionEvent e) {
         propertyTable.getChildren().clear();
         ArrayList<Property> results = propertySearchFacade.getByPrice();
         ArrayList<String> propertyTypes = new ArrayList<>();
         for (Property property : results) {
-            if(!property.getAssignedStatus()) {
+            if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                 if(!propertyTypes.contains(property.getType())) {
                     propertyTypes.add(property.getType());
                 }
@@ -218,8 +228,10 @@ public class VisitorDashboardController extends Controller implements Initializa
             typeHeading.getChildren().add(headingText);
             typeHeading.setPadding(new Insets(10, 10, 10, 10));
             propertyTable.getChildren().add(typeHeading);
+            //loop through the properties and print them to the GUI
             for (Property property : results) {
-                if(!property.getAssignedStatus()) {
+                //import check function to make sure the price is within the range
+                if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                     if (type.equals(property.getType())) {
                         HBox outerBox = new HBox();
                         outerBox.setSpacing(10);
@@ -227,7 +239,6 @@ public class VisitorDashboardController extends Controller implements Initializa
                         outerBox.setPadding(new Insets(10, 10, 10, 10));
                         VBox tableEntry = new VBox();
                         tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//            outerBox.getChildren().add(new Separator());
                         tableEntry.getChildren().add(new Text(property.getName()));
                         tableEntry.getChildren().add(new Text(property.getAddress()));
                         tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
@@ -248,7 +259,6 @@ public class VisitorDashboardController extends Controller implements Initializa
                         });
 
                         outerBox.getChildren().add(seeMore);
-//            outerBox.getChildren().add(new Separator());
                         propertyTable.getChildren().add(outerBox);
                     }
                 }
@@ -257,12 +267,13 @@ public class VisitorDashboardController extends Controller implements Initializa
 
     }
 
+    //displays by project and for each project, displays the types and the properties are sorted by price
     public void sortByProject(ActionEvent actionEvent) {
         propertyTable.getChildren().clear();
         ArrayList<Property> results = propertySearchFacade.getProperties();
         ArrayList<String> projects = new ArrayList<>();
         for (Property property : results) {
-            if(!property.getAssignedStatus()) {
+            if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                 if (!projects.contains(property.getProject())) {
                     projects.add(property.getProject());
                 }
@@ -278,7 +289,7 @@ public class VisitorDashboardController extends Controller implements Initializa
 
             ArrayList<Property> propertiesInProject = new ArrayList<>();
             for(Property property: results) {
-                if(!property.getAssignedStatus()) {
+                if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                     if (property.getProject().equalsIgnoreCase(project)) {
                         propertiesInProject.add(property);
                     }
@@ -286,7 +297,7 @@ public class VisitorDashboardController extends Controller implements Initializa
             }
             ArrayList<String> propertyTypes = new ArrayList<>();
             for(Property property: propertiesInProject) {
-                if(!property.getAssignedStatus()) {
+                if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                     if (!propertyTypes.contains(property.getType())) {
                         propertyTypes.add(property.getType());
                     }
@@ -301,18 +312,21 @@ public class VisitorDashboardController extends Controller implements Initializa
                 propertyTable.getChildren().add(typeTitle);
                 ArrayList<Property> propertyOfType = new ArrayList<>();
                 for(Property property: propertiesInProject) {
-                    if(!property.getAssignedStatus()) {
+                    if(!property.getAssignedStatus() && property.getPrice() > minPrice && property.getPrice() < maxPrice) {
                         if (property.getType().equals(type)) {
                             propertyOfType.add(property);
                         }
                     }
                 }
+                //pass custom comparator to sort the filtered properties by price
+                //doesn't use the facade because this list goes through several layers of filtering
                 Collections.sort(propertyOfType, new Comparator<Property>() {
                     @Override
                     public int compare(final Property property1, final Property property2) {
                         return Double.compare(property1.getPrice(), property2.getPrice());
                     }
                 });
+                //loop through each property that has been filtered
                 for (Property property: propertyOfType) {
                     if (!property.getAssignedStatus()) {
                         HBox outerBox = new HBox();
@@ -321,7 +335,6 @@ public class VisitorDashboardController extends Controller implements Initializa
                         outerBox.setPadding(new Insets(10, 10, 10, 10));
                         VBox tableEntry = new VBox();
                         tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//            outerBox.getChildren().add(new Separator());
                         tableEntry.getChildren().add(new Text(property.getName()));
                         tableEntry.getChildren().add(new Text(property.getAddress()));
                         tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
@@ -342,24 +355,26 @@ public class VisitorDashboardController extends Controller implements Initializa
                         });
 
                         outerBox.getChildren().add(seeMore);
-//            outerBox.getChildren().add(new Separator());
                         propertyTable.getChildren().add(outerBox);
                     }
                 }
             }
         }
     }
-}
 
-//        for (Property property: results) {
-//            VBox tableEntry = new VBox();
-//            tableEntry.setPadding(new Insets(10, 10, 10, 10));
-//            tableEntry.getChildren().add(new Separator());
-//            tableEntry.getChildren().add(new Box(10, 10, 10));
-//            tableEntry.getChildren().add(new Text(property.getName()));
-//            tableEntry.getChildren().add(new Text(property.getAddress()));
-//            tableEntry.getChildren().add(new Text(Double.toString(property.getPrice())));
-//            tableEntry.getChildren().add(new Box(10, 10, 10));
-//            tableEntry.getChildren().add(new Separator());
-//            propertyTable.getChildren().add(tableEntry);
-//        }
+    //listens for changes in the input and updates the min price instance field
+    public void setMinPrice(KeyEvent keyEvent) {
+        //puts it through regex checking to make sure it is a valid double and doesn't throw exceptions
+        if(!minPriceField.getText().isEmpty() && DOUBLE_PATTERN.matcher(minPriceField.getText()).matches()) {
+            minPrice = Double.parseDouble(minPriceField.getText());
+        }
+    }
+
+    //listens for changes in the input and updates the max price instance field
+    public void setMaxPrice(KeyEvent keyEvent) {
+        //puts it through regex checking to make sure it is a valid double and doesn't throw exceptions
+        if(!maxPriceField.getText().isEmpty() && DOUBLE_PATTERN.matcher(maxPriceField.getText()).matches()) {
+            maxPrice = Double.parseDouble(maxPriceField.getText());
+        }
+    }
+}

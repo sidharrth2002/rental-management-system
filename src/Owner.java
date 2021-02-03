@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Owner extends User {
+    //custom ownership code only for verification purposes
     private String ownershipCode;
 
     public String getOwnershipCode() {
@@ -23,6 +24,7 @@ public class Owner extends User {
                 .append("\"" + getOwnershipCode() + "\"" + ",")
                 .append("\"" + getPhone() + "\"" + ",");
         sb.append("\"[");
+        //loops through property list and gets their codes
         ArrayList<Property> propertyList = getPropertyList();
         for(int i = 0; i < propertyList.size(); i++) {
             sb.append(propertyList.get(i).getID());

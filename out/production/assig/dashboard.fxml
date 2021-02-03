@@ -33,12 +33,16 @@
 
     <VBox alignment="center" style="-fx-padding: 10 10 10 10;" spacing="20">
         <Text fx:id="welcomeMessage" />
-        <Text text="Welcome To MudahXXX.my" style="-fx-font-size: 20; -fx-fill: darkred; -fx-font-weight: bold"/>
-        <Text text="Your premier solution to buying fake property" style="-fx-font-size: 15"/>
+        <Text text="Welcome To Susah.my" style="-fx-font-size: 20; -fx-fill: darkred; -fx-font-weight: bold"/>
+        <Text text="Your premier solution to rental management!" style="-fx-font-size: 15"/>
 
         <GridPane alignment="center" hgap="10" vgap="10" >
             <Text text="Search (Start Typing...)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="searchField" onKeyTyped="#searchProperty" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Text text="Min Price: " GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <TextField fx:id="minPriceField" prefWidth="60" onKeyTyped="#setMinPrice" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <Text text="Max Price: " GridPane.columnIndex="4" GridPane.rowIndex="0" />
+            <TextField fx:id="maxPriceField" prefWidth="60" onKeyTyped="#setMaxPrice" GridPane.columnIndex="5" GridPane.rowIndex="0" />
         </GridPane>
 <!--        <Button text="Search" onKeyTyped="#searchProperty" />-->
         <Text text="Or Sort Property By One of the Options Below" />
