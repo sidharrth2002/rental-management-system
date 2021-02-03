@@ -1,22 +1,25 @@
 import java.util.ArrayList;
 
 public class Tenant extends User {
+    private String ICNumber;
+
+    //return user's IC number
     public String getICNumber() {
         return ICNumber;
     }
 
+    //set the IC number of user
     public void setICNumber(String ICNumber) {
         this.ICNumber = ICNumber;
     }
 
-    private String ICNumber;
-
+    //tenant's constructor called by the user factory
     public Tenant(String userCode, String name, String username, String password, String ICNumber, String phone, boolean approvalStatus) {
         super(userCode, name, username, password, phone, approvalStatus);
         this.ICNumber = ICNumber;
     }
 
-    // saving to file
+    //custom CSV string that prepares data to write to file
     public String toCSVString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\"" + getUserID() + "\"" + ",")

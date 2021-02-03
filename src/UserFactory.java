@@ -7,21 +7,33 @@ import java.util.List;
 
 //singleton- only one UserFactory
 public class UserFactory {
+    //number of each type of user in the system
+    private static int numAgents;
+    private static int numOwners;
+    private static int numAdmins;
+    private static int numTenants;
+    //returns singleton instance
     private static UserFactory instance = new UserFactory();
+    //list of the different users in the system
     public ArrayList<Tenant> tenants = new ArrayList<>();
     public ArrayList<Agent> agents = new ArrayList<>();
     public ArrayList<Owner> owners = new ArrayList<>();
+    public ArrayList<Admin> admins = new ArrayList<>();
+    private UserFactory() {}
 
+    public static UserFactory getInstance() {
+        return instance;
+    }
+
+    //return only admins
     public ArrayList<Admin> getAdmins() {
         return admins;
     }
 
+    //set the admins
     public void setAdmins(ArrayList<Admin> admins) {
         this.admins = admins;
     }
-
-    public ArrayList<Admin> admins = new ArrayList<>();
-    private static int numTenants;
 
     public static int getNumTenants() {
         return numTenants;
@@ -53,36 +65,6 @@ public class UserFactory {
 
     public static void setNumAdmins(int numAdmins) {
         UserFactory.numAdmins = numAdmins;
-    }
-
-    public void removeOwner(Owner owner) {
-        owners.remove(owner);
-        ArrayList<Property> theirproperties = owner.getPropertyList();
-        for(Property property: theirproperties) {
-            PropertySearchFacade.getInstance().deleteProperty(property);
-        }
-    }
-
-    public void removeAgent(Agent agent) {
-        agents.remove(agent);
-        ArrayList<Property> theirproperties = agent.getPropertyList();
-        for(Property property: theirproperties) {
-            PropertySearchFacade.getInstance().deleteProperty(property);
-        }
-    }
-
-    public void removeTenant(Tenant tenant) {
-        tenants.remove(tenant);
-    }
-
-    private static int numAgents;
-    private static int numOwners;
-    private static int numAdmins;
-
-    private UserFactory() {}
-
-    public static UserFactory getInstance() {
-        return instance;
     }
 
     public ArrayList<Tenant> getTenants() {
@@ -118,7 +100,33 @@ public class UserFactory {
         return combined;
     }
 
+    //removes owner
+    public void removeOwner(Owner owner) {
+        owners.remove(owner);
+        ArrayList<Property> theirproperties = owner.getPropertyList();
+        for(Property property: theirproperties) {
+            PropertySearchFacade.getInstance().deleteProperty(property);
+        }
+    }
+
+    //removes agent
+    public void removeAgent(Agent agent) {
+        agents.remove(agent);
+        ArrayList<Property> theirproperties = agent.getPropertyList();
+        for(Property property: theirproperties) {
+            PropertySearchFacade.getInstance().deleteProperty(property);
+        }
+    }
+
+    //removes tenant
+    public void removeTenant(Tenant tenant) {
+        tenants.remove(tenant);
+    }
+
     //for use by the program
+    //auto generates code
+    //credential is different for different users:
+    //Ownership code of any property for owner, license code for agent and IC number for tenant
     public User makeUser(String userType, String name, String username, String password, String credential, String phone) {
         if(userType.equalsIgnoreCase("tenant")) {
             String userCode = "t" + ++numTenants;
@@ -145,6 +153,8 @@ public class UserFactory {
     }
 
     //for use by file handling
+    //does not autogenerate codes
+    //sets it directly
     public User makeUser(String userId, String userType, String name, String username, String password, String credential, boolean approvalStatus, String phone) {
         if(userType.equalsIgnoreCase("tenant")) {
             Tenant tenant = new Tenant(userId, name, username, password, credential, phone, approvalStatus);
