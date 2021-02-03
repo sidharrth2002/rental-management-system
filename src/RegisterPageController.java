@@ -29,19 +29,19 @@ public class RegisterPageController extends Controller implements Initializable 
     public Label extraInfo;
     public Button submitButton;
 
-    public static User getUserManaged() {
-        return userManaged;
-    }
+    //user whose details the page prefills (if for edit and not register)
+    private static User userManaged;
 
+    //in case this page is used as an edit page, then set the static field to prefill details of this user
     public static void setUserManaged(User userManaged) {
         RegisterPageController.userManaged = userManaged;
     }
 
-    private static User userManaged;
-
+    //if page used for editing, initalize fields with existing values
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (userManaged != null) {
+            //for each field, set the property
             nameField.setText(userManaged.getName());
             usernameField.setText(userManaged.getUsername());
             passwordField.setText(userManaged.getPassword());
@@ -51,10 +51,13 @@ public class RegisterPageController extends Controller implements Initializable 
                 credential.setText(((Agent) userManaged).getLicenseCode());
             }
             tphone.setText(userManaged.getPhone());
+            //the page is used for editing, so change the button to update
             submitButton.setText("Update");
         }
     }
 
+    //checks each input to make sure not empty and is of correct format
+    //then updates/creates user
     public void submitForm(ActionEvent actionEvent) throws IOException {
             Window window = root.getScene().getWindow();
             if(nameField.getText().isEmpty()) {
@@ -96,16 +99,20 @@ public class RegisterPageController extends Controller implements Initializable 
                     role = "tenant";
                     break;
             }
+            //if page is used as register page
             if(userManaged == null) {
                 Stage stage = (Stage) root.getScene().getWindow();
                 User user = userFactory.makeUser(role, nameField.getText(), usernameField.getText(), passwordField.getText(), credential.getText(), tphone.getText());
                 stage.setUserData(user);
+                //make sure user created successfully
                 if(user != null) {
                     Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                     Scene dashboard = new Scene(root, 700, 600);
                     stage.setScene(dashboard);
                 }
             } else {
+                //if page is used to update profile
+                //set the fields with the existing/updated values
                 userManaged.setName(nameField.getText());
                 userManaged.setUsername(usernameField.getText());
                 userManaged.setPassword(passwordField.getText());
@@ -115,6 +122,7 @@ public class RegisterPageController extends Controller implements Initializable 
                     ((Agent) userManaged).setLicenseCode(credential.getText());
                 }
                 userManaged.setPhone(tphone.getText());
+                //go to the dashboard
                 Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
                 Scene dashboard = new Scene(root, 700, 600);
                 stage.setScene(dashboard);

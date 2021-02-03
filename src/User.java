@@ -10,27 +10,33 @@ public abstract class User {
     private String username;
     private String password;
     private String phone;
+    private boolean approvalStatus;
+    //codes of properties aggregated
+    //used as a temp field for file handling
+    private List<String> propertyCodes = new ArrayList<>();
+    //aggregates the list of properties in the system
+    private ArrayList<Property> propertyList = new ArrayList<>();
 
+    //return user phone number
     public String getPhone() {
         return phone;
     }
 
+    //sets phone number of user
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    //returns approval status
     public boolean isApprovalStatus() {
         return approvalStatus;
     }
-
-    private boolean approvalStatus;
-    private List<String> propertyCodes = new ArrayList<>();
-    private ArrayList<Property> propertyList = new ArrayList<>();
 
     public abstract String toCSVString();
 
     public User() {}
 
+    //parent constructor called by subclasses to set common fields
     public User(String userCode, String name, String username, String password, String phone, boolean approvalStatus) {
         this.userID = userCode;
         this.name = name;
@@ -40,6 +46,7 @@ public abstract class User {
         this.approvalStatus = approvalStatus;
     }
 
+    //getters and setters
     public String getName() {
         return name;
     }
