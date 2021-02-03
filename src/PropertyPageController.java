@@ -32,7 +32,6 @@ public class PropertyPageController extends Controller implements Initializable 
     public Text propertyAddress;
     public Text propertyDescription;
     public Text propertyPrice;
-    public Text propertyFacilities;
     public VBox Facilities;
     public Text contact;
     public Menu options;
@@ -41,6 +40,7 @@ public class PropertyPageController extends Controller implements Initializable 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //view image
         Image image = new Image("." + propertyToDisplay.getPhoto().substring(5, propertyToDisplay.getPhoto().length()), 600, 300, false, false);
         imageArea.getChildren().add(new ImageView(image));
 
@@ -74,7 +74,7 @@ public class PropertyPageController extends Controller implements Initializable 
         }
 
 
-        if (myunit == true ) {
+        if (myunit == true ) {// if the user is the owner of the property or admin can edit property
             Button mproperty = new Button("Manage Property");
             optionsArea.setPadding(new Insets(0, 0, 5, 50));
             optionsArea.getChildren().add(mproperty);
@@ -92,19 +92,19 @@ public class PropertyPageController extends Controller implements Initializable 
             });
         }
 
+        //property info:
         propertyName.setText(propertyToDisplay.getName());
         propertyAddress.setText(propertyToDisplay.getAddress());
         propertyDescription.setText(propertyToDisplay.getDescription());
         propertyPrice.setText(Double.toString(propertyToDisplay.getPrice()));
         contact.setText(propertyToDisplay.getManager().getPhone());
-//        propertyFacilities.setText("Facilities:" + "\n" );
         ArrayList<String> facilities = propertyToDisplay.getFacilities();
 
+        // facilities
         for(String facility: facilities) {
             Facilities.getChildren().add(new Text("- " + facility.strip() + "\n"));
         }
 
-//        detailsArea.setSpacing(7);
         imageArea.setPadding(new Insets(10, 50, 10, 50));
         detailsArea.setPadding(new Insets(10, 50, 50, 50));
     }
