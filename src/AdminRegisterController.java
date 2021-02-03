@@ -43,6 +43,7 @@ public class AdminRegisterController extends Controller {
             return;
         }
 
+        //create new admin
         Stage stage = (Stage) root.getScene().getWindow();
         User admin = userFactory.makeUser("admin", nameField.getText(), usernameField.getText(), passwordField.getText(), "", "");
 
