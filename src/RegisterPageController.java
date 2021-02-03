@@ -20,18 +20,13 @@ public class RegisterPageController extends Controller implements Initializable 
     public TextField nameField;
     public TextField usernameField;
     public PasswordField passwordField;
-    public ToggleGroup toggleGroup;
-    public RadioButton agentButton;
-    public RadioButton ownerButton;
-    public RadioButton tenantButton;
+
     public TextField credential;
     public TextField tphone;
     public Label extraInfo;
     public Button submitButton;
 
-    public static User getUserManaged() {
-        return userManaged;
-    }
+
 
     public static void setUserManaged(User userManaged) {
         RegisterPageController.userManaged = userManaged;

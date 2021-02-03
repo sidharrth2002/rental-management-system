@@ -16,6 +16,7 @@ public class Tenant extends User {
         this.ICNumber = ICNumber;
     }
 
+    // saving to file
     public String toCSVString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\"" + getUserID() + "\"" + ",")
