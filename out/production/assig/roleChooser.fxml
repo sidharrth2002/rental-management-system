@@ -10,7 +10,6 @@
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="root"
-            fx:controller="roleChooserController"
             prefHeight="400.0" prefWidth="600.0" alignment="CENTER"
             spacing="20">
         <Text style="-fx-font-size:40;-fx-fill: darkred;" text="Welcome to Susah.my" />
@@ -24,7 +23,4 @@
             <Button text="Just Visiting..." fx:id="visiting" onAction="#goToVisitorDashboard"/>
 
         </HBox>
-<!--    <VBox>-->
-<!--        <Text text="This is the role chooser page" />-->
-<!--    </VBox>-->
 </VBox>

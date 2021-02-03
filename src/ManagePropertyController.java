@@ -201,8 +201,9 @@ public class ManagePropertyController extends Controller implements Initializabl
             propertyManaged.setFacilities(new ArrayList<>(Arrays.asList(facilitiesArray)));
         }
         //return to agentOwner dashboard where they can now view the new property
-        Parent roleChooserfxml = FXMLLoader.load(getClass().getResource("agentOwnerScreen.fxml"));
-        Scene roleChooser = new Scene(roleChooserfxml, 700, 600);
-        stage.setScene(roleChooser);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("agentOwnerScreen.fxml"));
+        loader.setController(new AgentOwnerScreenController());
+        Scene scene = new Scene(loader.load(), 700, 600);
+        stage.setScene(scene);
     }
 }

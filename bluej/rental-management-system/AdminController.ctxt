@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=AdminController
+comment1.params=e
+comment1.target=void\ addAdmin(javafx.event.ActionEvent)
+comment2.params=e
+comment2.target=void\ sortByUsers(javafx.event.ActionEvent)
+comment3.params=e
+comment3.target=void\ sortByProperty(javafx.event.ActionEvent)
+comment4.params=e
+comment4.target=void\ showreports(javafx.event.ActionEvent)
+numComments=5

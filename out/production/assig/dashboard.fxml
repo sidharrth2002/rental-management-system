@@ -1,20 +1,13 @@
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.TilePane?>
-<VBox fx:id="root" fx:controller="VisitorDashboardController"
+<VBox fx:id="root"
       xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white">
     <VBox>
         <MenuBar fx:id="menuBar">
@@ -37,14 +30,17 @@
         <Text text="Your premier solution to rental management!" style="-fx-font-size: 15"/>
 
         <GridPane alignment="center" hgap="10" vgap="10" >
-            <Text text="Search (Start Typing...)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="searchField" onKeyTyped="#searchProperty" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Text text="Min Price: " GridPane.columnIndex="2" GridPane.rowIndex="0" />
-            <TextField fx:id="minPriceField" prefWidth="60" onKeyTyped="#setMinPrice" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-            <Text text="Max Price: " GridPane.columnIndex="4" GridPane.rowIndex="0" />
-            <TextField fx:id="maxPriceField" prefWidth="60" onKeyTyped="#setMaxPrice" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+            <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" alignment="CENTER" spacing="10">
+                <Text text="Min Price: " />
+                <TextField fx:id="minPriceField" prefWidth="60" onKeyTyped="#setMinPrice" />
+            </HBox>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER" spacing="10">
+                <Text text="Max Price: "  />
+                <TextField fx:id="maxPriceField" prefWidth="60" onKeyTyped="#setMaxPrice" />
+            </HBox>
+            <Text text="Search (Start Typing...)" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="searchField" onKeyTyped="#searchProperty" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" />
         </GridPane>
-<!--        <Button text="Search" onKeyTyped="#searchProperty" />-->
         <Text text="Or Sort Property By One of the Options Below" />
         <HBox alignment="CENTER" spacing="20">
             <Button text="Sort By Price" onAction="#sortByPrice"/>
