@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=RegisterPageController
+comment1.params=userManaged
+comment1.target=void\ setUserManaged(User)
+comment2.params=url\ resourceBundle
+comment2.target=void\ initialize(java.net.URL,\ java.util.ResourceBundle)
+comment3.params=actionEvent
+comment3.target=void\ submitForm(javafx.event.ActionEvent)
+numComments=4

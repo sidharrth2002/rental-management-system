@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=PropertySearchFacade
+comment1.params=
+comment1.target=PropertySearchFacade()
+comment10.params=type
+comment10.target=java.util.ArrayList\ getByType(java.lang.String)
+comment11.params=
+comment11.target=java.util.ArrayList\ getByActive()
+comment12.params=
+comment12.target=java.util.ArrayList\ getByInactive()
+comment2.params=
+comment2.target=PropertySearchFacade\ getInstance()
+comment3.params=
+comment3.target=java.util.ArrayList\ getProperties()
+comment4.params=properties
+comment4.target=void\ setProperties(java.util.ArrayList)
+comment5.params=property
+comment5.target=void\ addProperty(Property)
+comment6.params=property
+comment6.target=void\ deleteProperty(Property)
+comment7.params=
+comment7.target=java.util.ArrayList\ getByPrice()
+comment8.params=property1\ property2
+comment8.target=int\ compare(Property,\ Property)
+comment9.params=keyword
+comment9.target=java.util.ArrayList\ getByKeyword(java.lang.String)
+numComments=13

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Controller
+comment1.params=
+comment1.target=Controller()
+comment2.params=url\ resourceBundle
+comment2.target=void\ initialize(java.net.URL,\ java.util.ResourceBundle)
+comment3.params=e
+comment3.target=void\ changeScene(javafx.event.ActionEvent)
+comment4.params=alertType\ owner\ title\ message
+comment4.target=void\ showAlert(javafx.scene.control.Alert.AlertType,\ javafx.stage.Window,\ java.lang.String,\ java.lang.String)
+comment5.params=
+comment5.target=void\ logout()
+numComments=6

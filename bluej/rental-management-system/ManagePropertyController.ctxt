@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=ManagePropertyController
+comment1.params=strNum
+comment1.target=boolean\ isValidPrice(java.lang.String)
+comment2.params=url\ resourceBundle
+comment2.target=void\ initialize(java.net.URL,\ java.util.ResourceBundle)
+comment3.params=actionEvent
+comment3.target=void\ photoFileChooser(javafx.event.ActionEvent)
+comment4.params=actionEvent
+comment4.target=void\ submitForm(javafx.event.ActionEvent)
+numComments=5

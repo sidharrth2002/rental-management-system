@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Tenant
+comment1.params=
+comment1.target=java.lang.String\ getICNumber()
+comment2.params=ICNumber
+comment2.target=void\ setICNumber(java.lang.String)
+comment3.params=userCode\ name\ username\ password\ ICNumber\ phone\ approvalStatus
+comment3.target=Tenant(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
+comment4.params=
+comment4.target=java.lang.String\ toCSVString()
+numComments=5

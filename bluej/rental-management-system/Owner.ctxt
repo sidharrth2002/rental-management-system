@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Owner
+comment1.params=
+comment1.target=java.lang.String\ getOwnershipCode()
+comment2.params=ownershipCode
+comment2.target=void\ setOwnershipCode(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ toCSVString()
+comment4.params=userCode\ name\ username\ password\ ownershipCode\ phone\ approvalStatus
+comment4.target=Owner(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
+numComments=5

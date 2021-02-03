@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=AgentOwnerScreenController
+comment1.params=url\ resourceBundle
+comment1.target=void\ initialize(java.net.URL,\ java.util.ResourceBundle)
+comment2.params=
+comment2.target=void\ displayList()
+comment3.params=actionEvent
+comment3.target=void\ goToAddNewProperty(javafx.event.ActionEvent)
+comment4.params=actionEvent
+comment4.target=void\ editDetails(javafx.event.ActionEvent)
+numComments=5

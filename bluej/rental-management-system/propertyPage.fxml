@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<VBox fx:id="root" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu fx:id="options" text="Options">
+                    <items>
+                        <MenuItem fx:id="searchArea" text="Search Area" onAction="#changeScene" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </VBox>
+<GridPane>
+<!--    format property object and print nicely here-->
+    <VBox fx:id="imageArea" GridPane.columnIndex="0" GridPane.rowIndex="0">
+<!--        add photo here-->
+    </VBox>
+    <VBox   GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <VBox  fx:id="optionsArea">
+
+        </VBox>
+            <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="500">
+                <!--        controller will fill this container-->
+                <GridPane fx:id="detailsArea" hgap="20" vgap="20">
+                    <Text fx:id="propertyName"
+                          GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Text text="ADDRESS: " style="-fx-fill: DARKRED;-fx-font-weight: BOLD;"
+                          GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <Text fx:id="propertyAddress"
+                          GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Text text="DESCRIPTION: " style="-fx-fill: DARKRED;-fx-font-weight: BOLD;"
+                          GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <Text fx:id="propertyDescription"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Text text="ASKING PRICE: " style="-fx-fill: DARKRED;-fx-font-weight: BOLD;"
+                          GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <Text fx:id="propertyPrice"
+                    GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Text text="FACILITIES: " style="-fx-fill: DARKRED;-fx-font-weight: BOLD;"
+                          GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
+                    <VBox fx:id="Facilities"
+                          GridPane.rowIndex="4" GridPane.columnIndex="1">
+                    </VBox>
+
+                    <Text text="CONTACT: " style="-fx-fill: DARKRED;-fx-font-weight: BOLD;"
+                          GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.valignment="TOP" />
+                    <Text fx:id="contact" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+                </GridPane>
+            </ScrollPane>
+    </VBox>
+
+</GridPane>
+</VBox>

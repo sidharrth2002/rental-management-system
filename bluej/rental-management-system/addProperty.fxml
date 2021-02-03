@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.collections.FXCollections?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:id="root"
+      prefHeight="400.0" prefWidth="600.0">
+    <HBox>
+        <Button fx:id="backToDashboard" text="Back to Dashboard" onAction="#changeScene"/>
+    </HBox>
+    <ScrollPane fitToHeight="true" fitToWidth="true">
+    <GridPane hgap="20" vgap="20" alignment="CENTER"
+              fx:id="root">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40" />
+        </padding>
+
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.rowSpan="1"
+              GridPane.halignment="CENTER" alignment="CENTER">
+            <Text text="Add a New Property" style="-fx-font-size:30;-fx-fill: darkred;"/>
+        </HBox>
+        <Label text="Name: " GridPane.columnIndex="0" GridPane.rowIndex="1">
+        </Label>
+        <TextField fx:id="nameField" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1" />
+
+        <Label text="Address: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="addressField" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="2"/>
+
+        <Label text="Project: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="projectField" prefHeight="40" GridPane.columnIndex="1"
+                       GridPane.rowIndex="3"/>
+
+        <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="descriptionField" prefHeight="40" GridPane.columnIndex="1"
+                       GridPane.rowIndex="4"/>
+
+        <Label text="Type: " GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <ComboBox fx:id="typeField" value="Apartment" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Apartment"/>
+                    <String fx:value="Condominium"/>
+                    <String fx:value="Studio"/>
+                    <String fx:value="Villa" />
+                    <String fx:value="Bungalow"/>
+                    <String fx:value="Townhouse"/>
+                    <String fx:value="SemiD"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Button fx:id="photoChooseButton" text="Choose photo file" GridPane.columnIndex="0" GridPane.rowIndex="6"
+            onAction="#photoFileChooser"/>
+        <Label fx:id="photoFileLabel" text="No photo uploaded" prefHeight="40" maxHeight="150" maxWidth="150"
+               GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+        <Label text="Price: " GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <TextField fx:id="priceField" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="7"/>
+
+        <Label text="Facilities(Comma Separated): " GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <TextField fx:id="facilitiesField" prefHeight="40" GridPane.columnIndex="1"
+                   GridPane.rowIndex="8"/>
+
+        <Label text="Assigned Status: " GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <CheckBox fx:id="assignedStatusField"/>
+        </HBox>
+
+        <Button fx:id="submitButton" text="Submit For Approval" prefWidth="200" prefHeight="30" defaultButton="true"
+                GridPane.columnIndex="0" GridPane.rowIndex="10"
+                GridPane.columnSpan="2" GridPane.rowSpan="2"
+                GridPane.halignment="CENTER"
+                onAction="#submitForm">
+            <GridPane.margin>
+                <Insets top="20" bottom="20"/>
+            </GridPane.margin>
+        </Button>
+    </GridPane>
+    </ScrollPane>
+</VBox>
+

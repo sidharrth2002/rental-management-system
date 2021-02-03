@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=LoginController
+comment1.params=actionEvent
+comment1.target=void\ submitForm(javafx.event.ActionEvent)
+comment2.params=actionEvent
+comment2.target=void\ goToRoleChooser(javafx.event.ActionEvent)
+comment3.params=actionEvent
+comment3.target=void\ goToRegisterPage(javafx.event.ActionEvent)
+numComments=4

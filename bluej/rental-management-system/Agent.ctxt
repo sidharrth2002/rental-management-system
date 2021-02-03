@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Agent
+comment1.params=
+comment1.target=java.lang.String\ getLicenseCode()
+comment2.params=licenseCode
+comment2.target=void\ setLicenseCode(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ toCSVString()
+comment4.params=userCode\ name\ username\ password\ licenseCode\ phone\ approvalStatus
+comment4.target=Agent(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
+numComments=5

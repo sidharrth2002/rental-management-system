@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Admin
+comment1.params=
+comment1.target=Admin()
+comment2.params=userCode\ name\ username\ password\ approvalStatus
+comment2.target=Admin(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
+comment3.params=
+comment3.target=java.lang.String\ toCSVString()
+numComments=4
