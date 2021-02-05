@@ -1,3 +1,5 @@
+//This was written by Sidharrth Nagappan
+//1181102313
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -120,6 +122,8 @@ public class FileHandlers {
         }
     }
 
+    //This was written by Sidharrth Nagappan and Maheson Kaliapan
+    //1181102313 and 1191302248
     //get the properties from file by reading, parsing fields and creating property objects
     public void getPropertyFromFile() throws IOException, ParseException {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);

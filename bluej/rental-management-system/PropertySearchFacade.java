@@ -1,3 +1,6 @@
+//This was written by Sidharrth Nagappan and Ahmed Sanad
+//1181102313 and 1181102208
+
 import java.util.*;
 
 //singleton- only one propertysearchfacade
