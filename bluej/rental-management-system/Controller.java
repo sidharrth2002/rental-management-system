@@ -1,6 +1,6 @@
 
-//This was written by Sidharrth Nagappan
-//1181102313
+//This was written by Sidharrth Nagappan and Ahmed Sanad
+//1181102313 , 1181102208
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
